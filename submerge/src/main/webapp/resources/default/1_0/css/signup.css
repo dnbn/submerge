@@ -1,0 +1,7 @@
+fieldset {
+	  padding: 15px;
+}
+
+.ui-message-error {
+	margin-bottom: 10px !important;
+}

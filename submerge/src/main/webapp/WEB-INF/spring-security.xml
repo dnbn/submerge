@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<beans:beans xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.springframework.org/schema/security"
+		xsi:schemalocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+		<authentication-manager alias="authenticationManager">
+			<authentication-provider user-service-ref="sbmUserDetailsService">
+				<password-encoder hash="sha-256"></password-encoder>
+			</authentication-provider>
+			<authentication-provider ref="rememberMeAuthenticationProvider"></authentication-provider>
+		</authentication-manager>
+
+		<beans:bean class="org.springframework.security.web.FilterChainProxy" id="springSecurityFilterChain">
+			<filter-chain-map request-matcher="ant">
+				<filter-chain filters="securityContextPersistenceFilter" pattern="/*"></filter-chain>
+			</filter-chain-map>
+		</beans:bean>
+
+		<beans:bean class="org.springframework.security.web.context.SecurityContextPersistenceFilter" id="securityContextPersistenceFilter">
+			<beans:property name="forceEagerSessionCreation" value="true"></beans:property>
+		</beans:bean>
+
+		<http pattern="/javax.faces.resource/**" security="none"></http>
+		<http pattern="/file/**" security="none"></http>
+		<http auto-config="true" use-expressions="true">
+			<csrf disabled="true" />
+			<form-login login-page="/pages/login.xhtml"></form-login>
+			<intercept-url access="permitAll" pattern="/pages/**"></intercept-url>
+			<intercept-url access="hasRole('ROLE_ADMIN')" pattern="/admin/**"></intercept-url>
+			<remember-me services-ref="rememberMeServices"></remember-me>
+		</http>
+
+		<beans:bean class="org.springframework.security.authentication.RememberMeAuthenticationProvider" id="rememberMeAuthenticationProvider">
+			<beans:constructor-arg value="myAppKey" />
+		</beans:bean>
+
+		<beans:bean class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices"
+			id="rememberMeServices">
+			<beans:constructor-arg name="key" value="myAppKey" />
+			<beans:constructor-arg name="userDetailsService" ref="sbmUserDetailsService" />
+			<beans:constructor-arg name="tokenRepository" ref="sbmPersistentTokenRepository" />
+			<beans:property name="tokenValiditySeconds" value="1728000"></beans:property>
+			<beans:property name="cookieName" value="remember-me"></beans:property>
+		</beans:bean>
+
+		<beans:bean class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter"
+			id="rememberMeFilter">
+			<beans:constructor-arg ref="authenticationManager" />
+			<beans:constructor-arg ref="rememberMeServices" />
+		</beans:bean>
+
+	</beans:beans>
+
+</beans>

@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{indexBean.onPageLoad}" />
+</f:metadata>
+
+<o:importConstants type="com.submerge.constant.Pages" var="Pages" />
+
+<f:view locale="#{localeBean.locale}">
+	<h:head>
+		<ui:include src="#{Pages.HEADER_CONTENT.fullPath}" />
+		<h:outputStylesheet library="default" name="css/index.css" />
+	</h:head>
+	<h:body>
+		<ui:include src="#{Pages.NAVBAR.fullPath}" />
+		<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data">
+			<b:container>
+				<h:panelGroup id="div-starter" styleClass="starter-template">
+					<b:alert severity="info" rendered="#{!userBean.logged}">
+						<h:outputText value="#{msg['index.warningRegister']}" escape="false" />
+					</b:alert>
+					<b:row>
+						<b:column col-lg="6">
+							<b:panel title="#{msg['index.topSubtitle']}" collapsible="false" id="top-panel">
+								<h:panelGroup layout="block" styleClass="upload-zone">
+									<p:fileUpload id="topUpload" fileUploadListener="#{indexBean.handleFileUpload}" label="#{msg['index.choose']}" auto="true" sizeLimit="1048576"
+										allowTypes="/(\.|\/)(srt)$/" update="topUploadMessage" required="false">
+									</p:fileUpload>
+									<p:messages id="topUploadMessage" for="topUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+								</h:panelGroup>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5">
+										<h:outputLabel value="#{msg['sub.color']}" />
+									</b:column>
+									<b:column col-lg="7">
+										<h:panelGroup layout="block" styleClass="input-group color-picker">
+											<h:inputText id="topColor" value="#{indexBean.sbmConf.topSubtitle.fontconfig.color}" class="form-control" required="true"
+												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+												<f:validator validatorId="webColorValidator" />
+											</h:inputText>
+											<span class="input-group-addon"><i></i></span>
+										</h:panelGroup>
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5"></b:column>
+									<b:column col-lg="7">
+										<p:message id="topColorMessage" for="topColor" />
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5">
+										<h:outputLabel value="#{msg['sub.outlineColor']}" />
+									</b:column>
+									<b:column col-lg="7">
+										<h:panelGroup layout="block" styleClass="input-group color-picker">
+											<h:inputText id="topOutlineColor" value="#{indexBean.sbmConf.topSubtitle.fontconfig.outlineColor}" class="form-control" required="true"
+												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+												<f:validator validatorId="webColorValidator" />
+											</h:inputText>
+											<span class="input-group-addon"><i></i></span>
+										</h:panelGroup>
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5"></b:column>
+									<b:column col-lg="7">
+										<p:message id="topOutlineColorMessage" for="topOutlineColor" />
+									</b:column>
+								</b:row>
+								<b:panelGrid colSpans="5,7" styleClass="panel-combo">
+									<h:outputLabel value="#{msg['sub.outline']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.outlineWidth}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.outlineWidth}" />
+									</h:selectOneMenu>
+									<h:outputLabel value="#{msg['sub.fontname']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.name}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
+									</h:selectOneMenu>
+									<h:outputLabel value="#{msg['sub.fontsize']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.size}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.fontSize}" />
+									</h:selectOneMenu>
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column col-lg="6">
+							<b:panel title="#{msg['index.bottomSubtitle']}" collapsible="false" id="bottom-panel">
+								<h:panelGroup layout="block" styleClass="upload-zone">
+									<p:fileUpload id="bottomUpload" fileUploadListener="#{indexBean.handleFileUpload}" value="#{indexBean.sbmConf.bottomSubtitle.file}"
+										label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt)$/" update="bottomUploadMessage" required="false" />
+									<p:messages id="bottomUploadMessage" for="bottomUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+								</h:panelGroup>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5">
+										<h:outputLabel value="#{msg['sub.color']}" />
+									</b:column>
+									<b:column col-lg="7">
+										<h:panelGroup layout="block" styleClass="input-group color-picker">
+											<h:inputText id="bottomColor" value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.color}" class="form-control" required="true"
+												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+												<f:validator validatorId="webColorValidator" />
+											</h:inputText>
+											<span class="input-group-addon"><i></i></span>
+										</h:panelGroup>
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5"></b:column>
+									<b:column col-lg="7">
+										<p:message id="bottomColorMessage" for="bottomColor" />
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5">
+										<h:outputLabel value="#{msg['sub.outlineColor']}" />
+									</b:column>
+									<b:column col-lg="7">
+										<h:panelGroup layout="block" styleClass="input-group color-picker">
+											<h:inputText id="bottomOutlineColor" value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.outlineColor}" class="form-control" required="true"
+												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+												<f:validator validatorId="webColorValidator" />
+											</h:inputText>
+											<span class="input-group-addon"><i></i></span>
+										</h:panelGroup>
+									</b:column>
+								</b:row>
+								<b:row styleClass="row-color">
+									<b:column col-lg="5"></b:column>
+									<b:column col-lg="7">
+										<p:message id="bottomOutlineColorMessage" for="bottomOutlineColor" />
+									</b:column>
+								</b:row>
+								<b:panelGrid colSpans="5,7" styleClass="panel-combo">
+									<h:outputLabel value="#{msg['sub.outline']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.outlineWidth}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.outlineWidth}" />
+									</h:selectOneMenu>
+									<h:outputLabel value="#{msg['sub.fontname']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.name}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
+									</h:selectOneMenu>
+									<h:outputLabel value="#{msg['sub.fontsize']}" />
+									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.size}" styleClass="form-control">
+										<f:selectItems value="#{dropDownBean.fontSize}" />
+									</h:selectOneMenu>
+								</b:panelGrid>
+							</b:panel>
+						</b:column>
+						<b:column col-lg="12">
+							<b:panel title="#{msg['index.outputFile']}" collapsible="false">
+								<b:row>
+									<b:column col-lg="3" col-sm="0" col-xs="0"></b:column>
+									<b:column col-lg="6" col-sm="12" col-xs="12">
+										<b:inputText fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{indexBean.sbmConf.targetFilename}" maxlength="50">
+											<f:facet name="append">
+												<h:outputText value=".ass" />
+											</f:facet>
+										</b:inputText>
+									</b:column>
+									<b:column col-lg="3" col-sm="0" col-xs="0"></b:column>
+								</b:row>
+								<b:row>
+									<p:commandButton id="commandButtonDownload" value="#{msg['index.download']}" ajax="false">
+										<p:fileDownload id="fileDownloadButton" value="#{indexBean.generatedFile}" />
+									</p:commandButton>
+								</b:row>
+							</b:panel>
+						</b:column>
+					</b:row>
+				</h:panelGroup>
+			</b:container>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

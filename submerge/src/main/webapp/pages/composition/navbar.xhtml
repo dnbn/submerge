@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jtl/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:p="http://primefaces.org/ui">
+
+	<o:importConstants type="com.submerge.constant.Pages" var="Pages" />
+	
+	<b:navBar brand="#{msg['appName']}" brandHref="#{Pages.INDEX}" fixed="top" inverse="false">
+
+		<b:navbarLinks>
+			<b:navLink value="#{msg['index']}" href="#{Pages.INDEX}" active="#{Pages.INDEX.fullPath == view.viewId}"></b:navLink>
+			<b:navLink value="#{msg['about']}" href="#{Pages.ABOUT}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
+			<b:navLink value="#{msg['contact']}" href="#{Pages.CONTACT}" active="#{Pages.CONTACT.fullPath == view.viewId}"></b:navLink>
+			<b:dropMenu value="#{msg['language']}">
+				<h:form id="form-language" name="form-language">
+					<h:inputHidden id="locale" value="#{localeBean.language}" />
+					<ui:repeat value="#{localeBean.countries.keySet().toArray()}" var="key" varStatus="loop">
+						<h:panelGroup styleClass="div-country">
+							<h:graphicImage class="img-country" library="default" name="img/flags/#{key}.svg" />
+							<h:commandLink onclick="sbm.setLocale('#{key}')">
+								<span>#{localeBean.countries[key]}</span>
+							</h:commandLink>
+						</h:panelGroup>
+						<b:navLink rendered="#{!loop.last}" />
+					</ui:repeat>
+				</h:form>
+			</b:dropMenu>
+		</b:navbarLinks>
+
+		<h:form id="form-login" name="form-login" styleClass="navbar-right">
+			<b:navbarLinks rendered="#{!userBean.logged}">
+				<b:navCommandLink value="#{msg['signUp']}" href="#{Pages.SIGNUP}" active="#{Pages.SIGNUP.fullPath == view.viewId}" />
+				<b:dropMenu value="#{msg['signIn']}">
+					<ui:include src="#{Pages.FORM_LOGIN_CONTENT.fullPath}" />
+				</b:dropMenu>
+			</b:navbarLinks>
+			<b:navbarLinks  rendered="#{userBean.logged}" id="nl-logout">
+				<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{userBean.logout}" id="nc-logout" />
+			</b:navbarLinks>
+		</h:form>
+
+	</b:navBar>
+
+</ui:composition>

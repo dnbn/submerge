@@ -1,4 +1,4 @@
-package com.submerge.web.bean;
+package com.submerge.web.bean.support;
 
 import java.io.Serializable;
 import java.util.EnumSet;

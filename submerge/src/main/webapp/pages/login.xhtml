@@ -5,7 +5,7 @@
 
 <o:importConstants type="com.submerge.constant.Pages" var="Pages" />
 
-<f:view locale="#{localeBean.locale}">
+<f:view locale="#{userBean.locale}">
 	<h:head>
 		<ui:include src="#{Pages.HEADER_CONTENT.fullPath}" />
 	</h:head>
@@ -16,6 +16,26 @@
 					<legend>#{msg['signIn']}</legend>
 					<h:form id="form-login" name="form-login">
 						<ui:include src="#{Pages.FORM_LOGIN_CONTENT.fullPath}" />
+					</h:form>
+					<h:form id="loginForm" prependId="false">
+						<!-- Messages must be global here, to show bad credentials -->
+						<h:messages globalOnly="true" />
+
+						<!-- Id's must not be changed to support spring security check -->
+						<h:panelGrid columns="3">
+							<h:outputLabel for="j_username" value="User: * " />
+							<h:inputText id="j_username" required="true" label="username" />
+							<h:message for="j_username" display="text" style="color:red" />
+
+							<h:outputLabel for="j_password" value="Password: * " />
+							<h:inputSecret id="j_password" label="password" required="true" />
+							<h:message for="j_password" display="text" style="color:red" />
+
+							<h:outputLabel for="_spring_security_remember_me" value="Remember me: " />
+							<h:selectBooleanCheckbox id="_spring_security_remember_me" />
+						</h:panelGrid>
+
+						<h:commandButton type="submit" id="login" value="Login" action="#{loginBean.doLogin}" />
 					</h:form>
 				</fieldset>
 			</h:panelGroup>

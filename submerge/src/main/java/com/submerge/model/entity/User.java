@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +27,7 @@ import javax.persistence.UniqueConstraint;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1570608226201407008L;
-	
+
 	private int id;
 	private AccountStatus accountStatus;
 	private String name;
@@ -35,7 +36,7 @@ public class User implements Serializable {
 	private Date creation;
 	private Date lastLogin;
 	private Date lastUpdate;
-	private Set<PersistentLogin> persistentLogins = new HashSet<>(0);
+	private Set<DualSubtitleConfig> dualSubtitleConfigs = new HashSet<>(0);
 	private Set<UserAuthorities> userAuthorities = new HashSet<>(0);
 
 	public User() {
@@ -132,22 +133,22 @@ public class User implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<PersistentLogin> getPersistentLogins() {
-		return this.persistentLogins;
-	}
-
-	public void setPersistentLogins(Set<PersistentLogin> persistentLogins) {
-		this.persistentLogins = persistentLogins;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "user")
 	public Set<UserAuthorities> getUserAuthorities() {
 		return this.userAuthorities;
 	}
 
 	public void setUserAuthorities(Set<UserAuthorities> userAuthorities) {
 		this.userAuthorities = userAuthorities;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "user")
+	public Set<DualSubtitleConfig> getDualSubtitleConfigs() {
+		return this.dualSubtitleConfigs;
+	}
+
+	public void setDualSubtitleConfigs(Set<DualSubtitleConfig> dualSubtitleConfigs) {
+		this.dualSubtitleConfigs = dualSubtitleConfigs;
 	}
 
 	@Override

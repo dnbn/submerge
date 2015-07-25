@@ -6,7 +6,7 @@
 <o:importConstants type="com.submerge.constant.Pages" var="Pages" />
 <o:importConstants type="com.submerge.constant.Regex" var="Regex" />
 
-<f:view locale="#{localeBean.locale}">
+<f:view locale="#{userBean.locale}">
 	<h:head>
 		<ui:include src="#{Pages.HEADER_CONTENT.fullPath}" />
 		<h:outputStylesheet library="default" name="css/signup.css" />
@@ -23,7 +23,7 @@
 								<label class="control-label" for="username">#{msg['signUp.username']}</label>
 							</b:column>
 							<b:column col-lg="4">
-								<b:inputText id="userName" fieldSize="sm" value="#{userBean.user.name}" required="true" maxlength="20"
+								<b:inputText id="userName" fieldSize="sm" value="#{registrationBean.user.name}" required="true" maxlength="20"
 									requiredMessage="#{msg['validator.requiredField']} ">
 									<f:ajax event="change" render="userNameMessage" />
 									<o:validator binding="#{userNotExitsValidator}" message="#{msg['validator.exists.username']}" />
@@ -42,7 +42,7 @@
 								<label class="control-label" for="username">#{msg['signUp.email']}</label>
 							</b:column>
 							<b:column col-lg="4">
-								<b:inputText id="email" fieldSize="sm" value="#{userBean.user.email}" required="true" requiredMessage="#{msg['validator.requiredField']}"
+								<b:inputText id="email" fieldSize="sm" value="#{registrationBean.user.email}" required="true" requiredMessage="#{msg['validator.requiredField']}"
 									maxlength="320">
 									<f:ajax event="change" render="emailMessage" />
 									<o:validator binding="#{emailNotExistValidator}" message="#{msg['validator.exists.email']}" />
@@ -62,7 +62,7 @@
 								<label class="control-label">#{msg['signUp.password']}</label>
 							</b:column>
 							<b:column col-lg="4">
-								<b:inputSecret id="password" fieldSize="sm" value="#{userBean.user.password}" required="true" validatorMessage="#{msg['validator.invalid.password']}"
+								<b:inputSecret id="password" fieldSize="sm" value="#{registrationBean.user.password}" required="true" validatorMessage="#{msg['validator.invalid.password']}"
 									requiredMessage="#{msg['validator.requiredField']}" binding="#{cpntPassword}">
 									<f:ajax event="change" execute="password passwordConfirm" render="passwordMessage passwordConfirmMessage" />
 									<f:validateLength minimum="5" maximum="50" />
@@ -80,7 +80,7 @@
 								<label class="control-label">#{msg['signUp.passwordConfirm']}</label>
 							</b:column>
 							<b:column col-lg="4">
-								<b:inputSecret id="passwordConfirm" fieldSize="sm" value="#{userBean.user.password}" required="true"
+								<b:inputSecret id="passwordConfirm" fieldSize="sm" value="#{registrationBean.user.password}" required="true"
 									validatorMessage="#{msg['validator.notsame.password']}" requiredMessage="#{msg['validator.requiredField']}">
 									<f:ajax event="change" execute="password passwordConfirm" render="passwordMessage passwordConfirmMessage" />
 									<f:attribute name="cpntPassword" value="#{cpntPassword}" />
@@ -95,7 +95,7 @@
 							</b:column>
 						</b:row>
 					</fieldset>
-					<b:commandButton look="success" value="#{msg['signUp.register']}" action="#{userBean.register}" ajax="false" update="@form">
+					<b:commandButton look="success" value="#{msg['signUp.register']}" action="#{registrationBean.register}" ajax="false" update="@form">
 						<f:param name="registred" value="1" />
 					</b:commandButton>
 				</h:panelGroup>

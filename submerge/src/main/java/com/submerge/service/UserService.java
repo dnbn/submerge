@@ -1,6 +1,7 @@
 package com.submerge.service;
 
 import com.submerge.exception.HashingPasswordException;
+import com.submerge.model.entity.Authorities;
 import com.submerge.model.entity.User;
 
 public interface UserService {
@@ -14,6 +15,8 @@ public interface UserService {
 	void save(User user);
 
 	void create(User user);
+
+	void addAuthority(User user, Authorities authority);
 
 	String hashPassword(String password) throws HashingPasswordException;
 

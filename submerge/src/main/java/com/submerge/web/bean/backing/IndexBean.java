@@ -1,4 +1,4 @@
-package com.submerge.web.bean;
+package com.submerge.web.bean.backing;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,10 +30,11 @@ import com.submerge.sub.config.SubInput;
 import com.submerge.sub.srt.SRTParser;
 import com.submerge.sub.srt.SRTSub;
 import com.submerge.utils.FileUploadUtils;
+import com.submerge.web.bean.AbstractManagedBean;
 
 @Component("indexBean")
 @Scope(value = "session")
-public class IndexBean implements Serializable {
+public class IndexBean extends AbstractManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -3227108053080225466L;
 

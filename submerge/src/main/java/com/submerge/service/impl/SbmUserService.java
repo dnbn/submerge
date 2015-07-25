@@ -1,36 +1,33 @@
 package com.submerge.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.logging.Logger;
-
-import javax.xml.bind.DatatypeConverter;
+import java.util.Date;
+import java.util.Set;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.submerge.constant.AppConstants;
-import com.submerge.exception.HashingPasswordException;
-import com.submerge.model.entity.AccountStatus;
 import com.submerge.model.entity.Authorities;
+import com.submerge.model.entity.DualSubtitleConfig;
+import com.submerge.model.entity.SubtitleProfile;
 import com.submerge.model.entity.User;
 import com.submerge.model.entity.UserAuthorities;
 import com.submerge.model.entity.UserAuthoritiesId;
+import com.submerge.model.entity.accountstatus.EnabledStatus;
 import com.submerge.model.entity.authority.UserAuthority;
 import com.submerge.service.UserService;
 
-@Service("userService")
+@Service("sbmUserService")
 @Transactional
 public class SbmUserService implements UserService {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	private static final Logger logger = Logger.getLogger(SbmUserService.class.getName());
 
 	@Override
 	public User findById(int id) {
@@ -39,18 +36,14 @@ public class SbmUserService implements UserService {
 
 	@Override
 	public User findByEmail(String email) {
-		return (User) this.sessionFactory.getCurrentSession()
-				.createCriteria(User.class)
-				.add(Restrictions.eq("email", email))
-				.uniqueResult();
+		return (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", email)).uniqueResult();
 	}
 
 	@Override
 	public User findByName(String name) {
-		return (User) this.sessionFactory.getCurrentSession()
-				.createCriteria(User.class)
-				.add(Restrictions.eq("name", name))
-				.uniqueResult();
+		return (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
+				.add(Restrictions.eq("name", name)).uniqueResult();
 	}
 
 	@Override
@@ -61,37 +54,49 @@ public class SbmUserService implements UserService {
 
 	@Override
 	public void create(User user) {
-		AccountStatus ac = user.getAccountStatus();
-		if (ac == null) {
-			user.setAccountStatus(new AccountStatus(1, null));
+		Date currDate = Calendar.getInstance().getTime();
+
+		// Set default sub profile if not set
+		Set<DualSubtitleConfig> subConfigs = user.getDualSubtitleConfigs();
+		if (!subConfigs.stream().anyMatch(sc -> sc.isCurrent())) {
+			DualSubtitleConfig dsc = new DualSubtitleConfig(user, defaultProfile(), defaultProfile(), true);
+			dsc.setLastUpdate(currDate);
+			subConfigs.add(dsc);
+			user.setDualSubtitleConfigs(subConfigs);
 		}
-		user.setLastUpdate(Calendar.getInstance().getTime());
+		user.setLastUpdate(currDate);
+
+		// Assign default status (enabled)
+		if (user.getAccountStatus() == null) {
+			user.setAccountStatus(new EnabledStatus());
+		}
+
+		// Save user and profiles
 		this.sessionFactory.getCurrentSession().save(user);
-		addAuthority(user, new UserAuthority());
+
+		// If no priviledge assigned, default is user
+		if (user.getUserAuthorities().size() == 0) {
+			addAuthority(user, new UserAuthority());
+		}
+
 	}
 
-	private void addAuthority(User user, Authorities autority) {
-		UserAuthoritiesId uaId = new UserAuthoritiesId(user.getId(), autority.getId());
-		UserAuthorities ua = new UserAuthorities();
-		ua.setLastUpdate(Calendar.getInstance().getTime());
-		ua.setAuthorities(autority);
-		ua.setUser(user);
-		ua.setId(uaId);
-		this.sessionFactory.getCurrentSession().save(ua);
+	@Override
+	public void addAuthority(User user, Authorities authority) {
+		UserAuthoritiesId id = new UserAuthoritiesId(user.getId(), authority.getId());
+		UserAuthorities auth = new UserAuthorities(id, user, authority, Calendar.getInstance().getTime());
+		this.sessionFactory.getCurrentSession().save(auth);
 	}
 
 	@Override
 	public String hashPassword(String password) {
-		MessageDigest digest = null;
-		String hash = null;
-		try {
-			digest = MessageDigest.getInstance(AppConstants.SHA_256.toString());
-			hash = DatatypeConverter.printHexBinary(digest.digest(password.getBytes(AppConstants.UTF_8.toString())));
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-			SbmUserService.logger.severe(e.getStackTrace().toString());
-			throw new HashingPasswordException(e); // Runtime
-		}
-		return hash;
+		return new MessageDigestPasswordEncoder(AppConstants.SHA_256.toString()).encodePassword(password, null);
+	}
+
+	// ====================== private methods start ======================
+
+	private static SubtitleProfile defaultProfile() {
+		return new SubtitleProfile("#fffff9", "#000000", 2, "Arial", 16, Calendar.getInstance().getTime());
 	}
 
 }

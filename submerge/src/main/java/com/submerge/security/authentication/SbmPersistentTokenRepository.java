@@ -20,6 +20,7 @@ public class SbmPersistentTokenRepository implements PersistentTokenRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
 	@Autowired
 	private transient UserService userService;
 

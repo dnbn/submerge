@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.submerge.model.entity.User;
 import com.submerge.security.model.SbmUserDetails;
-import com.submerge.security.model.SecurityUser;
+import com.submerge.security.model.AuthenticatedUser;
 import com.submerge.service.UserService;
 
 @Service("sbmUserDetailsService")
@@ -23,7 +23,7 @@ public class SbmUserDetailsService implements UserDetailsService {
 	private transient UserService userService;
 
 	@Autowired
-	private SecurityUser securityUser;
+	private AuthenticatedUser authenticatedUser;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -40,7 +40,7 @@ public class SbmUserDetailsService implements UserDetailsService {
 		this.userService.save(user);
 
 		// Update the user in session
-		this.securityUser.setUser(user);
+		this.authenticatedUser.setUser(user);
 
 		return details;
 	}

@@ -12,12 +12,12 @@
 			<b:navLink value="#{msg['contact']}" href="#{Pages.CONTACT}" active="#{Pages.CONTACT.fullPath == view.viewId}"></b:navLink>
 			<b:dropMenu value="#{msg['language']}">
 				<h:form id="form-language" name="form-language">
-					<h:inputHidden id="locale" value="#{localeBean.language}" />
-					<ui:repeat value="#{localeBean.countries.keySet().toArray()}" var="key" varStatus="loop">
+					<h:inputHidden id="locale" value="#{userBean.language}" />
+					<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key" varStatus="loop">
 						<h:panelGroup styleClass="div-country">
 							<h:graphicImage class="img-country" library="default" name="img/flags/#{key}.svg" />
 							<h:commandLink onclick="sbm.setLocale('#{key}')">
-								<span>#{localeBean.countries[key]}</span>
+								<span>#{localizedDropDownBean.countries[key]}</span>
 							</h:commandLink>
 						</h:panelGroup>
 						<b:navLink rendered="#{!loop.last}" />
@@ -34,7 +34,7 @@
 				</b:dropMenu>
 			</b:navbarLinks>
 			<b:navbarLinks  rendered="#{userBean.logged}" id="nl-logout">
-				<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{userBean.logout}" id="nc-logout" />
+				<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{loginBean.doLogout}" id="nc-logout" />
 			</b:navbarLinks>
 		</h:form>
 

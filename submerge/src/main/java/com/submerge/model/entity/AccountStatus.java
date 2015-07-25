@@ -33,9 +33,9 @@ public class AccountStatus implements Serializable {
 
 	private static final long serialVersionUID = -8133484130630670009L;
 	
-	private int id;
-	private String info;
-	private Set<User> users = new HashSet<>(0);
+	protected int id;
+	protected String info;
+	protected Set<User> users = new HashSet<>(0);
 
 	public AccountStatus() {
 	}

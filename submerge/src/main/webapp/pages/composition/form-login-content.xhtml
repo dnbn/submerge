@@ -2,10 +2,10 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui" xmlns:o="http://omnifaces.org/ui"
 	xmlns:p="http://primefaces.org/ui">
 
-	<b:inputText fieldSize="sm" placeholder="#{msg['signIn.username']}" value="#{userBean.user.name}" id="usernameLogin" name="username" required="true"
+	<b:inputText fieldSize="sm" placeholder="#{msg['signIn.username']}" value="#{loginBean.username}" id="usernameLogin" name="username" required="true"
 		requiredMessage="#{msg['signIn.username']} : #{msg['validator.requiredField']}" binding="#{cpntPasswordLogin}">
 	</b:inputText>
-	<b:inputSecret fieldSize="sm" placeholder="#{msg['signIn.password']}" value="#{userBean.user.password}" id="passwordLogin" name="password" required="true"
+	<b:inputSecret fieldSize="sm" placeholder="#{msg['signIn.password']}" value="#{loginBean.password}" id="passwordLogin" name="password" required="true"
 		requiredMessage="#{msg['signIn.password']} : #{msg['validator.requiredField']}">
 		<o:validator binding="#{userLoginValidator}" message="#{msg['validator.invalid.usernameOrPassword']}" />
 		<f:attribute name="cpntPasswordLogin" value="#{cpntPasswordLogin}" />
@@ -13,10 +13,11 @@
 	<p:message id="passwordLoginMessage" for="passwordLogin" />
 	<p:message id="userNameLoginMessage" for="usernameLogin" />
 	<div id="div-remember">
-		<h:selectBooleanCheckbox label="Remember me" id="remember_me" value="#{userBean.remember}" />
+		<h:selectBooleanCheckbox label="Remember me" id="remember_me" value="#{loginBean.remember}" />
 		<label for="form-login:remember_me"><small>#{msg['signIn.remember']}</small></label>
 	</div>
-	<p:commandButton look="primary" styleClass="btn btn-large btn-block btn-primary" value="#{msg['signIn.login']}" action="#{userBean.login}">
+	
+	<p:commandButton look="primary" styleClass="btn btn-large btn-block btn-primary" value="#{msg['signIn.login']}" action="#{loginBean.doLogin}">
 		<f:ajax execute="@form" render="passwordLoginMessage userNameLoginMessage" />
 	</p:commandButton>
 

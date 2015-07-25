@@ -1,14 +1,21 @@
 package com.submerge.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "dual_subtitle_config", schema = "public")
@@ -23,23 +30,21 @@ public class DualSubtitleConfig implements Serializable {
 	private String name;
 	private boolean current;
 	private String filename;
+	private Date lastUpdate;
 
 	public DualSubtitleConfig() {
 	}
 
-	public DualSubtitleConfig(int id, User account, SubtitleProfile profileOne, SubtitleProfile profileTwo,
-			boolean current) {
-		this.id = id;
-		this.user = account;
+	public DualSubtitleConfig(User user, SubtitleProfile profileOne, SubtitleProfile profileTwo, boolean current) {
+		this.user = user;
 		this.profileOne = profileOne;
 		this.profileTwo = profileTwo;
 		this.current = current;
 	}
 
-	public DualSubtitleConfig(int id, User account, SubtitleProfile profileOne, SubtitleProfile profileTwo,
-			String name, boolean current, String filename) {
-		this.id = id;
-		this.user = account;
+	public DualSubtitleConfig(User user, SubtitleProfile profileOne, SubtitleProfile profileTwo, String name,
+			boolean current, String filename) {
+		this.user = user;
 		this.profileOne = profileOne;
 		this.profileTwo = profileTwo;
 		this.name = name;
@@ -49,6 +54,8 @@ public class DualSubtitleConfig implements Serializable {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_dual_subtitle_config_id")
+	@SequenceGenerator(name = "s_dual_subtitle_config_id", sequenceName = "s_dual_subtitle_config_id", allocationSize = 1)
 	public int getId() {
 		return this.id;
 	}
@@ -59,15 +66,15 @@ public class DualSubtitleConfig implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_id_account", nullable = false)
-	public User getAccount() {
+	public User getUser() {
 		return this.user;
 	}
 
-	public void setAccount(User account) {
-		this.user = account;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "fk_id_profile_one", nullable = false)
 	public SubtitleProfile getProfileOne() {
 		return this.profileOne;
@@ -77,7 +84,7 @@ public class DualSubtitleConfig implements Serializable {
 		this.profileOne = profileOne;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "fk_id_profile_two", nullable = false)
 	public SubtitleProfile getProfileTwo() {
 		return this.profileTwo;
@@ -112,6 +119,16 @@ public class DualSubtitleConfig implements Serializable {
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "last_update", nullable = false, length = 13)
+	public Date getLastUpdate() {
+		return this.lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }

@@ -37,7 +37,7 @@ public final class SRTParser {
 			skipBom(br);
 			boolean found = true;
 			while (found) {
-				SRTLine line = extractFirstLine(br);
+				SRTLine line = firstIn(br);
 				if (found = (line != null)) {
 					sub.add(line);
 				}
@@ -58,7 +58,7 @@ public final class SRTParser {
 	 * @throws IOException
 	 * @throws InvalidSRTSubException
 	 */
-	private static SRTLine extractFirstLine(BufferedReader br) throws IOException, InvalidSRTSubException {
+	private static SRTLine firstIn(BufferedReader br) throws IOException, InvalidSRTSubException {
 		String idLine = null;
 		while ((idLine = br.readLine()) != null) {
 			if (!StringUtils.isEmpty(idLine.trim())) {

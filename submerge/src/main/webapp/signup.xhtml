@@ -62,8 +62,8 @@
 								<label class="control-label">#{msg['signUp.password']}</label>
 							</b:column>
 							<b:column col-lg="4">
-								<b:inputSecret id="password" fieldSize="sm" value="#{registrationBean.user.password}" required="true" validatorMessage="#{msg['validator.invalid.password']}"
-									requiredMessage="#{msg['validator.requiredField']}" binding="#{cpntPassword}">
+								<b:inputSecret id="password" fieldSize="sm" value="#{registrationBean.user.password}" required="true"
+									validatorMessage="#{msg['validator.invalid.password']}" requiredMessage="#{msg['validator.requiredField']}" binding="#{cpntPassword}">
 									<f:ajax event="change" execute="password passwordConfirm" render="passwordMessage passwordConfirmMessage" />
 									<f:validateLength minimum="5" maximum="50" />
 									<f:facet name="prepend">
@@ -94,10 +94,10 @@
 								<p:message id="passwordConfirmMessage" for="passwordConfirm" />
 							</b:column>
 						</b:row>
+						<b:commandButton look="success" value="#{msg['signUp.register']}" action="#{registrationBean.register}" ajax="false" update="@form">
+							<f:param name="registred" value="1" />
+						</b:commandButton>
 					</fieldset>
-					<b:commandButton look="success" value="#{msg['signUp.register']}" action="#{registrationBean.register}" ajax="false" update="@form">
-						<f:param name="registred" value="1" />
-					</b:commandButton>
 				</h:panelGroup>
 			</b:container>
 		</h:form>

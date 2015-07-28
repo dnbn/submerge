@@ -48,7 +48,13 @@ public class SbmUserService implements UserService {
 
 	@Override
 	public void save(User user) {
-		user.setLastUpdate(Calendar.getInstance().getTime());
+		Date currDate = Calendar.getInstance().getTime();
+		user.setLastUpdate(currDate);
+		for (DualSubtitleConfig subConfigs : user.getDualSubtitleConfigs()) {
+			subConfigs.setLastUpdate(currDate);
+			subConfigs.getProfileOne().setLastUpdate(currDate);
+			subConfigs.getProfileTwo().setLastUpdate(currDate);
+		}
 		this.sessionFactory.getCurrentSession().update(user);
 	}
 
@@ -59,7 +65,7 @@ public class SbmUserService implements UserService {
 		// Set default sub profile if not set
 		Set<DualSubtitleConfig> subConfigs = user.getDualSubtitleConfigs();
 		if (!subConfigs.stream().anyMatch(sc -> sc.isCurrent())) {
-			DualSubtitleConfig dsc = new DualSubtitleConfig(user, defaultProfile(), defaultProfile(), true);
+			DualSubtitleConfig dsc = new DualSubtitleConfig(user, new SubtitleProfile(), new SubtitleProfile(), true);
 			dsc.setLastUpdate(currDate);
 			subConfigs.add(dsc);
 			user.setDualSubtitleConfigs(subConfigs);
@@ -91,12 +97,6 @@ public class SbmUserService implements UserService {
 	@Override
 	public String hashPassword(String password) {
 		return new MessageDigestPasswordEncoder(AppConstants.SHA_256.toString()).encodePassword(password, null);
-	}
-
-	// ====================== private methods start ======================
-
-	private static SubtitleProfile defaultProfile() {
-		return new SubtitleProfile("#fffff9", "#000000", 2, "Arial", 16, Calendar.getInstance().getTime());
 	}
 
 }

@@ -18,7 +18,6 @@
 		<ui:include src="#{Pages.NAVBAR.fullPath}" />
 		<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data">
 			<b:container>
-				<p:growl id="growl"  showDetail="true" sticky="true" />
 				<h:panelGroup id="div-starter" styleClass="starter-template">
 					<b:alert severity="info" rendered="#{!userBean.logged}">
 						<h:outputText value="#{msg['index.warningRegister']}" escape="false" />
@@ -38,7 +37,7 @@
 									</b:column>
 									<b:column col-lg="7">
 										<h:panelGroup layout="block" styleClass="input-group color-picker">
-											<h:inputText id="topColor" value="#{indexBean.sbmConf.topSubtitle.fontconfig.color}" class="form-control" required="true"
+											<h:inputText id="topColor" value="#{userSubConfigBean.profileTop.primaryColor}" class="form-control" required="true"
 												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 												<f:validator validatorId="webColorValidator" />
 											</h:inputText>
@@ -58,7 +57,7 @@
 									</b:column>
 									<b:column col-lg="7">
 										<h:panelGroup layout="block" styleClass="input-group color-picker">
-											<h:inputText id="topOutlineColor" value="#{indexBean.sbmConf.topSubtitle.fontconfig.outlineColor}" class="form-control" required="true"
+											<h:inputText id="topOutlineColor" value="#{userSubConfigBean.profileTop.outlineColor}" class="form-control" required="true"
 												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 												<f:validator validatorId="webColorValidator" />
 											</h:inputText>
@@ -74,15 +73,15 @@
 								</b:row>
 								<b:panelGrid colSpans="5,7" styleClass="panel-combo">
 									<h:outputLabel value="#{msg['sub.outline']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.outlineWidth}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileTop.outlineWidth}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.outlineWidth}" />
 									</h:selectOneMenu>
 									<h:outputLabel value="#{msg['sub.fontname']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.name}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileTop.fontName}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
 									</h:selectOneMenu>
 									<h:outputLabel value="#{msg['sub.fontsize']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.topSubtitle.fontconfig.size}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileTop.fontSize}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.fontSize}" />
 									</h:selectOneMenu>
 								</b:panelGrid>
@@ -91,7 +90,7 @@
 						<b:column col-lg="6">
 							<b:panel title="#{msg['index.bottomSubtitle']}" collapsible="false" id="bottom-panel">
 								<h:panelGroup layout="block" styleClass="upload-zone">
-									<p:fileUpload id="bottomUpload" fileUploadListener="#{indexBean.handleFileUpload}" value="#{indexBean.sbmConf.bottomSubtitle.file}"
+									<p:fileUpload id="bottomUpload" fileUploadListener="#{indexBean.handleFileUpload}" value="#{userSubConfigBean.profileBottom.file}"
 										label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt)$/" update="bottomUploadMessage" required="false" />
 									<p:messages id="bottomUploadMessage" for="bottomUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
 								</h:panelGroup>
@@ -101,7 +100,7 @@
 									</b:column>
 									<b:column col-lg="7">
 										<h:panelGroup layout="block" styleClass="input-group color-picker">
-											<h:inputText id="bottomColor" value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.color}" class="form-control" required="true"
+											<h:inputText id="bottomColor" value="#{userSubConfigBean.profileBottom.primaryColor}" class="form-control" required="true"
 												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 												<f:validator validatorId="webColorValidator" />
 											</h:inputText>
@@ -121,7 +120,7 @@
 									</b:column>
 									<b:column col-lg="7">
 										<h:panelGroup layout="block" styleClass="input-group color-picker">
-											<h:inputText id="bottomOutlineColor" value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.outlineColor}" class="form-control" required="true"
+											<h:inputText id="bottomOutlineColor" value="#{userSubConfigBean.profileBottom.outlineColor}" class="form-control" required="true"
 												requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 												<f:validator validatorId="webColorValidator" />
 											</h:inputText>
@@ -137,15 +136,15 @@
 								</b:row>
 								<b:panelGrid colSpans="5,7" styleClass="panel-combo">
 									<h:outputLabel value="#{msg['sub.outline']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.outlineWidth}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileBottom.outlineWidth}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.outlineWidth}" />
 									</h:selectOneMenu>
 									<h:outputLabel value="#{msg['sub.fontname']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.name}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileBottom.fontName}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
 									</h:selectOneMenu>
 									<h:outputLabel value="#{msg['sub.fontsize']}" />
-									<h:selectOneMenu value="#{indexBean.sbmConf.bottomSubtitle.fontconfig.size}" styleClass="form-control">
+									<h:selectOneMenu value="#{userSubConfigBean.profileBottom.fontSize}" styleClass="form-control">
 										<f:selectItems value="#{dropDownBean.fontSize}" />
 									</h:selectOneMenu>
 								</b:panelGrid>
@@ -156,7 +155,7 @@
 								<b:row>
 									<b:column col-lg="3" col-sm="0" col-xs="0"></b:column>
 									<b:column col-lg="6" col-sm="12" col-xs="12">
-										<b:inputText fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{indexBean.sbmConf.targetFilename}" maxlength="50">
+										<b:inputText fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{userSubConfigBean.filename}" maxlength="50">
 											<f:facet name="append">
 												<h:outputText value=".ass" />
 											</f:facet>

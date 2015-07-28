@@ -1,4 +1,4 @@
-package com.submerge.security.model;
+package com.submerge.web.bean.model.proxy;
 
 import java.io.Serializable;
 

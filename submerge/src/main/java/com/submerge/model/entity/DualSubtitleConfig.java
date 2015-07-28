@@ -33,6 +33,8 @@ public class DualSubtitleConfig implements Serializable {
 	private Date lastUpdate;
 
 	public DualSubtitleConfig() {
+		this.profileOne = new SubtitleProfile();
+		this.profileTwo = new SubtitleProfile();
 	}
 
 	public DualSubtitleConfig(User user, SubtitleProfile profileOne, SubtitleProfile profileTwo, boolean current) {

@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Component;
 
 import com.submerge.constant.Params;
-import com.submerge.security.model.AuthenticatedUser;
 import com.submerge.web.bean.AbstractManagedBean;
+import com.submerge.web.bean.model.proxy.AuthenticatedUser;
 
 @Component("loginBean")
 @Scope(value = "request")
@@ -31,7 +31,7 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 	private transient PersistentTokenBasedRememberMeServices tokenRememberMe;
 
 	@Autowired
-	private AuthenticatedUser loggedInUser;
+	private AuthenticatedUser authenticatedUser;
 
 	private String username;
 	private String password;
@@ -72,8 +72,7 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 	private void processLogout() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		this.tokenRememberMe.logout(getRequest(), getResponse(), authentication);
-		SecurityContextHolder.getContext().setAuthentication(null);
-		this.loggedInUser.setUser(null);
+		getExternalContext().invalidateSession();
 	}
 
 	// ===================== getter and setter start =====================

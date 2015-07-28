@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.submerge.model.entity.User;
-import com.submerge.security.model.AuthenticatedUser;
 import com.submerge.web.bean.AbstractManagedBean;
+import com.submerge.web.bean.model.proxy.AuthenticatedUser;
 
 /**
  * This class is used to acces the user from views
@@ -25,7 +25,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	private static final long serialVersionUID = 3122997861016843649L;
 
 	@Autowired
-	private AuthenticatedUser user;
+	private AuthenticatedUser authenticatedUser;
 
 	private Locale locale;
 
@@ -44,7 +44,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	// ===================== getter and setter start =====================
 
 	public User getUser() {
-		return this.user.getUser();
+		return this.authenticatedUser.getUser();
 	}
 
 	public Locale getLocale() {

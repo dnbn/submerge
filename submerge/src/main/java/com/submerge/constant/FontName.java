@@ -13,8 +13,6 @@ public enum FontName {
 	TrebuchetMS("Trebuchet MS"),
 	Verdana("Verdana"),
 	Symbol("Symbol"),
-	Webdings("Webdings"),
-	Wingdings("Wingdings"),
 	MSSerif("MS Serif");
 
 	private String name;

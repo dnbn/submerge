@@ -13,6 +13,14 @@ public class SubInput implements Serializable {
 	private Font fontconfig = new Font();
 	private int alignment;
 
+	public SubInput() {
+	}
+	
+	public SubInput(SRTSub sub, Font fontConfig) {
+		this.sub = sub;
+		this.fontconfig = fontConfig;
+	}
+
 	// ===================== getter and setter start =====================
 
 	public SRTSub getSub() {

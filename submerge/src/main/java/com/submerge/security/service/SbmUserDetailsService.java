@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.submerge.model.entity.User;
 import com.submerge.security.model.SbmUserDetails;
-import com.submerge.security.model.AuthenticatedUser;
 import com.submerge.service.UserService;
+import com.submerge.web.bean.model.proxy.AuthenticatedUser;
+import com.submerge.web.bean.model.proxy.SubConfig;
 
 @Service("sbmUserDetailsService")
 public class SbmUserDetailsService implements UserDetailsService {
@@ -24,6 +25,9 @@ public class SbmUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private AuthenticatedUser authenticatedUser;
+
+	@Autowired
+	private SubConfig subConfig;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -41,6 +45,9 @@ public class SbmUserDetailsService implements UserDetailsService {
 
 		// Update the user in session
 		this.authenticatedUser.setUser(user);
+
+		// Update profiles in session
+		this.subConfig.setConfigs(user.getDualSubtitleConfigs());
 
 		return details;
 	}

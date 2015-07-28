@@ -12,7 +12,7 @@ public enum Pages {
 	HEADER_CONTENT("header-content", "composition/"),
 	FORM_LOGIN_CONTENT("form-login-content", "composition/");
 	
-	private static final String ROOT = "/pages/";
+	private static final String ROOT = "/";
 	private static final String EXT = ".xhtml";
 	private String name;
 	private String path;

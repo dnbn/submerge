@@ -20,14 +20,14 @@ import com.submerge.utils.SubUtils;
 public class SbmSubService implements SubtitleService {
 
 	@Override
-	public ASSSub mergeToAss(SubInput configOne, SubInput configTwo) {
+	public ASSSub mergeToAss(SubInput... configs) {
 		ASSSub ass = new ASSSub();
-		ass.getStyle().add(createV4Style(configOne));
-		ass.getStyle().add(createV4Style(configTwo));
-
 		Set<Events> ev = ass.getEvents();
-		configOne.getSub().getLines().forEach(line -> ev.add(createEvent(line, configOne.getStyleName())));
-		configTwo.getSub().getLines().forEach(line -> ev.add(createEvent(line, configTwo.getStyleName())));
+
+		for (SubInput config : configs) {
+			ass.getStyle().add(createV4Style(config));
+			config.getSub().getLines().forEach(line -> ev.add(createEvent(line, config.getStyleName())));
+		}
 
 		return ass;
 	}

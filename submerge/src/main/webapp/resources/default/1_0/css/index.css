@@ -1,6 +1,5 @@
-.row {
-  margin-bottom: 7px;
-  margin-top: 7px;
+#index-form\:top-ico-fontname_icon, #index-form\:bottom-ico-fontname_icon {
+	color: #31A241;
 }
 
 /* ====================================================
@@ -8,7 +7,6 @@
    ============ Skin the fileupload widget ============ 
 
    ==================================================== */
-   
 span.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
 	overflow: hidden;
 }
@@ -34,15 +32,16 @@ span.ui-messages-error-icon, span.ui-messages-info-icon {
 }
 
 .ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .upload-zone {
-  min-height: 80px;
+	min-height: 80px;
+	text-align: center;
 }
 
 .ui-messages-info.ui-corner-all {
-	margin : 0;
+	margin: 0;
 }
 
 .uploadMessage {

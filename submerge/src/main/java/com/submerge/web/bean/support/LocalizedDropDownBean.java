@@ -39,7 +39,7 @@ public class LocalizedDropDownBean extends AbstractManagedBean implements Serial
 			ResourceBundle bundleMessages = getBundleMessages();
 			localizedCountries = new LinkedHashMap<>();
 			localizedCountries.put(Locale.ENGLISH, bundleMessages.getString("language.english"));
-			localizedCountries.put(Locale.SIMPLIFIED_CHINESE, bundleMessages.getString("language.chinese"));
+			localizedCountries.put(Locale.CHINESE, bundleMessages.getString("language.chinese"));
 			localizedCountries.put(Locale.FRENCH, bundleMessages.getString("language.french"));
 			this.countries.put(locale, localizedCountries);
 		}

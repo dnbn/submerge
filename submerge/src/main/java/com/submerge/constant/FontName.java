@@ -3,17 +3,30 @@ package com.submerge.constant;
 public enum FontName {
 	
 	Arial("Arial"), 
-	ComicSansMS("Comic Sans MS"), 
 	CourierNew("Courier New"),
+	Times("Times"),
+	Helvetica("Helvetica"),
+	DroidSans("Droid Sans"),
+	Cursive("cursive"),
+	Monospace("monospace"),
+	Serif("serif"),
+	SansSerif("sans-serif"),
+	Fantasy("fantasy"),
+	Courier("Courier"),
 	Georgia("Georgia"),
-	Impact("Impact"),
 	LucidaConsole("Lucida Console"),
+	Papyrus("Papyrus"),
 	Tahoma("Tahoma"),
-	TimesNewRoman("Times New Roman"),
-	TrebuchetMS("Trebuchet MS"),
+	TeX("TeX"),
 	Verdana("Verdana"),
-	Symbol("Symbol"),
-	MSSerif("MS Serif");
+	Verona("Verona"),
+	SimSun("SimSun"),
+	Ubuntu("Ubuntu"),
+	UbuntuMono("Ubuntu Mono"),
+	FreeMono("FreeMono"),
+	LiberationSerif("Liberation Serif"),
+	Purisa("Purisa"),
+	TimesNewRoman("Times New Roman");
 
 	private String name;
 
@@ -27,8 +40,6 @@ public enum FontName {
 	public String getName() {
 		return this.name;
 	}
-
-
 
 	@Override
 	public String toString() {

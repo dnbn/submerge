@@ -9,6 +9,8 @@ public enum Pages {
 	ERROR("error"),
 
 	NAVBAR("navbar", "composition/"), 
+	FOOTER("footer", "composition/"),
+	STYLES("styles", "composition/"),
 	HEADER_CONTENT("header-content", "composition/"),
 	FORM_LOGIN_CONTENT("form-login-content", "composition/");
 	

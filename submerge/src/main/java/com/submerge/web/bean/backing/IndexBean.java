@@ -51,10 +51,6 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	@Autowired
 	private UserBean userBean;
 
-	public void onPageLoad() {
-		updateFilesMessages(false);
-	}
-
 	// ======================== Public methods ==========================
 
 	/**
@@ -63,7 +59,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	 * @param event
 	 *            : the uploaded srt file
 	 */
-	public void handleFileUpload(FileUploadEvent event) {
+	public void handleFileUpload(FileUploadEvent event) {	
 		ResourceBundle bundle = getBundleMessages();
 		FacesMessage msg = null;
 		try {
@@ -109,10 +105,14 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		return sc;
 	}
 
+	public void onPageLoad() {
+		updateFilesMessages(false);
+	}
+
 	// ===================== private methods start =====================
 
 	/**
-	 * Save user profiles in database is the user is logged
+	 * Save user profiles in database if the user is logged
 	 */
 	private void saveState() {
 		if (this.userBean.isLogged()) {

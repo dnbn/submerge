@@ -1,23 +1,7 @@
-window.sbm = (function() {
-
-	return {
-		setLocale : function(locale) {
-			$('#form-language\\:locale').val(locale);
-		}
-	};
-
-}());
-
 $(function() {
-	// =========== INIT ALL COLOR PICKERS ============
-
-	$('.color-picker').colorpicker({
-		format : 'hex'
-	});
-
 	// ====== KEEP CONNECT MENU OPEN ON CLICK ========
 
-	$('#form-login ul.dropdown-menu').on('click', function(event) {
+	$('#navbar ul.dropdown-menu').on('click', function(event) {
 		var events = $._data(document, 'events') || {};
 		events = events.click || [];
 		for (var i = 0; i < events.length; i++) {
@@ -39,3 +23,9 @@ $(function() {
 	});
 
 });
+
+
+function changeLanguage(language) {
+	$('#hidden-language').val(language);
+	alert(language);
+}

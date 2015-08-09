@@ -15,7 +15,7 @@ import com.submerge.web.bean.AbstractManagedBean;
 import com.submerge.web.bean.model.proxy.AuthenticatedUser;
 
 /**
- * This class is used to acces the user from views
+ * This class is used to access the user from views
  *
  */
 @Component("userBean")
@@ -32,13 +32,17 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		// Detect user locale
-		this.locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+		this.locale = getExternalContext().getRequestLocale();
 	}
 
 	// ====================== public methods start =======================
 
 	public boolean isLogged() {
 		return getUser() != null;
+	}
+
+	public void updateLocale() {
+		setLanguage(getRequestParameterMap().get("languageToSet"));
 	}
 
 	// ===================== getter and setter start =====================

@@ -1,5 +1,14 @@
-fieldset {
-	  padding: 15px;
+#signup-form .panel-body {
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+
+#signup-form .signup-row {
+	margin-top: 10px;
+}
+
+#signup-form\:group-signup {
+	margin-top: 20px;
 }
 
 .ui-message-error {

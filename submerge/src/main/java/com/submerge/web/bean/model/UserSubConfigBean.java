@@ -10,6 +10,10 @@ import com.submerge.model.entity.SubtitleProfile;
 import com.submerge.sub.srt.SRTSub;
 import com.submerge.web.bean.model.proxy.SubConfig;
 
+/**
+ * This class is used to access profiles settings from views
+ *
+ */
 @Component("userSubConfigBean")
 @Scope(value = "session")
 public class UserSubConfigBean implements Serializable {

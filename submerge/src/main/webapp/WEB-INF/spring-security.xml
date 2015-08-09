@@ -32,9 +32,7 @@
 		<http pattern="/file/**" security="none"></http>
 		<http auto-config="true" use-expressions="true">
 			<csrf disabled="true" />
-			<form-login login-page="/pages/login.xhtml"></form-login>
-			<intercept-url access="permitAll" pattern="/pages/**"></intercept-url>
-			<intercept-url access="hasRole('ROLE_ADMIN')" pattern="/admin/**"></intercept-url>
+			<intercept-url access="permitAll" pattern="/**"></intercept-url>
 			<remember-me services-ref="rememberMeServices"></remember-me>
 		</http>
 

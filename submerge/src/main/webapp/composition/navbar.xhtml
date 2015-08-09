@@ -1,43 +1,69 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jtl/core"
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui" xmlns:o="http://omnifaces.org/ui"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/ui">
 
 	<o:importConstants type="com.submerge.constant.Pages" var="Pages" />
-	
-	<b:navBar brand="#{msg['appName']}" brandHref="#{Pages.INDEX}" fixed="top" inverse="false">
 
-		<b:navbarLinks>
-			<b:navLink value="#{msg['index']}" href="#{Pages.INDEX}" active="#{Pages.INDEX.fullPath == view.viewId}"></b:navLink>
-			<b:navLink value="#{msg['about']}" href="#{Pages.ABOUT}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
-			<b:navLink value="#{msg['contact']}" href="#{Pages.CONTACT}" active="#{Pages.CONTACT.fullPath == view.viewId}"></b:navLink>
-			<b:dropMenu value="#{msg['language']}">
-				<h:form id="form-language" name="form-language">
-					<h:inputHidden id="locale" value="#{userBean.language}" />
-					<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key" varStatus="loop">
-						<h:panelGroup styleClass="div-country">
-							<h:graphicImage class="img-country" library="default" name="img/flags/#{key}.svg" />
-							<h:commandLink onclick="sbm.setLocale('#{key}')">
-								<span>#{localizedDropDownBean.countries[key]}</span>
-							</h:commandLink>
-						</h:panelGroup>
-						<b:navLink rendered="#{!loop.last}" />
-					</ui:repeat>
-				</h:form>
-			</b:dropMenu>
-		</b:navbarLinks>
-
-		<h:form id="form-login" name="form-login" styleClass="navbar-right">
-			<b:navbarLinks rendered="#{!userBean.logged}">
-				<b:navCommandLink value="#{msg['signUp']}" href="#{Pages.SIGNUP}" active="#{Pages.SIGNUP.fullPath == view.viewId}" />
-				<b:dropMenu value="#{msg['signIn']}">
-					<ui:include src="#{Pages.FORM_LOGIN_CONTENT.fullPath}" />
+	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{Pages.INDEX}" fixed="top">
+		<h:panelGroup id="pg-nav" styleClass="navbar-right">
+			<b:navbarLinks id="nav-menu-right">
+				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{Pages.ABOUT}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
+				<b:dropMenu id="nav-login-signup" value="#{msg['signUpOrLogin']}" rendered="#{!userBean.logged}">
+					<h:panelGroup layout="block" styleClass="panel-login-signup">
+						<h:form id="form-login" name="form-login">
+							<b:inputText fieldSize="sm" placeholder="#{msg['signIn.username']}" value="#{loginBean.username}" id="usernameLogin" name="username" required="true"
+								requiredMessage="#{msg['signIn.username']} : #{msg['validator.requiredField']}" binding="#{cpntPasswordLogin}">
+							</b:inputText>
+							<b:inputSecret fieldSize="sm" placeholder="#{msg['signIn.password']}" value="#{loginBean.password}" id="passwordLogin" name="password" required="true"
+								requiredMessage="#{msg['signIn.password']} : #{msg['validator.requiredField']}">
+								<o:validator binding="#{userLoginValidator}" message="#{msg['validator.invalid.usernameOrPassword']}" />
+								<f:attribute name="cpntPasswordLogin" value="#{cpntPasswordLogin}" />
+							</b:inputSecret>
+							<p:message id="passwordLoginMessage" for="passwordLogin" />
+							<p:message id="userNameLoginMessage" for="usernameLogin" />
+							<div id="div-remember">
+								<h:selectBooleanCheckbox label="Remember me" id="remember_me" value="#{loginBean.remember}" />
+								<label for="form-login:remember_me">#{msg['signIn.remember']}</label>
+							</div>
+							<p:commandButton look="primary" styleClass="button full" value="#{msg['signIn.login']}" action="#{loginBean.doLogin}">
+								<f:ajax execute="@form" render="passwordLoginMessage userNameLoginMessage" />
+							</p:commandButton>
+							<h:panelGroup layout="block" styleClass="text-center text-italic full normalLine">
+								<h:link id="signup-link" value="#{msg['signUp']}" outcome="#{Pages.SIGNUP.fullPath}" styleClass="simple-link" />
+							</h:panelGroup>
+						</h:form>
+					</h:panelGroup>
 				</b:dropMenu>
 			</b:navbarLinks>
-			<b:navbarLinks  rendered="#{userBean.logged}" id="nl-logout">
-				<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{loginBean.doLogout}" id="nc-logout" />
+			<b:navbarLinks rendered="#{userBean.logged}" id="nl-logout">
+				<h:form id="form-logout">
+					<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{loginBean.doLogout}" id="nc-logout"></b:navCommandLink>
+				</h:form>
 			</b:navbarLinks>
-		</h:form>
-
+			<b:navbarLinks id="nav-menu-language">
+				<h:panelGroup layout="block" styleClass="currentLanguage">
+					<h:panelGroup styleClass="language">
+						<h:graphicImage class="img-country" library="default" name="img/flags/#{userBean.language}.png" />
+						<h:panelGroup>#{userBean.language}</h:panelGroup>
+					</h:panelGroup>
+					<ul class="dropDownLanguage">
+						<h:form id="form-language">
+							<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
+								<h:panelGroup rendered="#{key.language != userBean.language}">
+									<li><h:commandLink action="#{userBean.updateLocale}">
+											<p class="language">
+												<f:param name="languageToSet" value="#{key.language}"></f:param>
+												<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
+												<h:panelGroup>#{localizedDropDownBean.countries[key]}</h:panelGroup>
+											</p>
+										</h:commandLink></li>
+								</h:panelGroup>
+							</ui:repeat>
+						</h:form>
+					</ul>
+				</h:panelGroup>
+			</b:navbarLinks>
+		</h:panelGroup>
 	</b:navBar>
 
 </ui:composition>

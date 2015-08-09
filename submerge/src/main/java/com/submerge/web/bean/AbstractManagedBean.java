@@ -1,5 +1,6 @@
 package com.submerge.web.bean;
 
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.ViewHandler;
@@ -17,7 +18,7 @@ public abstract class AbstractManagedBean {
 	protected static String getDefaultRedirect() {
 		return Pages.INDEX.getRedirect();
 	}
-	
+
 	protected static String getErrorRedirect() {
 		return Pages.ERROR.getRedirect();
 	}
@@ -37,6 +38,10 @@ public abstract class AbstractManagedBean {
 	protected static ResourceBundle getBundleMessages() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return context.getApplication().getResourceBundle(context, AppConstants.BUNDLE_RESSOURCE.toString());
+	}
+
+	protected static Map<String, String> getRequestParameterMap() {
+		return getExternalContext().getRequestParameterMap();
 	}
 
 	protected static void refresh() {

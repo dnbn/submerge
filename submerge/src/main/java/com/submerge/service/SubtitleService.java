@@ -6,14 +6,12 @@ import com.submerge.sub.config.SubInput;
 public interface SubtitleService {
 
 	/**
-	 * Merge two SRT subtitles into one ASS
+	 * Merge several SRT subtitles into one ASS
 	 * 
-	 * @param configOne
-	 *            : configuration object of the first subtitle
-	 * @param configTwo
-	 *            : configuration object of the second subtitle
+	 * @param configs
+	 *            : configuration object of the subtitles
 	 * @return
 	 */
-	ASSSub mergeToAss(SubInput configOne, SubInput configTwo);
+	ASSSub mergeToAss(SubInput... configs);
 
 }

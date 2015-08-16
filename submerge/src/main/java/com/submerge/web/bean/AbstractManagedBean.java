@@ -56,4 +56,9 @@ public abstract class AbstractManagedBean {
 	protected static String getViewId() {
 		return FacesContext.getCurrentInstance().getViewRoot().getViewId();
 	}
+
+	protected static UIViewRoot getViewRoot() {
+		return FacesContext.getCurrentInstance().getViewRoot();
+	}
+
 }

@@ -14,3 +14,7 @@
 .ui-message-error {
 	margin-bottom: 10px !important;
 }
+
+#signup-form\:col-container-signup {
+	padding-top: 65px;
+}

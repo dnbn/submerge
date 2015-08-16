@@ -7,5 +7,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/fonts"/>
         <property name="context-root" value="submerge"/>
         <property name="java-output-path" value="/submerge/target/classes"/>
+        <property name="component.exclusion.patterns" value="**/hibernate*.xml"/>
     </wb-module>
 </project-modules>

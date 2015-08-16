@@ -32,7 +32,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		// Detect user locale
-		this.locale = getExternalContext().getRequestLocale();
+		this.locale = new Locale(getExternalContext().getRequestLocale().getLanguage());
 	}
 
 	// ====================== public methods start =======================

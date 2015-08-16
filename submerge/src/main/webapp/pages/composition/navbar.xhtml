@@ -4,10 +4,10 @@
 
 	<o:importConstants type="com.submerge.constant.Pages" var="Pages" />
 
-	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{Pages.INDEX}" fixed="top">
+	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{request.contextPath}/" fixed="top">
 		<h:panelGroup id="pg-nav" styleClass="navbar-right">
 			<b:navbarLinks id="nav-menu-right">
-				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{Pages.ABOUT}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
+				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{Pages.ABOUT.fullPath}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
 				<b:dropMenu id="nav-login-signup" value="#{msg['signUpOrLogin']}" rendered="#{!userBean.logged}">
 					<h:panelGroup layout="block" styleClass="panel-login-signup">
 						<h:form id="form-login" name="form-login">
@@ -37,7 +37,7 @@
 			</b:navbarLinks>
 			<b:navbarLinks rendered="#{userBean.logged}" id="nl-logout">
 				<h:form id="form-logout">
-					<b:navCommandLink value="#{msg['logout']}" href="#{Pages.INDEX}" action="#{loginBean.doLogout}" id="nc-logout"></b:navCommandLink>
+					<b:navCommandLink value="#{msg['logout']}" href="#{request.contextPath}#{Pages.INDEX.fullPath}" action="#{loginBean.doLogout}" id="nc-logout"></b:navCommandLink>
 				</h:form>
 			</b:navbarLinks>
 			<b:navbarLinks id="nav-menu-language">

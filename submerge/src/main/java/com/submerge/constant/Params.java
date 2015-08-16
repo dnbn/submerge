@@ -2,8 +2,7 @@ package com.submerge.constant;
 
 public enum Params {
 
-	REDIRECT("faces-redirect=true"),
-	DIALOG("dialog=");
+	REDIRECT("faces-redirect=true");
 
 	private String param;
 

@@ -16,8 +16,8 @@
 			<ui:include src="#{Pages.NAVBAR.fullPath}" />
 			<h:form id="signup-form" class="signup-form" rendered="#{!userBean.logged}">
 				<b:container id="container-signup" styleClass="footer-center vertical-center">
-					<b:column col-lg="6" offset-lg="3" col-sm="7" offset-sm="2">
-						<b:panel title="#{msg['signUp']}" collapsible="false">
+					<b:column col-lg="6" offset-lg="3" col-sm="8" offset-sm="2" id="col-container-signup">
+						<b:panel title="#{msg['signUp']}" collapsible="false" id="panel-signup">
 							<b:row id="row-pseudo" styleClass="signup-row">
 								<b:column col-lg="10" offset-lg="1" id="col-pseudo">
 									<b:inputText placeholder="#{msg['signUp.username']}" id="userName" fieldSize="sm" value="#{registrationBean.user.name}" required="true" maxlength="20"

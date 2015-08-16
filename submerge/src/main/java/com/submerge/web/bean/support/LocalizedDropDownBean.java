@@ -7,21 +7,16 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.submerge.web.bean.AbstractManagedBean;
-import com.submerge.web.bean.model.UserBean;
 
 @Component("localizedDropDownBean")
 @Scope(value = "application")
 public class LocalizedDropDownBean extends AbstractManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -9013845270891497982L;
-
-	@Autowired
-	private UserBean userBean;
 
 	/**
 	 * Store all localized countries maps
@@ -32,7 +27,7 @@ public class LocalizedDropDownBean extends AbstractManagedBean implements Serial
 	 * Get the country map in the user locale
 	 */
 	public Map<Locale, String> getCountries() {
-		Locale locale = this.userBean.getLocale();
+		Locale locale = getViewRoot().getLocale();
 		Map<Locale, String> localizedCountries = this.countries.get(locale);
 
 		if (localizedCountries == null) {

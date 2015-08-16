@@ -23,9 +23,3 @@ $(function() {
 	});
 
 });
-
-
-function changeLanguage(language) {
-	$('#hidden-language').val(language);
-	alert(language);
-}

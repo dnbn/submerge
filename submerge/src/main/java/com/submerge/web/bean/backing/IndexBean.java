@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -38,6 +40,8 @@ import com.submerge.web.bean.model.UserSubConfigBean;
 public class IndexBean extends AbstractManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -3227108053080225466L;
+	
+	private static final transient Logger logger = Logger.getLogger(IndexBean.class.getName());
 
 	@Autowired
 	private transient SubtitleService subtitleService;
@@ -54,7 +58,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	// ======================== Public methods ==========================
 
 	/**
-	 * Parse an uploaded file to srt subtitle and call the setter if ok
+	 * Parse an uploaded file to srt subtitle and fill the model bean if ok
 	 * 
 	 * @param event
 	 *            : the uploaded srt file
@@ -97,6 +101,8 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			SubInput top = createSubInput(topSub, this.userConfig.getProfileTop(), "Top", 8);
 			SubInput bottom = createSubInput(bottomSub, this.userConfig.getProfileBottom(), "Bottom", 2);
 			ASSSub sub = this.subtitleService.mergeToAss(top, bottom);
+			
+			logger.log(Level.FINE, "File generated from : " + this.userConfig.toString());
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
 		}
 

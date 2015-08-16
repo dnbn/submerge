@@ -2,6 +2,7 @@ package com.submerge.web.bean.model;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,23 @@ public class UserSubConfigBean implements Serializable {
 
 	private SRTSub topSubtitle;
 	private SRTSub bottomSubtitle;
+
+	// ====================== public methods start =======================
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if (!StringUtils.isEmpty(getFilename())) {
+			sb.append("Target filename [").append(getFilename()).append("]");
+		}
+		if (this.topSubtitle != null && this.topSubtitle.getFileName() != null) {
+			sb.append(" Top [").append(this.topSubtitle.getFileName()).append("]");
+		}
+		if (this.bottomSubtitle != null && this.bottomSubtitle.getFileName() != null) {
+			sb.append(" Bottom [").append(this.bottomSubtitle.getFileName()).append("]");
+		}
+		return sb.toString();
+	}
 
 	// ========================= delegates start =========================
 

@@ -19,9 +19,9 @@
 	</h:head>
 	<h:body>
 		<h:panelGroup layout="block" id="wrap">
-			<ui:include src="#{Pages.NAVBAR.fullPath}" />
+			<ui:include src="#{Pages.NAVBAR.fullPath}"/>
 			<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data" styleClass="form-horizontal">
-				<b:container id="container">
+				<b:container id="container" >
 					<h:panelGroup id="div-starter">
 						<b:alert id="alert-login" severity="info" rendered="#{!userBean.logged}">
 							<b:iconAwesome id="ico-alert-login" name="info-circle" />

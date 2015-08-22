@@ -4,7 +4,7 @@
 
 	<o:importConstants type="com.submerge.constant.Pages" var="Pages" />
 
-	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{request.contextPath}/" fixed="top">
+	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{request.contextPath}/" fixed="top" >
 		<h:panelGroup id="pg-nav" styleClass="navbar-right">
 			<b:navbarLinks id="nav-menu-right">
 				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{Pages.ABOUT.fullPath}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>

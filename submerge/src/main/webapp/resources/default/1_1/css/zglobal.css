@@ -26,6 +26,11 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus {
 	z-index: 1;
 }
 
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 p {
 	margin: 0;
 }
@@ -318,7 +323,10 @@ label {
 	margin-bottom: 5px;
 }
 
-@media ( max-width : 768px) {
+@media ( max-width : 992px) {
+	.container {
+      width: 100%;
+    }
 	#nav-menu-language {
 		display: none;
 	}
@@ -327,7 +335,7 @@ label {
 	}
 }
 
-@media ( min-width : 768px) {
+@media ( min-width : 992px) {
 	#div-remember {
 		color: #333;
 	}

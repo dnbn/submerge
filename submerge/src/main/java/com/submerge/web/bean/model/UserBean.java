@@ -1,15 +1,16 @@
 package com.submerge.web.bean.model;
 
 import java.io.Serializable;
+import java.util.EnumSet;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.submerge.constant.SupportedLocales;
 import com.submerge.model.entity.User;
 import com.submerge.web.bean.AbstractManagedBean;
 import com.submerge.web.bean.model.proxy.AuthenticatedUser;
@@ -31,8 +32,21 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		// Detect user locale
-		this.locale = new Locale(getExternalContext().getRequestLocale().getLanguage());
+		Locale userLocale = SupportedLocales.ENGLISH.getLocale();
+
+		// Detect user locale and change the actual one only if it is
+		// supported by submerge
+		String language = getExternalContext().getRequestLocale().getLanguage();
+
+		EnumSet<SupportedLocales> supportedLocales = EnumSet.allOf(SupportedLocales.class);
+		for (SupportedLocales supportedLocale : supportedLocales) {
+			if (supportedLocale.getLanguage().equals(language)) {
+				userLocale = supportedLocale.getLocale();
+				break;
+			}
+		}
+
+		setLocale(userLocale);
 	}
 
 	// ====================== public methods start =======================
@@ -43,6 +57,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 
 	public void updateLocale() {
 		setLanguage(getRequestParameterMap().get("languageToSet"));
+		getViewRoot().setLocale(this.locale);
 	}
 
 	// ===================== getter and setter start =====================
@@ -64,8 +79,8 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	}
 
 	public void setLanguage(String language) {
-		this.locale = new Locale(language);
-		FacesContext.getCurrentInstance().getViewRoot().setLocale(this.locale);
+		setLocale(new Locale(language));
+		
 	}
 
 }

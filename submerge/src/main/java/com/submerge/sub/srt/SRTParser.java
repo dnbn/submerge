@@ -2,8 +2,9 @@ package com.submerge.sub.srt;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.submerge.exception.InvalidFileException;
 import com.submerge.exception.InvalidSRTSubException;
+import com.submerge.utils.FileUtils;
 
 public final class SRTParser {
 
@@ -33,7 +35,10 @@ public final class SRTParser {
 		}
 
 		SRTSub sub = new SRTSub();
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+		try (FileInputStream fis = new FileInputStream(file);
+				InputStreamReader isr = new InputStreamReader(fis, FileUtils.guessEncoding(file));
+				BufferedReader br = new BufferedReader(isr)) {
 			skipBom(br);
 			boolean found = true;
 			while (found) {

@@ -30,7 +30,7 @@ import com.submerge.sub.config.Font;
 import com.submerge.sub.config.SubInput;
 import com.submerge.sub.srt.SRTParser;
 import com.submerge.sub.srt.SRTSub;
-import com.submerge.utils.FileUploadUtils;
+import com.submerge.utils.FileUtils;
 import com.submerge.web.bean.AbstractManagedBean;
 import com.submerge.web.bean.model.UserBean;
 import com.submerge.web.bean.model.UserSubConfigBean;
@@ -67,7 +67,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		ResourceBundle bundle = getBundleMessages();
 		FacesMessage msg = null;
 		try {
-			File file = FileUploadUtils.toFile(event.getFile());
+			File file = FileUtils.toFile(event.getFile());
 			SRTSub srtSub = SRTParser.parse(file);
 
 			if ("topUpload".equals(event.getComponent().getId())) {

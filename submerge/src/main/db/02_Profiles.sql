@@ -65,3 +65,5 @@ REFERENCES public.ACCOUNT (ID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+alter table dual_subtitle_config alter column filename TYPE VARCHAR(300); 

@@ -26,14 +26,14 @@ $(function() {
 
 		addTextShadow(this.value, color, selector);
 
-	});
+	}).change();
 
 	$('.fontName').change(function() {
 
 		var selector = $(this).closest('.panel-body').find('.fontPreview span');
 		selector.css('font-family', this.value + ', sans-serif');
 
-	});
+	}).change();
 
 	// ============== COLOR PICKERS INIT ON PAGE LOAD ==============
 

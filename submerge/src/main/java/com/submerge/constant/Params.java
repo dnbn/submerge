@@ -1,5 +1,8 @@
 package com.submerge.constant;
 
+/**
+ * Requests parameters
+ */
 public enum Params {
 
 	REDIRECT("faces-redirect=true");

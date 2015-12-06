@@ -4,6 +4,9 @@ public enum AppConstants {
 
 	BUNDLE_RESSOURCE("msg"),
 	SHA_256("SHA-256"),
+	SRT("srt"),
+	ASS("ass"),
+	SSA("ssa"),
 	UTF_8("UTF-8");
 	
 	final static String[] supportedLanguages = {"en", "fr", "zh"};

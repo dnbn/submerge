@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 
-public class SRTTime implements Serializable {
+import com.submerge.sub.itf.TimedObject;
+
+public class SRTTime implements Serializable, TimedObject {
 
 	private static final long serialVersionUID = -5787808223967579723L;
 	public static final String PATTERN = "HH:mm:ss,SSS";
@@ -64,6 +66,10 @@ public class SRTTime implements Serializable {
 
 	// ===================== getter and setter start =====================
 
+	/* (non-Javadoc)
+	 * @see com.submerge.sub.srt.SubtitleTime#getStart()
+	 */
+	@Override
 	public LocalTime getStart() {
 		return this.start;
 	}
@@ -72,6 +78,10 @@ public class SRTTime implements Serializable {
 		this.start = start;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.submerge.sub.srt.SubtitleTime#getEnd()
+	 */
+	@Override
 	public LocalTime getEnd() {
 		return this.end;
 	}

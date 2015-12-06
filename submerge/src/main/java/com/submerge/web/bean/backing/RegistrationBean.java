@@ -21,8 +21,16 @@ public class RegistrationBean extends AbstractManagedBean {
 	@Autowired
 	private LoginBean loginBean;
 
+	/**
+	 * The user
+	 */
 	private User user = new User();
 
+	/**
+	 * Register the user and redirect to the main page
+	 * 
+	 * @return the page to be displayed
+	 */
 	public String register() {
 		this.loginBean.setUsername(this.user.getName());
 		this.loginBean.setPassword(this.user.getPassword());
@@ -35,6 +43,9 @@ public class RegistrationBean extends AbstractManagedBean {
 
 	// ====================== private methods start ======================
 
+	/**
+	 * Create the user
+	 */
 	private void processRegistration() {
 		Date currDate = Calendar.getInstance().getTime();
 		this.user.setCreation(currDate);

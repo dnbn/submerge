@@ -7,12 +7,12 @@ import com.submerge.model.entity.DualSubtitleConfig;
 
 public interface SubConfig extends Serializable {
 
-	Set<DualSubtitleConfig> getConfigs();
+	public Set<DualSubtitleConfig> getConfigs();
 
-	void setConfigs(Set<DualSubtitleConfig> configs);
+	public void setConfigs(Set<DualSubtitleConfig> configs);
 
-	DualSubtitleConfig getCurrent();
+	public DualSubtitleConfig getCurrent();
 
-	Set<DualSubtitleConfig> getCustoms();
+	public Set<DualSubtitleConfig> getCustoms();
 
 }

@@ -36,14 +36,18 @@ public class SbmUserService implements UserService {
 
 	@Override
 	public User findByEmail(String email) {
-		return (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
-				.add(Restrictions.eq("email", email)).uniqueResult();
+		return (User) this.sessionFactory.getCurrentSession()
+				.createCriteria(User.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
 	}
 
 	@Override
 	public User findByName(String name) {
-		return (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
-				.add(Restrictions.eq("name", name)).uniqueResult();
+		return (User) this.sessionFactory.getCurrentSession()
+				.createCriteria(User.class)
+				.add(Restrictions.eq("name", name))
+				.uniqueResult();
 	}
 
 	@Override

@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.submerge.sub.itf.TimedLine;
+import com.submerge.sub.itf.TimedTextFile;
+
 /**
  * Class <SRTLine> represents an SRT file, meandin a complete set of subtitle
  * lines
  *
  */
-public class SRTSub implements Serializable {
+public class SRTSub implements Serializable, TimedTextFile {
 
 	private static final long serialVersionUID = -2909833999376537734L;
 
@@ -22,7 +25,7 @@ public class SRTSub implements Serializable {
 		this.lines.add(line);
 	}
 
-	public void remove(SRTLine line) {
+	public void remove(TimedLine line) {
 		this.lines.remove(line);
 	}
 
@@ -38,15 +41,22 @@ public class SRTSub implements Serializable {
 	public Set<SRTLine> getLines() {
 		return this.lines;
 	}
+	
+	@Override
+	public Set<? extends TimedLine> getTimedLines() {
+		return this.lines;
+	}
 
 	public void setLines(Set<SRTLine> lines) {
 		this.lines = lines;
 	}
 
+	@Override
 	public String getFileName() {
 		return this.fileName;
 	}
 
+	@Override
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}

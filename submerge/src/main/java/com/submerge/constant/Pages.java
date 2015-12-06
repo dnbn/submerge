@@ -2,6 +2,10 @@ package com.submerge.constant;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Enum all the pages of the application
+ *
+ */
 public enum Pages {
 
 	INDEX("index"), 

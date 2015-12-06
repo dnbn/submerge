@@ -1,6 +1,6 @@
 package com.submerge.exception;
 
-public class InvalidSRTSubException extends Exception {
+public class InvalidSRTSubException extends InvalidSubException {
 
 	private static final long serialVersionUID = -8672533341983848962L;
 

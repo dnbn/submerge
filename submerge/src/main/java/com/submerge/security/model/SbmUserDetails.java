@@ -13,9 +13,21 @@ import com.submerge.model.entity.UserAuthorities;
 
 public class SbmUserDetails implements UserDetails {
 
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = 8109287543247336865L;
+
+	/**
+	 * User
+	 */
 	private User user;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param user: the user object
+	 */
 	public SbmUserDetails(User user) {
 		super();
 		this.user = user;

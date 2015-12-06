@@ -19,8 +19,8 @@ public class FileUtils {
 	/**
 	 * Convert primefaces UploadedFile to java.io.File
 	 * 
-	 * @param uploadedFile
-	 * @return file
+	 * @param uploadedFile: the <code>UploadedFile</code> object to convert
+	 * @return file: the <code>File<code> object
 	 * @throws IOException
 	 */
 	public static File toFile(UploadedFile uploadedFile) throws IOException {
@@ -39,8 +39,7 @@ public class FileUtils {
 	/**
 	 * Detect charset encoding of a file
 	 * 
-	 * @param file
-	 *            : the file to detect encoding from
+	 * @param file: the file to detect encoding from
 	 * @return the charset encoding
 	 * @throws IOException
 	 */
@@ -53,8 +52,7 @@ public class FileUtils {
 	/**
 	 * Detect charset encoding of an input stream
 	 * 
-	 * @param file
-	 *            : the InputStream to detect encoding from
+	 * @param file: the InputStream to detect encoding from
 	 * @return the charset encoding
 	 * @throws IOException
 	 */
@@ -65,8 +63,7 @@ public class FileUtils {
 	/**
 	 * Detect charset encoding of a byte array
 	 * 
-	 * @param bytes
-	 *            : the byte array to detect encoding from
+	 * @param bytes: the byte array to detect encoding from
 	 * @return the charset encoding
 	 */
 	public static String guessEncoding(byte[] bytes) {

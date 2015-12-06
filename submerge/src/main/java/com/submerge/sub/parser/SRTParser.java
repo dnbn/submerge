@@ -1,10 +1,8 @@
-package com.submerge.sub.srt;
+package com.submerge.sub.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,48 +13,44 @@ import org.apache.commons.lang.StringUtils;
 
 import com.submerge.exception.InvalidFileException;
 import com.submerge.exception.InvalidSRTSubException;
-import com.submerge.utils.FileUtils;
+import com.submerge.exception.InvalidSubException;
+import com.submerge.sub.itf.TimedTextFile;
+import com.submerge.sub.srt.SRTLine;
+import com.submerge.sub.srt.SRTSub;
+import com.submerge.sub.srt.SRTTime;
 
-public final class SRTParser {
+/**
+ * Parse SRT subtitles
+ */
+public final class SRTParser extends AbstractSubtitleParser {
 
-	private static final char BOM_MARKER = '\ufeff';
+	@Override
+	public SRTSub parse(File file) throws InvalidSubException, InvalidFileException {
+		return (SRTSub) openAndParse(file, new SRTSub());
+	}
 
-	/**
-	 * Parse a SRT formatted file and return the corresponding subtitle object
-	 * 
-	 * @param srtSubFile
-	 * @return
-	 * @throws InvalidSRTSubException
-	 * @throws InvalidFileException
-	 */
-	public static SRTSub parse(File file) throws InvalidSRTSubException, InvalidFileException {
-		if (!file.isFile()) {
-			throw new InvalidFileException("File " + file.getName() + " is invalid");
-		}
-
-		SRTSub sub = new SRTSub();
-
-		try (FileInputStream fis = new FileInputStream(file);
-				InputStreamReader isr = new InputStreamReader(fis, FileUtils.guessEncoding(file));
-				BufferedReader br = new BufferedReader(isr)) {
-			skipBom(br);
-			boolean found = true;
-			while (found) {
-				SRTLine line = firstIn(br);
-				if (found = (line != null)) {
-					sub.add(line);
-				}
+	@Override
+	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException {
+		SRTSub sub = (SRTSub) parsableSub;
+		boolean found = true;
+		while (found) {
+			SRTLine line = firstIn(br);
+			if (found = (line != null)) {
+				sub.add(line);
 			}
-		} catch (IOException e) {
-			throw new InvalidFileException(e);
 		}
-		sub.setFileName(file.getName());
-
-		return sub;
 	}
 
 	/**
-	 * Extract the firt SRTLine found in a buffered reader
+	 * Extract the firt SRTLine found in a buffered reader. <br/>
+	 * 
+	 * Example of SRT line:
+	 * 
+	 * <pre>
+	 * 1
+	 * 00:02:46,813 --> 00:02:50,063
+	 * A text line
+	 * </pre>
 	 * 
 	 * @param br
 	 * @return SRTLine the line extracted, null if no SRTLine found
@@ -95,8 +89,7 @@ public final class SRTParser {
 	/**
 	 * Extract a subtitle id from string
 	 * 
-	 * @param textLine
-	 *            ex 1
+	 * @param textLine ex 1
 	 * @return the id extracted
 	 * @throws InvalidSRTSubException
 	 */
@@ -113,8 +106,7 @@ public final class SRTParser {
 	/**
 	 * Extract a subtitle time from string
 	 * 
-	 * @param timeLine
-	 *            ex 00:02:08,822 --> 00:02:11,574
+	 * @param timeLine: ex 00:02:08,822 --> 00:02:11,574
 	 * @return the SRTTime object
 	 * @throws InvalidSRTSubException
 	 */
@@ -133,19 +125,6 @@ public final class SRTParser {
 			throw new InvalidSRTSubException("Invalid time string : " + timeLine, e);
 		}
 		return time;
-	}
-
-	/**
-	 * Remove the byte order mark if exists
-	 * 
-	 * @param br
-	 * @throws IOException
-	 */
-	private static void skipBom(BufferedReader br) throws IOException {
-		br.mark(4);
-		if (BOM_MARKER != br.read()) {
-			br.reset();
-		}
 	}
 
 }

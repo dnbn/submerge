@@ -28,6 +28,9 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 	@Autowired
 	private AuthenticatedUser authenticatedUser;
 
+	/**
+	 * The user locale
+	 */
 	private Locale locale;
 
 	@PostConstruct
@@ -35,7 +38,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 		Locale userLocale = SupportedLocales.ENGLISH.getLocale();
 
 		// Detect user locale and change the actual one only if it is
-		// supported by submerge
+		// supported by the application
 		String language = getExternalContext().getRequestLocale().getLanguage();
 
 		EnumSet<SupportedLocales> supportedLocales = EnumSet.allOf(SupportedLocales.class);
@@ -51,10 +54,18 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 
 	// ====================== public methods start =======================
 
+	/**
+	 * Check if the user is logged
+	 * 
+	 * @return true is the user is logged
+	 */
 	public boolean isLogged() {
 		return getUser() != null;
 	}
 
+	/**
+	 * Update the user locale
+	 */
 	public void updateLocale() {
 		setLanguage(getRequestParameterMap().get("languageToSet"));
 		getViewRoot().setLocale(this.locale);
@@ -80,7 +91,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 
 	public void setLanguage(String language) {
 		setLocale(new Locale(language));
-		
+
 	}
 
 }

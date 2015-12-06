@@ -4,12 +4,34 @@ import java.io.Serializable;
 
 public class Font implements Serializable {
 
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -3711480706383195193L;
 
+	/**
+	 * Font name
+	 */
 	private String name;
+
+	/**
+	 * Font size
+	 */
 	private int size = 16;
+
+	/**
+	 * Font color
+	 */
 	private String color = "#fffff9";
+
+	/**
+	 * Outline color
+	 */
 	private String outlineColor = "#000000";
+
+	/**
+	 * Outline width
+	 */
 	private int outlineWidth = 2;
 
 	// ===================== getter and setter start =====================

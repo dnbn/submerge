@@ -6,8 +6,8 @@ import com.submerge.model.entity.User;
 
 public interface AuthenticatedUser extends Serializable {
 
-	User getUser();
+	public User getUser();
 
-	void setUser(User user);
+	public void setUser(User user);
 
 }

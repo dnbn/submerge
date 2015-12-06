@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.submerge.model.entity.SubtitleProfile;
+import com.submerge.sub.itf.TimedTextFile;
 import com.submerge.sub.srt.SRTSub;
 import com.submerge.web.bean.model.proxy.SubConfig;
 
@@ -24,8 +25,8 @@ public class UserSubConfigBean implements Serializable {
 	@Autowired
 	private SubConfig subConfig;
 
-	private SRTSub topSubtitle;
-	private SRTSub bottomSubtitle;
+	private TimedTextFile topSubtitle;
+	private TimedTextFile bottomSubtitle;
 
 	// ====================== public methods start =======================
 
@@ -64,19 +65,19 @@ public class UserSubConfigBean implements Serializable {
 
 	// ===================== getter and setter start =====================
 
-	public SRTSub getTopSubtitle() {
+	public TimedTextFile getTopSubtitle() {
 		return this.topSubtitle;
 	}
 
-	public void setTopSubtitle(SRTSub topSubtitle) {
+	public void setTopSubtitle(TimedTextFile topSubtitle) {
 		this.topSubtitle = topSubtitle;
 	}
 
-	public SRTSub getBottomSubtitle() {
+	public TimedTextFile getBottomSubtitle() {
 		return this.bottomSubtitle;
 	}
 
-	public void setBottomSubtitle(SRTSub bottomSubtitle) {
+	public void setBottomSubtitle(TimedTextFile bottomSubtitle) {
 		this.bottomSubtitle = bottomSubtitle;
 	}
 

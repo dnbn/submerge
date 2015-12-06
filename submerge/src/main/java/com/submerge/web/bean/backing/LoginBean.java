@@ -22,6 +22,9 @@ import com.submerge.web.bean.model.proxy.AuthenticatedUser;
 @Scope(value = "request")
 public class LoginBean extends AbstractManagedBean implements Serializable {
 
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -6467456643657047935L;
 
 	@Autowired
@@ -33,10 +36,26 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 	@Autowired
 	private AuthenticatedUser authenticatedUser;
 
+	/**
+	 * Username filled by the user
+	 */
 	private String username;
+
+	/**
+	 * Password filled by the user
+	 */
 	private String password;
+
+	/**
+	 * Remember me chackbox filled by the user
+	 */
 	private boolean remember;
 
+	/**
+	 * Login the user and refresh the current page
+	 * 
+	 * @return the page to be displayed
+	 */
 	public String doLogin() {
 		String dest = getViewId() + "?" + Params.REDIRECT;
 		try {
@@ -48,6 +67,9 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 		return dest;
 	}
 
+	/**
+	 * Logout the user and redirect to the main page
+	 */
 	public String doLogout() {
 		processLogout();
 		return getDefaultRedirect();
@@ -55,6 +77,11 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 
 	// ======================= private method start =======================
 
+	/**
+	 * Login the user
+	 * 
+	 * @throws AuthenticationException
+	 */
 	private void processLogin() throws AuthenticationException {
 		Authentication request = new UsernamePasswordAuthenticationToken(this.username, this.password);
 		Authentication result = this.authenticationManager.authenticate(request);
@@ -69,6 +96,9 @@ public class LoginBean extends AbstractManagedBean implements Serializable {
 		this.tokenRememberMe.loginSuccess(wrapper, getResponse(), result);
 	}
 
+	/**
+	 * Logout the user
+	 */
 	private void processLogout() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		this.tokenRememberMe.logout(getRequest(), getResponse(), authentication);

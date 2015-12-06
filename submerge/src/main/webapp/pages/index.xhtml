@@ -33,7 +33,7 @@
 								<b:panel title="#{msg['index.topSubtitle']}" collapsible="false" id="panel-top" styleClass="sub-panel">
 									<h:panelGroup id="group-upload-top" layout="block" styleClass="upload-zone">
 										<p:fileUpload id="topUpload" fileUploadListener="#{indexBean.handleFileUpload}" label="#{msg['index.choose']}" auto="true" sizeLimit="1048576"
-											allowTypes="/(\.|\/)(srt)$/" update="topUploadMessage" required="false">
+											allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="topUploadMessage" required="false">
 										</p:fileUpload>
 										<p:messages id="topUploadMessage" for="topUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
 									</h:panelGroup>
@@ -118,7 +118,7 @@
 								<b:panel title="#{msg['index.bottomSubtitle']}" collapsible="false" id="panel-bottom" styleClass="sub-panel">
 									<h:panelGroup id="group-upload-bottom" layout="block" styleClass="upload-zone">
 										<p:fileUpload id="bottomUpload" fileUploadListener="#{indexBean.handleFileUpload}" value="#{userSubConfigBean.profileBottom.file}"
-											label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt)$/" update="bottomUploadMessage" required="false" />
+											label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="bottomUploadMessage" required="false" />
 										<p:messages id="bottomUploadMessage" for="bottomUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
 									</h:panelGroup>
 									<b:row id="row-color-bottom" styleClass="form-group">

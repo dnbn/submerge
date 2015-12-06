@@ -3,20 +3,63 @@ package com.submerge.service;
 import com.submerge.model.entity.Authorities;
 import com.submerge.model.entity.User;
 
+/**
+ * Service used to manage users
+ */
 public interface UserService {
 
-	User findById(int id);
+	/**
+	 * Find a user from its id
+	 * 
+	 * @param id: the user id
+	 * @return the user
+	 */
+	public User findById(int id);
 
-	User findByEmail(String email);
+	/**
+	 * Find a user from its email
+	 * 
+	 * @param email: the user email
+	 * @return the user
+	 */
+	public User findByEmail(String email);
 
-	User findByName(String name);
+	/**
+	 * Find a user from its login
+	 * 
+	 * @param name: the user login
+	 * @return the user
+	 */
+	public User findByName(String name);
 
-	void save(User user);
+	/**
+	 * Save a user in database
+	 * 
+	 * @param user: the user to be saved
+	 */
+	public void save(User user);
 
-	void create(User user);
+	/**
+	 * Create a new user
+	 * 
+	 * @param user: the user to be saved
+	 */
+	public void create(User user);
 
-	void addAuthority(User user, Authorities authority);
+	/**
+	 * Add an authority to a user
+	 * 
+	 * @param user: the user
+	 * @param authority: the authority
+	 */
+	public void addAuthority(User user, Authorities authority);
 
-	String hashPassword(String password);
+	/**
+	 * Encode a user password
+	 * 
+	 * @param password: the password to be encoded
+	 * @return the encoded password
+	 */
+	public String hashPassword(String password);
 
 }

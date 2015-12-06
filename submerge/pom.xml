@@ -29,6 +29,7 @@
 		<jandex.version>1.2.2.Final</jandex.version>
 		<slf4j-api.version>1.7.12</slf4j-api.version>
 		<juniversalchardet.version>1.0.3</juniversalchardet.version>
+		<beanutils.version>1.9.2</beanutils.version>
 	</properties>
 
 	<dependencies>
@@ -91,6 +92,12 @@
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
 			<version>${weld-servlet.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${beanutils.version}</version>
 		</dependency>
 
 		<dependency>

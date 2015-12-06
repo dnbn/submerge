@@ -20,8 +20,14 @@ import com.submerge.security.service.SbmUserDetailsService;
 @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
 public class SbmUser implements AuthenticatedUser {
 
+	/**
+	 * Serial
+	 */
 	private static final long serialVersionUID = -7570568936084166388L;
 
+	/**
+	 * User
+	 */
 	private User user;
 
 	@Override

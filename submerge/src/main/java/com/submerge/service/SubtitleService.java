@@ -3,15 +3,17 @@ package com.submerge.service;
 import com.submerge.sub.ass.ASSSub;
 import com.submerge.sub.config.SubInput;
 
+/**
+ * Service used to manage subtitles
+ */
 public interface SubtitleService {
 
 	/**
-	 * Merge several SRT subtitles into one ASS
+	 * Merge several subtitles into one ASS
 	 * 
-	 * @param configs
-	 *            : configuration object of the subtitles
+	 * @param configs : configuration object of the subtitles
 	 * @return
 	 */
-	ASSSub mergeToAss(SubInput... configs);
+	public ASSSub mergeToAss(SubInput... configs);
 
 }

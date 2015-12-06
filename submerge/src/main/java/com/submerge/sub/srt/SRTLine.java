@@ -3,17 +3,19 @@ package com.submerge.sub.srt;
 import java.io.Serializable;
 import java.util.List;
 
+import com.submerge.sub.itf.TimedLine;
+import com.submerge.sub.itf.TimedObject;
+
 /**
- * Class <SRTLine> represents an abstract line of SRT, meaning text, timecodes
- * and index
+ * Class <SRTLine> represents an abstract line of SRT, meaning text, timecodes and index
  *
  */
-public class SRTLine implements Comparable<SRTLine>, Serializable  {
+public class SRTLine implements Comparable<SRTLine>, Serializable, TimedLine {
 
 	private static final long serialVersionUID = -1220593401999895814L;
-	
+
 	private static final String NEW_LINE = "\n";
-	
+
 	private int id;
 	private SRTTime time;
 	private List<String> textLines;
@@ -40,11 +42,13 @@ public class SRTLine implements Comparable<SRTLine>, Serializable  {
 
 	// ===================== getter and setter start =====================
 
+	@Override
 	public List<String> getTextLines() {
 		return this.textLines;
 	}
 
-	public SRTTime getTime() {
+	@Override
+	public TimedObject getTime() {
 		return this.time;
 	}
 

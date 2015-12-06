@@ -76,7 +76,7 @@ public class ASSParser extends AbstractSubtitleParser {
 	}
 
 	/**
-	 * Parse the style section from the reader. <br/>
+	 * Parse the events section from the reader. <br/>
 	 * 
 	 * Example of events section:
 	 * 

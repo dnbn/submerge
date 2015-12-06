@@ -71,7 +71,7 @@ public abstract class AbstractManagedBean {
 	}
 
 	/**
-	 * Retern the parameter map matching the current request
+	 * Return the parameter map matching the current request
 	 * 
 	 * @return the parameter map
 	 */

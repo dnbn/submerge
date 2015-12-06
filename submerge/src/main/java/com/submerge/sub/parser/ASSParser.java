@@ -433,29 +433,4 @@ public class ASSParser extends AbstractSubtitleParser {
 		return StringUtils.isEmpty(info) ? null : info;
 	}
 
-	/**
-	 * Reset the reader at the previous mark if the current line is a new section
-	 * 
-	 * @param br: the reader
-	 * @param line: the current line
-	 * @throws IOException
-	 */
-	private static void reset(BufferedReader br, String line) throws IOException {
-		if (line != null && line.startsWith("[")) {
-			br.reset();
-		}
-	}
-
-	/**
-	 * Mark the position in the reader and read the next text line
-	 * 
-	 * @param br: the buffered reader
-	 * @return the next text line
-	 * @throws IOException
-	 */
-	private static String markAndRead(BufferedReader br) throws IOException {
-		br.mark(32);
-		return readFirstTextLine(br);
-	}
-
 }

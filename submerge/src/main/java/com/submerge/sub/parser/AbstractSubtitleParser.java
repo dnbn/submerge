@@ -25,7 +25,8 @@ public abstract class AbstractSubtitleParser implements SubtitleParser {
 	public abstract TimedTextFile parse(File file) throws InvalidSubException, InvalidFileException;
 
 	/**
-	 * Open the file, define the <code>ParsableSubtitle</code> filename and call the abstract parsing method
+	 * Open the file, define the <code>ParsableSubtitle</code> filename and call the
+	 * abstract parsing method
 	 * 
 	 * @param file: the subtitle file
 	 * @param sub: the subtitle object
@@ -33,8 +34,7 @@ public abstract class AbstractSubtitleParser implements SubtitleParser {
 	 * @throws InvalidFileException if the file is invalid
 	 * @throws InvalidSubException if an error has occured with the subtitle file
 	 */
-	protected TimedTextFile openAndParse(File file, TimedTextFile sub) throws InvalidFileException,
-			InvalidSubException {
+	protected TimedTextFile openAndParse(File file, TimedTextFile sub) throws InvalidFileException, InvalidSubException {
 
 		if (!file.isFile()) {
 			throw new InvalidFileException("File " + file.getName() + " is invalid");
@@ -65,8 +65,7 @@ public abstract class AbstractSubtitleParser implements SubtitleParser {
 	 * @throws IOException
 	 * @throws InvalidSubException if an error has occured when parsing the subtitle file
 	 */
-	protected abstract void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException,
-			InvalidSubException;
+	protected abstract void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException;
 
 	/**
 	 * Ignore blank spaces and return the first text line
@@ -95,6 +94,31 @@ public abstract class AbstractSubtitleParser implements SubtitleParser {
 		if (BOM_MARKER != br.read()) {
 			br.reset();
 		}
+	}
+
+	/**
+	 * Reset the reader at the previous mark if the current line is a new section
+	 * 
+	 * @param br: the reader
+	 * @param line: the current line
+	 * @throws IOException
+	 */
+	protected static void reset(BufferedReader br, String line) throws IOException {
+		if (line != null && line.startsWith("[")) {
+			br.reset();
+		}
+	}
+
+	/**
+	 * Mark the position in the reader and read the next text line
+	 * 
+	 * @param br: the buffered reader
+	 * @return the next text line
+	 * @throws IOException
+	 */
+	protected static String markAndRead(BufferedReader br) throws IOException {
+		br.mark(32);
+		return readFirstTextLine(br);
 	}
 
 }

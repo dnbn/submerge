@@ -6,7 +6,7 @@ $(function() {
 
 		var color = event.color.toHex();
 		var $currentTarget = $(event.currentTarget);
-		var $preview = $currentTarget.find('.fontPreview span');
+		var $preview = $currentTarget.find('.fontPreview span.textPreview');
 
 		if ($(event.target).hasClass('color')) {
 			$preview.css('color', color);
@@ -22,7 +22,7 @@ $(function() {
 		var $panel = $(this).closest('.panel-body');
 
 		var color = $panel.find('.outlineColor input').val();
-		var selector = $panel.find('.fontPreview span');
+		var selector = $panel.find('.fontPreview span.textPreview');
 
 		addTextShadow(this.value, color, selector);
 
@@ -30,7 +30,7 @@ $(function() {
 
 	$('.fontName').change(function() {
 
-		var selector = $(this).closest('.panel-body').find('.fontPreview span');
+		var selector = $(this).closest('.panel-body').find('.fontPreview span.textPreview');
 		selector.css('font-family', this.value + ', sans-serif');
 
 	}).change();

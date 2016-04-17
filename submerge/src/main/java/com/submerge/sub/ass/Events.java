@@ -166,7 +166,14 @@ public class Events implements Comparable<Events>, Serializable, TimedLine {
 
 	@Override
 	public int compareTo(Events event) {
-		return this.time.getStart().compareTo(event.time.getStart());
+		int compare = this.time.compareTo(event.time);
+		if (compare == 0) {
+			String thisText = String.join(",", this.textLines);
+			String eventText = String.join(",", event.textLines);
+			compare = thisText.compareTo(eventText);
+		}
+
+		return compare;
 	}
 
 	// ===================== getter and setter start =====================

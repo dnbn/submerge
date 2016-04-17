@@ -265,12 +265,12 @@ label {
 	padding-right: 10px;
 }
 
-#navbar .language img {
+#navbar .language img, .fontPreview img {
 	width: 16px;
 	height: 11px;
 }
 
-#navbar .language img, #navbar .language span {
+#navbar .language img, #navbar .language span, .fontPreview .preview-language img, .fontPreview .preview-language span  {
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 2px;
@@ -280,11 +280,14 @@ label {
 	float: left;
 }
 
-#navbar .dropDownLanguage {
+#navbar .dropDownLanguage, .fontPreview .dropDownLanguage{
 	display: none;
-	position: absolute;
 	z-index: 10;
+}
+
+#navbar .dropDownLanguage {
 	background: #292D35;
+	position: absolute;
 	margin-top: -12px;
 }
 
@@ -292,11 +295,11 @@ label {
 	margin: 0 20px;
 }
 
-#navbar .currentLanguage:hover .dropDownLanguage {
+#navbar .currentLanguage:hover .dropDownLanguage, .previewLanguageSelect:hover .dropDownLanguage {
 	display: block;
 }
 
-#navbar .dropDownLanguage li {
+#navbar .dropDownLanguage li, .fontPreview .dropDownLanguage li {
 	line-height: normal;
 }
 
@@ -376,6 +379,7 @@ label {
 }
 
 .fontPreview {
+	position: relative;
 	height: 100px;
 	line-height: 100px;
 	margin: 0;
@@ -391,6 +395,27 @@ label {
 	vertical-align: middle;
 	font-size: 22px;
 }
+
+.fontPreview .previewLanguageSelect {
+	position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
+
+.fontPreview .preview-language img {
+	position: absolute;
+    bottom: 0;
+}
+
+.previewLanguageSelect:hover {
+	cursor: pointer;
+}
+
+.fontPreview .dropDownLanguage {
+	position: absolute;
+	margin-left: 2px;
+}
+
 
 /* Footer
 -------------------------------------------------------------------------------------------------------------------- */

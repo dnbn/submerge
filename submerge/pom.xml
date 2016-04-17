@@ -9,6 +9,7 @@
 	<name>submerge</name>
 
 	<properties>
+		<bootsfaces.version>0.8.0</bootsfaces.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<postgres.version>9.1-901-1.jdbc4</postgres.version>
 		<jsf.version>2.2.10</jsf.version>
@@ -33,6 +34,13 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+		    <groupId>net.bootsfaces</groupId>
+		    <artifactId>bootsfaces</artifactId>
+		    <version>${bootsfaces.version}</version>
+		    <scope>compile</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.sun.faces</groupId>

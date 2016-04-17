@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.submerge.model.entity.SubtitleProfile;
 import com.submerge.sub.itf.TimedTextFile;
-import com.submerge.sub.srt.SRTSub;
 import com.submerge.web.bean.model.proxy.SubConfig;
 
 /**

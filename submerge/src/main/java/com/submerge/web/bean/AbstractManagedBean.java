@@ -1,5 +1,6 @@
 package com.submerge.web.bean;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -68,6 +69,16 @@ public abstract class AbstractManagedBean {
 	protected static ResourceBundle getBundleMessages() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return context.getApplication().getResourceBundle(context, AppConstants.BUNDLE_RESSOURCE.toString());
+	}
+
+	/**
+	 * Get the messages bundle in a specific language
+	 * 
+	 * @param locale the bundle language
+	 * @return the messages bundle
+	 */
+	protected static ResourceBundle getBundleMessages(Locale locale) {
+		return ResourceBundle.getBundle(AppConstants.BUNDLE_RESSOURCE_BASENAME.toString(), locale);
 	}
 
 	/**

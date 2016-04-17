@@ -2,6 +2,7 @@ package com.submerge.constant;
 
 public enum AppConstants {
 
+	BUNDLE_RESSOURCE_BASENAME("com.submerge.i18n.text"),
 	BUNDLE_RESSOURCE("msg"),
 	SHA_256("SHA-256"),
 	SRT("srt"),

@@ -7,7 +7,7 @@
 	<b:navBar id="navbar" brand="#{msg['appName']}" brandHref="#{request.contextPath}/" fixed="top" >
 		<h:panelGroup id="pg-nav" styleClass="navbar-right">
 			<b:navbarLinks id="nav-menu-right">
-				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{Pages.ABOUT.fullPath}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
+				<b:navLink id="nav-menu-about" value="#{msg['about']}" href="#{request.contextPath}#{Pages.ABOUT.fullPath}" active="#{Pages.ABOUT.fullPath == view.viewId}"></b:navLink>
 				<b:dropMenu id="nav-login-signup" value="#{msg['signUpOrLogin']}" rendered="#{!userBean.logged}">
 					<h:panelGroup layout="block" styleClass="panel-login-signup">
 						<h:form id="form-login" name="form-login">

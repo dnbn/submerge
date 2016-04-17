@@ -3,16 +3,21 @@ package com.submerge.web.bean.backing;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -21,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.submerge.constant.FontName;
+import com.submerge.constant.SupportedLocales;
 import com.submerge.exception.InvalidFileException;
 import com.submerge.exception.InvalidSubException;
 import com.submerge.model.entity.SubtitleProfile;
@@ -57,7 +64,22 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	@Autowired
 	private UserBean userBean;
 
+	private String languageTop;
+
+	private String languageBottom;
+
 	// ======================== Public methods ==========================
+
+	@PostConstruct
+	public void doInit() {
+		SubtitleProfile top = this.userConfig.getProfileTop();
+		SubtitleProfile bottom = this.userConfig.getProfileBottom();
+
+		initProfile(top);
+		initProfile(bottom);
+
+		updatePreviewLanguages();
+	}
 
 	/**
 	 * Parse an uploaded file and fill the model bean if ok
@@ -134,6 +156,23 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	 */
 	public void onPageLoad() {
 		updateFilesMessages(false);
+		updatePreviewLanguages();
+	}
+
+	/**
+	 * Update the language of the top preview
+	 */
+	public void updatePreviewLanguageTop() {
+		String language = getRequestParameterMap().get("languageToSet");
+		this.userConfig.getProfileTop().setLanguage(language);
+	}
+
+	/**
+	 * Update the language of the bottom preview
+	 */
+	public void updatePreviewLanguageBottom() {
+		String language = getRequestParameterMap().get("languageToSet");
+		this.userConfig.getProfileBottom().setLanguage(language);
 	}
 
 	// ===================== private methods start =====================
@@ -180,8 +219,36 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		if (StringUtils.isEmpty(filename)) {
 			filename = this.userConfig.getTopSubtitle().getFileName();
 			filename = FilenameUtils.getBaseName(filename);
+		} else {
+			Map<String, String> substitutes = new HashMap<>();
+
+			String topN = FilenameUtils.getBaseName(this.userConfig.getTopSubtitle().getFileName());
+			String botN = FilenameUtils.getBaseName(this.userConfig.getBottomSubtitle().getFileName());
+
+			substitutes.put("top", topN);
+			substitutes.put("bottom", botN);
+			substitutes.put("baseTop", StringUtils.substringBeforeLast(topN, "."));
+			substitutes.put("baseBottom", StringUtils.substringBeforeLast(botN, "."));
+
+			StrSubstitutor substitutor = new StrSubstitutor(substitutes);
+			filename = substitutor.replace(filename);
 		}
 		return filename;
+	}
+
+	/**
+	 * Init the subtitle profile
+	 * 
+	 * @param profile the subtitle profile
+	 */
+	private static void initProfile(SubtitleProfile profile) {
+		if (StringUtils.isEmpty(profile.getFontName())) {
+			profile.setPrimaryColor("#fffff9");
+			profile.setOutlineColor("000000");
+			profile.setOutlineWidth(2);
+			profile.setFontName(FontName.Arial.toString());
+			profile.setFontSize(16);
+		}
 	}
 
 	/**
@@ -220,4 +287,51 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Define the default languages of the previews
+	 */
+	private void updatePreviewLanguages() {
+		this.languageBottom = this.userConfig.getProfileBottom().getLanguage();
+		this.languageTop = this.userConfig.getProfileTop().getLanguage();
+
+		if (StringUtils.isEmpty(this.languageBottom)) {
+			this.languageBottom = this.userBean.getLanguage();
+		}
+
+		if (StringUtils.isEmpty(this.languageTop)) {
+			if (this.languageBottom.equals(SupportedLocales.ENGLISH.getLanguage())) {
+				this.languageTop = SupportedLocales.FRENCH.getLanguage();
+			} else {
+				this.languageTop = SupportedLocales.ENGLISH.getLanguage();
+			}
+		}
+	}
+
+	// ======================== GETTER and SETTER methods ==========================
+
+	public String getLanguageTop() {
+		return this.languageTop;
+	}
+
+	public void setLanguageTop(String languageTop) {
+		this.languageTop = languageTop;
+	}
+
+	public String getLanguageBottom() {
+		return this.languageBottom;
+	}
+
+	public void setLanguageBottom(String languageBottom) {
+		this.languageBottom = languageBottom;
+	}
+
+	public String getPreviewTop() {
+		Locale locale = new Locale(this.languageTop);
+		return getBundleMessages(locale).getString("sub.preview");
+	}
+
+	public String getPreviewBottom() {
+		Locale locale = new Locale(this.languageBottom);
+		return getBundleMessages(locale).getString("sub.preview");
+	}
 }

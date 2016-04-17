@@ -1,7 +1,6 @@
 package com.submerge.model.entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,8 +12,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.submerge.constant.FontName;
 
 @Entity
 @Table(name = "subtitle_profile", schema = "public")
@@ -29,14 +26,10 @@ public class SubtitleProfile implements Serializable {
 	private String fontName;
 	private int fontSize;
 	private Date lastUpdate;
+	private String language;
 
 	public SubtitleProfile() {
-		this.primaryColor = "#fffff9";
-		this.outlineColor = "#000000";
-		this.outlineWidth = 2;
-		this.fontName = FontName.Arial.toString();
-		this.fontSize = 16;
-		this.lastUpdate = Calendar.getInstance().getTime();
+		super();
 	}
 
 	public SubtitleProfile(String primaryColor, String outlineColor, int outlineWidth, String fontName, int fontSize) {
@@ -122,6 +115,15 @@ public class SubtitleProfile implements Serializable {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	@Column(name = "language", nullable = true, length = 5)
+	public String getLanguage() {
+		return this.language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

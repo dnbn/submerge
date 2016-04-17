@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 <f:metadata>
 	<f:event type="preRenderView" listener="#{indexBean.onPageLoad}" />
@@ -20,15 +20,16 @@
 	</h:head>
 	<h:body>
 		<h:panelGroup layout="block" id="wrap">
-			<ui:include src="#{Pages.NAVBAR.fullPath}"/>
+			<ui:include src="#{Pages.NAVBAR.fullPath}" />
 			<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data" styleClass="form-horizontal">
-				<b:container id="container" >
+				<b:container id="container">
 					<h:panelGroup id="div-starter">
-						<b:alert id="alert-login" severity="info" rendered="#{!userBean.logged}">
+						<b:alert id="alert-login" severity="info">
 							<b:iconAwesome id="ico-alert-login" name="info-circle" />
-							<h:outputText id="msg-alert-login" value=" #{msg['index.warningRegister']}" escape="false" />
+							<h:outputText id="msg-alert-login" value=" #{msg['index.warningRegister']}" escape="false" rendered="#{!userBean.logged}" />
+							<h:outputText id="msg-alert-saveSettings" value=" #{msg['index.howToSaveSettings']}" escape="false" rendered="#{userBean.logged}" />
 						</b:alert>
-						<b:row id="row-panel" >
+						<b:row id="row-panel">
 							<b:column col-lg="6" id="column-panel-top">
 								<b:panel title="#{msg['index.topSubtitle']}" collapsible="false" id="panel-top" styleClass="sub-panel">
 									<h:panelGroup id="group-upload-top" layout="block" styleClass="upload-zone">
@@ -90,7 +91,7 @@
 									<b:row styleClass="form-group">
 										<b:column col-lg="5" id="top-fontname" styleClass="panel-label">
 											<h:outputLabel value="#{msg['sub.fontname']}" />
-											<b:iconAwesome id="top-ico-fontname" name="info-circle" tooltip-position="top"  tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
+											<b:iconAwesome id="top-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
 										</b:column>
 										<b:column col-lg="7">
 											<h:selectOneMenu value="#{userSubConfigBean.profileTop.fontName}" styleClass="form-control fontName">
@@ -109,9 +110,26 @@
 											</h:selectOneMenu>
 										</b:column>
 									</b:row>
-									<p class="fontPreview">
-										<span>#{msg['sub.preview']}</span>
-									</p>
+									<h:panelGroup class="fontPreview" layout="block">
+										<h:panelGroup class="previewLanguageSelect" layout="block">
+											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageTop}.png" />
+											</h:panelGroup>
+											<ul class="dropDownLanguage">
+												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
+													<h:panelGroup rendered="#{key.language != indexBean.languageTop}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageTop}">
+																<p class="language">
+																	<f:param name="languageToSet" value="#{key.language}"></f:param>
+																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
+																</p>
+															</h:commandLink></li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										</h:panelGroup>
+										<span class="textPreview">#{indexBean.previewTop}</span>
+									</h:panelGroup>
 								</b:panel>
 							</b:column>
 							<b:column col-lg="6" id="column-panel-bottom">
@@ -174,7 +192,7 @@
 									<b:row styleClass="form-group">
 										<b:column col-lg="5" id="bottom-fontname" styleClass="panel-label">
 											<h:outputLabel value="#{msg['sub.fontname']}" />
-											<b:iconAwesome id="bottom-ico-fontname" name="info-circle" tooltip-position="top"  tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
+											<b:iconAwesome id="bottom-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
 										</b:column>
 										<b:column col-lg="7">
 											<h:selectOneMenu value="#{userSubConfigBean.profileBottom.fontName}" styleClass="form-control fontName">
@@ -192,16 +210,33 @@
 											</h:selectOneMenu>
 										</b:column>
 									</b:row>
-									<p class="fontPreview">
-										<span>#{msg['sub.preview']}</span>
-									</p>
+									<h:panelGroup class="fontPreview" layout="block">
+										<h:panelGroup class="previewLanguageSelect" layout="block">
+											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageBottom}.png" />
+											</h:panelGroup>
+											<ul class="dropDownLanguage">
+												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
+													<h:panelGroup rendered="#{key.language != indexBean.languageBottom}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageBottom}">
+																<p class="language">
+																	<f:param name="languageToSet" value="#{key.language}"></f:param>
+																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
+																</p>
+															</h:commandLink></li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										</h:panelGroup>
+										<span class="textPreview">#{indexBean.previewBottom}</span>
+									</h:panelGroup>
 								</b:panel>
 							</b:column>
 							<b:column col-lg="12">
 								<b:panel title="#{msg['index.outputFile']}" collapsible="false">
 									<b:row>
 										<b:column offset-lg="3" col-lg="6" offset-sm="1" col-sm="10" offset-xs="1" col-xs="10">
-											<b:inputText fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{userSubConfigBean.filename}" maxlength="200">
+											<b:inputText tooltip="#{msg['sub.filename.tooltip']}" tooltip-delay="300" tooltip-position="top" fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{userSubConfigBean.filename}" maxlength="200">
 												<f:facet name="append">
 													<h:outputText value=".ass" />
 												</f:facet>
@@ -216,7 +251,7 @@
 								</b:panel>
 							</b:column>
 						</b:row>
-					</h:panelGroup>
+					</h:panelGroup>                   
 				</b:container>
 			</h:form>
 			<h:panelGroup id="push" layout="block" styleClass="push" />

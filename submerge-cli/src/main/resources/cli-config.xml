@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cliConfiguration>
+	<help>
+		<description>Prints the help content</description>
+		<longOption>help</longOption>
+	</help>
+	<mergeToASS>
+		<description>Merge 2 subtitles (SRT / ASS) into one ASS</description>
+		<longOption>merge</longOption>
+	</mergeToASS>
+	<convertToAss>
+		<description>ASS /SRT to ASS conversion</description>
+		<longOption>ass</longOption>
+	</convertToAss>
+	<convertToSrt>
+		<description>ASS /SRT to SRT conversion</description>
+		<longOption>srt</longOption>
+	</convertToSrt>
+	<convertToUtf8>
+		<description>UTF-8 conversion</description>
+		<longOption>utf8</longOption>
+	</convertToUtf8>
+	<outputName>
+		<description>Output filename</description>
+		<longOption>output</longOption>
+	</outputName>
+	<topSubtitle>
+		<description>Filename of the top subtitle</description>
+		<longOption>top</longOption>
+	</topSubtitle>
+	<bottomSubtitle>
+		<description>Filename of the bottom subtitle</description>
+		<longOption>bottom</longOption>
+	</bottomSubtitle>
+</cliConfiguration>

@@ -1,0 +1,35 @@
+span.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left
+	{
+	overflow: hidden;
+}
+
+div#growl_container {
+	top: 70px;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight {
+	background-image: linear-gradient(to bottom, #ccc, #999999);
+}
+
+.convertAssTip {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.explaination {
+	margin-bottom: 15px;
+	text-align: justify;
+}
+
+.cli-links ul {
+	margin-left: 20px;
+}
+
+.cli-links ul li:before {
+	content: '- ';
+}
+
+.cli-links ul li:before {
+	margin-top: 1px;
+}

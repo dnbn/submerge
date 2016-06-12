@@ -1,0 +1,493 @@
+/* Clear Bootstrap
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2,
+	.col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+	.col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5,
+	.col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+	.col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8,
+	.col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+	.col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11,
+	.col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
+	{
+	min-height: 0;
+}
+
+a:hover, a:focus, .btn:hover, .btn:active:focus, .btn.active:focus {
+	text-decoration: none;
+}
+
+a:focus, .btn:focus, .btn:active:focus, .btn.active:focus {
+	outline: invert none medium;
+	outline-offset: 0;
+}
+
+.input-group-btn>.btn:hover, .input-group-btn>.btn:focus,
+	.input-group-btn>.btn:active {
+	z-index: 1;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+p {
+	margin: 0;
+}
+
+/* Global
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+.noPadding {
+	padding: 0;
+}
+
+.noMargin {
+	margin: 0;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.absoluteRight {
+	position: absolute;
+	right: 0px;
+}
+
+.text-italic {
+	font-style: italic;
+}
+
+.fLeft {
+	float: left;
+}
+
+.fRight {
+	float: right;
+}
+
+.displayNone {
+	display: none;
+}
+
+.displayInlineBlock {
+	display: inline-block;
+}
+
+[flex] {
+	box-sizing: border-box;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.alignMiddle {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.vcenter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.noselect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+html, body {
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+}
+
+html, body, .layoutFill {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	background-color: #F8F8F8;
+	font-weight: 300;
+	font-family: 'Roboto';
+}
+
+a {
+	text-decoration: none;
+}
+
+a.simple-link {
+	background: none;
+	color: #23527c;
+}
+
+a.simple-link:hover {
+	text-decoration: underline;
+}
+
+}
+textarea {
+	position: relative;
+	max-width: 100%;
+}
+
+ul {
+	list-style-type: none;
+	margin: auto;
+	padding: 0;
+}
+
+button:active, button:focus {
+	outline: 0;
+}
+
+.btn:hover {
+	transition: 0.2s;
+}
+
+.btn-success {
+	background-image: none;
+}
+
+i.fa {
+	font-size: 14px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+label {
+	font-weight: normal;
+}
+
+.full {
+	width: 100%;
+}
+
+.normalLine {
+	line-height: normal;
+}
+
+.button {
+	border: none;
+	background: #6BB371;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-size: 1.025em;
+	border-radius: 3px;
+}
+
+.colorpicker.dropdown-menu.colorpicker-right.colorpicker-visible {
+	min-width: 1px;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+.alert-info {
+	background-image: none;
+	border-color: #bce8f1;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
+.vertical-center {
+	padding-top: 75px;
+	min-height: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+}
+
+.footer-center {
+	margin-top: -235px;
+}
+
+/* Header
+-------------------------------------------------------------------------------------------------------------------- */
+#navbar {
+	background-image: none;
+	background: #292D35;
+	font-size: 14px;
+	font-weight: 300;
+	font-family: 'Roboto';
+	color: #FEFEFE;
+}
+
+#navbar li>a, #navbar a.navbar-brand, #navbar .language a {
+	color: #FEFEFE;
+}
+
+#navbar li.active>a, #navbar li.focus>a, #navbar li.open>a, #navbar li:hover
+	{
+	background-image: none;
+	box-shadow: none;
+	background-color: #36383F;
+}
+
+#navbar span.language {
+	text-transform: uppercase;
+}
+
+#navbar .language {
+	display: inline-block;
+	line-height: 12px;
+	font-size: 12px;
+	padding: 6px 8px;
+}
+
+#navbar .language:hover {
+	background: #34373E;
+	box-shadow: 0 0 2px #7A7E85;
+	cursor: pointer;
+	position: relative;
+	z-index: 12;
+}
+
+#form-logout a {
+	display: block;
+	height: 100%;
+	width: 100%;
+	cursor: pointer;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#navbar .language img, .fontPreview img {
+	width: 16px;
+	height: 11px;
+}
+
+#navbar .language img, #navbar .language span, .fontPreview .preview-language img, .fontPreview .preview-language span  {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 2px;
+}
+
+#navbar p.language {
+	float: left;
+}
+
+#navbar .dropDownLanguage, .fontPreview .dropDownLanguage{
+	display: none;
+	z-index: 10;
+}
+
+#navbar .dropDownLanguage {
+	background: #292D35;
+	position: absolute;
+	margin-top: -12px;
+}
+
+#navbar .currentLanguage {
+	margin: 0 20px;
+}
+
+#navbar .currentLanguage:hover .dropDownLanguage, .previewLanguageSelect:hover .dropDownLanguage {
+	display: block;
+}
+
+#navbar .dropDownLanguage li, .fontPreview .dropDownLanguage li {
+	line-height: normal;
+}
+
+#navbar .collapse.navbar-collapse.navbar-ex1-collapse {
+	line-height: 50px;
+}
+
+#div-remember {
+	line-height: normal;
+}
+
+#nav-login-signup .panel-login-signup {
+	padding: 10px;
+}
+
+#nav-login-signup ul.dropdown-menu {
+	width: 100%;
+	min-width: 200px;
+}
+
+#form-login .ui-message-error {
+	line-height: normal;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+@media ( max-width : 992px) {
+	.container {
+      width: 100%;
+    }
+	#nav-menu-language {
+		display: none;
+	}
+	#form-login\:signup-link {
+		color: #FEFEFE;
+	}
+}
+
+@media ( min-width : 992px) {
+	#div-remember {
+		color: #333;
+	}
+}
+
+/* Main
+-------------------------------------------------------------------------------------------------------------------- */
+.border {
+	border: 1px solid #ddd;
+}
+
+.panel {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	border: none;
+}
+
+.panel-default>.panel-heading {
+	color: white;
+	background-color: #6BB371;
+	background-image: none;
+}
+
+.panel-title {
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+}
+
+@media ( max-width : 1200px) {
+	.panel-label {
+		margin-top: 5px;
+	}
+}
+
+#main {
+	margin: 20px auto;
+}
+
+.fontPreview {
+	position: relative;
+	height: 100px;
+	line-height: 100px;
+	margin: 0;
+	border: 1px solid #E7E7E7;
+	background: hsl(0, 0%, 97%);
+	text-align: center;
+}
+
+.fontPreview span {
+	padding: 0 20px;
+	line-height: normal;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 22px;
+}
+
+.fontPreview .previewLanguageSelect {
+	position: absolute;
+    left: 5px;
+    bottom: 5px;
+}
+
+.fontPreview .preview-language img {
+	position: absolute;
+    bottom: 0;
+}
+
+.previewLanguageSelect:hover {
+	cursor: pointer;
+}
+
+.fontPreview .dropDownLanguage {
+	position: absolute;
+	margin-left: 2px;
+}
+
+
+/* Footer
+-------------------------------------------------------------------------------------------------------------------- */
+#wrap {
+	min-height: 100%;
+	height: 100%;
+	height: auto !important;
+	padding-top: 75px;
+	margin: 0 auto -160px;
+}
+
+#footer, .push {
+	height: 160px;
+}
+
+#footer {
+	line-height: 160px;
+	color: #FEFEFE;
+	background: #292D35;
+}
+
+#footer>.container>.row>div {
+	height: 160px;
+	line-height: 160px;
+}
+
+#footer .rights {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: 12px;
+}
+
+#footer .border1, #footer .border2 {
+	position: relative;
+	width: 100%;
+	height: 120px;
+	line-height: 120px;
+	text-align: center;
+}
+
+#footer .border1 {
+	border-left: 1px solid #3B3B3B;
+	margin: 20px 0;
+}
+
+#footer .border2 {
+	border-left: 1px solid #000;
+}
+
+#footer .sourceCode {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+#footer .sourceCode img {
+	display: block;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+#footer .sourceCode a {
+	color: #549CCF;
+	text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: 12px;
+}
+
+#footer .sourceCode a:hover {
+	text-decoration: underline;
+}

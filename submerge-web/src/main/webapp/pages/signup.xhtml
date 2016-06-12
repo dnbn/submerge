@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<o:importConstants type="submerge.web.constant.Pages" var="Pages" />
+<o:importConstants type="submerge.web.constant.Regex" var="Regex" />
+
+<f:view locale="#{userBean.locale}">
+	<h:head>
+		<meta name="description" content="#{msg['signUp']}" />
+		<ui:include src="#{Pages.HEADER_CONTENT.fullPath}" />
+		<h:outputStylesheet library="default" name="css/signup.css" />
+	</h:head>
+	<h:body>
+		<h:panelGroup layout="block" id="wrap">
+			<ui:include src="#{Pages.NAVBAR.fullPath}" />
+			<h:form id="signup-form" class="signup-form" rendered="#{!userBean.logged}">
+				<b:container id="container-signup" styleClass="footer-center vertical-center">
+					<b:column col-lg="6" offset-lg="3" col-sm="8" offset-sm="2" id="col-container-signup">
+						<b:panel title="#{msg['signUp']}" collapsible="false" id="panel-signup">
+							<b:row id="row-pseudo" styleClass="signup-row">
+								<b:column col-lg="10" offset-lg="1" id="col-pseudo">
+									<b:inputText placeholder="#{msg['signUp.username']}" id="userName" fieldSize="sm" value="#{registrationBean.user.name}" required="true" maxlength="20"
+										requiredMessage="#{msg['validator.requiredField']} ">
+										<f:ajax event="change" render="userNameMessage" />
+										<o:validator binding="#{userNotExitsValidator}" message="#{msg['validator.exists.username']}" />
+										<o:validator validatorId="javax.faces.RegularExpression" pattern="#{Regex.USERNAME.val}" message="#{msg['validator.invalid.username']}" />
+										<f:facet name="prepend">
+											<b:icon name="user"></b:icon>
+										</f:facet>
+									</b:inputText>
+								</b:column>
+							</b:row>
+							<b:row id="row-pseudo-message">
+								<b:column col-lg="10" offset-lg="1" id="col-pseudo-message">
+									<p:message id="userNameMessage" for="userName" />
+								</b:column>
+							</b:row>
+							<b:row id="row-email" styleClass="signup-row">
+								<b:column col-lg="10" offset-lg="1" id="col-email">
+									<b:inputText id="email" placeholder="#{msg['signUp.email']}" fieldSize="sm" value="#{registrationBean.user.email}" required="true"
+										requiredMessage="#{msg['validator.requiredField']}" maxlength="320">
+										<f:ajax event="change" render="emailMessage" />
+										<o:validator binding="#{emailNotExistValidator}" message="#{msg['validator.exists.email']}" />
+										<o:validator validatorId="javax.faces.RegularExpression" pattern="#{Regex.EMAIL.val}" message="#{msg['validator.invalid.email']}" />
+										<o:validator validatorId="javax.faces.Length" message="#{msg['validator.invalid.email']}" maximum="320"></o:validator>
+										<f:facet name="prepend">
+											<b:icon name="envelope"></b:icon>
+										</f:facet>
+									</b:inputText>
+								</b:column>
+							</b:row>
+							<b:row id="row-email-message">
+								<b:column col-lg="10" offset-lg="1" id="col-email-message">
+									<p:message id="emailMessage" for="email" />
+								</b:column>
+							</b:row>
+							<b:row id="row-password" styleClass="signup-row">
+								<b:column col-lg="10" offset-lg="1" id="col-password">
+									<b:inputSecret id="password" placeholder="#{msg['signUp.password']}" fieldSize="sm" value="#{registrationBean.user.password}" required="true"
+										validatorMessage="#{msg['validator.invalid.password']}" requiredMessage="#{msg['validator.requiredField']}" binding="#{cpntPassword}">
+										<f:ajax event="change" execute="password passwordConfirm" render="passwordMessage passwordConfirmMessage" />
+										<f:validateLength minimum="5" maximum="50" />
+										<f:facet name="prepend">
+											<b:icon name="lock"></b:icon>
+										</f:facet>
+									</b:inputSecret>
+								</b:column>
+							</b:row>
+							<b:row id="row-password-message">
+								<b:column col-lg="10" offset-lg="1" id="col-password-message">
+									<p:message id="passwordMessage" for="password" />
+								</b:column>
+							</b:row>
+							<b:row id="row-password-confirm" styleClass="signup-row">
+								<b:column col-lg="10" offset-lg="1" id="col-password-confirm">
+									<b:inputSecret id="passwordConfirm" placeholder="#{msg['signUp.passwordConfirm']}" fieldSize="sm" value="#{registrationBean.user.password}"
+										required="true" validatorMessage="#{msg['validator.notsame.password']}" requiredMessage="#{msg['validator.requiredField']}">
+										<f:ajax event="change" execute="password passwordConfirm" render="passwordMessage passwordConfirmMessage" />
+										<f:attribute name="cpntPassword" value="#{cpntPassword}" />
+										<f:validator validatorId="confirmPasswordValidator" />
+										<f:facet name="prepend">
+											<b:icon name="lock"></b:icon>
+										</f:facet>
+									</b:inputSecret>
+								</b:column>
+							</b:row>
+							<b:row id="row-password-confirm-message">
+								<b:column col-lg="10" offset-lg="1" id="col-password-confirm-message">
+									<p:message id="passwordConfirmMessage" for="passwordConfirm" />
+								</b:column>
+							</b:row>
+							<h:panelGroup id="group-signup" layout="block" styleClass="form-group text-center">
+								<b:commandButton look="success" value="#{msg['signUp.register']}" action="#{registrationBean.register}" ajax="false" update="@form" />
+							</h:panelGroup>
+						</b:panel>
+					</b:column>
+				</b:container>
+			</h:form>
+			<h:panelGroup id="push" layout="block" styleClass="push" />
+		</h:panelGroup>
+		<ui:include src="#{Pages.FOOTER.fullPath}" />
+	</h:body>
+</f:view>
+</html>

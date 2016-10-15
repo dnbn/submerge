@@ -19,6 +19,7 @@ public enum Pages {
 	NAVBAR("navbar", "composition/"), 
 	FOOTER("footer", "composition/"), 
 	STYLES("styles", "composition/"), 
+	NOTIFICATION("notification", "composition/"),
 	HEADER_CONTENT("header-content", "composition/");
 
 	private static final String ROOT = "/pages/";

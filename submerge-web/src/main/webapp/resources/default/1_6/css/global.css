@@ -215,6 +215,16 @@ label {
 	margin-top: -235px;
 }
 
+.alert {
+    padding: 13px;
+    margin-bottom: 15px;
+}
+
+.panel-body {
+    padding-bottom: 11px;
+    padding-top: 11px;
+}
+
 /* Header
 -------------------------------------------------------------------------------------------------------------------- */
 #navbar {
@@ -432,12 +442,12 @@ label {
 	min-height: 100%;
 	height: 100%;
 	height: auto !important;
-	padding-top: 75px;
-	margin: 0 auto -140px;
+	padding-top: 70px;
+	margin: 0 auto -150px;
 }
 
 #footer, .push {
-	height: 140px;
+	height: 150px;
 }
 
 #footer {
@@ -447,8 +457,8 @@ label {
 }
 
 #footer>.container>.row>div {
-	height: 140px;
-	line-height: 140px;
+	height: 120px;
+	line-height: 120px;
 }
 
 #footer .rights {
@@ -470,7 +480,7 @@ label {
 
 #footer .border1 {
 	border-left: 1px solid #3B3B3B;
-	margin: 20px 0;
+	margin: 5px 0;
 }
 
 #footer .border2 {

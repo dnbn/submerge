@@ -23,6 +23,7 @@
 			<ui:include src="#{Pages.NAVBAR.fullPath}" />
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			<b:container id="container">
+				<ui:include src="#{Pages.NOTIFICATION.fullPath}" />
 				<b:row id="row-convert1">
 					<b:column col-lg="6" id="column-panel-srt">
 						<b:panel title="#{msg['tools.convertsrt']}" collapsible="false" id="panel-srt-convert" styleClass="sub-panel">

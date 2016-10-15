@@ -24,11 +24,7 @@
 			<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data" styleClass="form-horizontal">
 				<b:container id="container">
 					<h:panelGroup id="div-starter">
-						<b:alert id="alert-login" severity="info">
-							<b:iconAwesome id="ico-alert-login" name="info-circle" />
-							<h:outputText id="msg-alert-login" value=" #{msg['index.warningRegister']}" escape="false" rendered="#{!userBean.logged}" />
-							<h:outputText id="msg-alert-saveSettings" value=" #{msg['index.howToSaveSettings']}" escape="false" rendered="#{userBean.logged}" />
-						</b:alert>
+						<ui:include src="#{Pages.NOTIFICATION.fullPath}" />
 						<b:row id="row-panel">
 							<b:column col-lg="6" id="column-panel-one">
 								<b:panel title="#{msg['index.subOne']}" collapsible="false" id="panel-top" styleClass="sub-panel">

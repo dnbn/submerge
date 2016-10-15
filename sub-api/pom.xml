@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.submerge</groupId>
-	<artifactId>sub-api</artifactId>
+	<artifactId>submerge-api</artifactId>
 	<version>1.2</version>
-	<name>submerge-sub-api</name>
+	<name>submerge-api</name>
 	<packaging>jar</packaging>
 
 	<properties>

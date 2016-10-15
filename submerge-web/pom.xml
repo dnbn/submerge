@@ -6,7 +6,7 @@
 	<artifactId>submerge-web</artifactId>
 	<version>1.2</version>
 	<packaging>war</packaging>
-	<name>submerge</name>
+	<name>submerge-web</name>
 
 	<properties>
 		<bootsfaces.version>0.8.0</bootsfaces.version>
@@ -30,15 +30,15 @@
 		<jandex.version>1.2.2.Final</jandex.version>
 		<slf4j-api.version>1.7.12</slf4j-api.version>
 		<juniversalchardet.version>1.0.3</juniversalchardet.version>
-		<sub-api.version>1.2</sub-api.version>
+		<submerge-api.version>1.2</submerge-api.version>
 	</properties>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>com.submerge</groupId>
-			<artifactId>sub-api</artifactId>
-			<version>${sub-api.version}</version>			
+			<artifactId>submerge-api</artifactId>
+			<version>${submerge-api.version}</version>			
 		</dependency>
 
 		<dependency>

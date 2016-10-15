@@ -1,4 +1,4 @@
-package submerge.sub.object.ass;
+package com.submerge.sub.object.ass;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.itf.TimedLine;
 
 /**
  * Contain the subtitle text, their timings, and how it should be displayed. The fields

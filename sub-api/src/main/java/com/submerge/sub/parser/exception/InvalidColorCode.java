@@ -1,4 +1,4 @@
-package submerge.sub.parser.exception;
+package com.submerge.sub.parser.exception;
 
 public class InvalidColorCode extends RuntimeException {
 

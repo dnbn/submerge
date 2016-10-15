@@ -1,4 +1,4 @@
-package submerge.sub.object.ass;
+package com.submerge.sub.object.ass;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import submerge.sub.object.itf.TimedLine;
-import submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.itf.TimedTextFile;
 
 /**
  * The class <code>ASSSub</code> represents a SubStation Alpha subtitle

@@ -416,6 +416,15 @@ label {
 	margin-left: 2px;
 }
 
+.alignment  {
+    padding-left: 2px;
+    padding-right: 0;
+}
+
+.offSetAlignment {
+	padding-left: 0;
+	padding-right: 2px;
+}
 
 /* Footer
 -------------------------------------------------------------------------------------------------------------------- */
@@ -424,22 +433,22 @@ label {
 	height: 100%;
 	height: auto !important;
 	padding-top: 75px;
-	margin: 0 auto -160px;
+	margin: 0 auto -140px;
 }
 
 #footer, .push {
-	height: 160px;
+	height: 140px;
 }
 
 #footer {
-	line-height: 160px;
+	line-height: 140px;
 	color: #FEFEFE;
 	background: #292D35;
 }
 
 #footer>.container>.row>div {
-	height: 160px;
-	line-height: 160px;
+	height: 140px;
+	line-height: 140px;
 }
 
 #footer .rights {

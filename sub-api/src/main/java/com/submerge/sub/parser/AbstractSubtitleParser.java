@@ -1,4 +1,4 @@
-package submerge.sub.parser;
+package com.submerge.sub.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,11 +8,11 @@ import java.io.InputStreamReader;
 
 import org.apache.commons.lang.StringUtils;
 
-import submerge.sub.object.itf.TimedTextFile;
-import submerge.sub.parser.exception.InvalidFileException;
-import submerge.sub.parser.exception.InvalidSubException;
-import submerge.sub.parser.itf.SubtitleParser;
-import submerge.sub.utils.FileUtils;
+import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.parser.exception.InvalidFileException;
+import com.submerge.sub.parser.exception.InvalidSubException;
+import com.submerge.sub.parser.itf.SubtitleParser;
+import com.submerge.sub.utils.FileUtils;
 
 public abstract class AbstractSubtitleParser implements SubtitleParser {
 

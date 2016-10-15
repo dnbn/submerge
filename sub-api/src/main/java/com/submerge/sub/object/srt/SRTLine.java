@@ -1,10 +1,10 @@
-package submerge.sub.object.srt;
+package com.submerge.sub.object.srt;
 
 import java.io.Serializable;
 import java.util.List;
 
-import submerge.sub.object.itf.TimedLine;
-import submerge.sub.object.itf.TimedObject;
+import com.submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.itf.TimedObject;
 
 /**
  * Class <SRTLine> represents an abstract line of SRT, meaning text, timecodes and index

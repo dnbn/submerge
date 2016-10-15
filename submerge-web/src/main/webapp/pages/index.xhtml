@@ -7,7 +7,7 @@
 	<f:event type="preRenderView" listener="#{indexBean.onPageLoad}" />
 </f:metadata>
 
-<o:importConstants type="submerge.web.constant.Pages" var="Pages" />
+<o:importConstants type="com.submerge.web.constant.Pages" var="Pages" />
 
 <f:view locale="#{userBean.locale}">
 	<h:head>
@@ -30,13 +30,13 @@
 							<h:outputText id="msg-alert-saveSettings" value=" #{msg['index.howToSaveSettings']}" escape="false" rendered="#{userBean.logged}" />
 						</b:alert>
 						<b:row id="row-panel">
-							<b:column col-lg="6" id="column-panel-top">
-								<b:panel title="#{msg['index.topSubtitle']}" collapsible="false" id="panel-top" styleClass="sub-panel">
+							<b:column col-lg="6" id="column-panel-one">
+								<b:panel title="#{msg['index.subOne']}" collapsible="false" id="panel-top" styleClass="sub-panel">
 									<h:panelGroup id="group-upload-top" layout="block" styleClass="upload-zone">
-										<p:fileUpload id="topUpload" fileUploadListener="#{indexBean.handleFileUpload}" label="#{msg['index.choose']}" auto="true" sizeLimit="1048576"
-											allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="topUploadMessage" required="false">
+										<p:fileUpload id="uploadOne" fileUploadListener="#{indexBean.handleFileUpload}" label="#{msg['index.choose']}" auto="true" sizeLimit="1048576"
+											allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="uploadOneMessage" required="false">
 										</p:fileUpload>
-										<p:messages id="topUploadMessage" for="topUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+										<p:messages id="uploadOneMessage" for="uploadOne" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
 									</h:panelGroup>
 									<b:row id="row-color-top" styleClass="form-group">
 										<b:column col-lg="5" id="col-color-top" styleClass="panel-label">
@@ -44,7 +44,7 @@
 										</b:column>
 										<b:column col-lg="7">
 											<h:panelGroup layout="block" styleClass="input-group color-picker color">
-												<h:inputText id="topColor" value="#{userSubConfigBean.profileTop.primaryColor}" class="form-control" required="true"
+												<h:inputText id="topColor" value="#{userSubConfigBean.profileOne.primaryColor}" class="form-control" required="true"
 													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 													<f:validator validatorId="webColorValidator" />
 												</h:inputText>
@@ -64,7 +64,7 @@
 										</b:column>
 										<b:column col-lg="7">
 											<h:panelGroup layout="block" styleClass="input-group color-picker outlineColor">
-												<h:inputText id="topOutlineColor" value="#{userSubConfigBean.profileTop.outlineColor}" class="form-control" required="true"
+												<h:inputText id="topOutlineColor" value="#{userSubConfigBean.profileOne.outlineColor}" class="form-control" required="true"
 													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 													<f:validator validatorId="webColorValidator" />
 												</h:inputText>
@@ -83,7 +83,7 @@
 											<h:outputLabel value="#{msg['sub.outline']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileTop.outlineWidth}" styleClass="form-control outlineWidth">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.outlineWidth}" styleClass="form-control outlineWidth">
 												<f:selectItems value="#{dropDownBean.outlineWidth}" />
 											</h:selectOneMenu>
 										</b:column>
@@ -94,7 +94,7 @@
 											<b:iconAwesome id="top-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileTop.fontName}" styleClass="form-control fontName">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.fontName}" styleClass="form-control fontName">
 												<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
 											</h:selectOneMenu>
 										</b:column>
@@ -105,20 +105,37 @@
 											<h:outputLabel value="#{msg['sub.fontsize']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileTop.fontSize}" styleClass="form-control fontSize">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.fontSize}" styleClass="form-control fontSize">
 												<f:selectItems value="#{dropDownBean.fontSize}" />
 											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['index.position']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<b:column col-lg="6" styleClass="offSetAlignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileOne.alignmentOffset}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.offsetAlignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+											<b:column col-lg="6" styleClass="alignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileOne.alignment}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.alignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
 										</b:column>
 									</b:row>
 									<h:panelGroup class="fontPreview" layout="block">
 										<h:panelGroup class="previewLanguageSelect" layout="block">
 											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
-												<h:graphicImage library="default" name="img/flags/#{indexBean.languageTop}.png" />
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageOne}.png" />
 											</h:panelGroup>
 											<ul class="dropDownLanguage">
 												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
-													<h:panelGroup rendered="#{key.language != indexBean.languageTop}">
-														<li><h:commandLink action="#{indexBean.updatePreviewLanguageTop}">
+													<h:panelGroup rendered="#{key.language != indexBean.languageOne}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageOne}">
 																<p class="language">
 																	<f:param name="languageToSet" value="#{key.language}"></f:param>
 																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
@@ -128,16 +145,16 @@
 												</ui:repeat>
 											</ul>
 										</h:panelGroup>
-										<span class="textPreview">#{indexBean.previewTop}</span>
+										<span class="textPreview">#{indexBean.previewOne}</span>
 									</h:panelGroup>
 								</b:panel>
 							</b:column>
-							<b:column col-lg="6" id="column-panel-bottom">
-								<b:panel title="#{msg['index.bottomSubtitle']}" collapsible="false" id="panel-bottom" styleClass="sub-panel">
+							<b:column col-lg="6" id="column-panel-two">
+								<b:panel title="#{msg['index.subTwo']}" collapsible="false" id="panel-bottom" styleClass="sub-panel">
 									<h:panelGroup id="group-upload-bottom" layout="block" styleClass="upload-zone">
-										<p:fileUpload id="bottomUpload" fileUploadListener="#{indexBean.handleFileUpload}" value="#{userSubConfigBean.profileBottom.file}"
-											label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="bottomUploadMessage" required="false" />
-										<p:messages id="bottomUploadMessage" for="bottomUpload" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+										<p:fileUpload id="uploadTwo" fileUploadListener="#{indexBean.handleFileUpload}" value="#{userSubConfigBean.profileTwo.file}"
+											label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="uploadTwoMessage" required="false" />
+										<p:messages id="uploadTwoMessage" for="uploadTwo" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
 									</h:panelGroup>
 									<b:row id="row-color-bottom" styleClass="form-group">
 										<b:column col-lg="5" id="col-color-bottom">
@@ -145,7 +162,7 @@
 										</b:column>
 										<b:column col-lg="7">
 											<h:panelGroup layout="block" styleClass="input-group color-picker color">
-												<h:inputText id="bottomColor" value="#{userSubConfigBean.profileBottom.primaryColor}" class="form-control" required="true"
+												<h:inputText id="bottomColor" value="#{userSubConfigBean.profileTwo.primaryColor}" class="form-control" required="true"
 													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 													<f:validator validatorId="webColorValidator" />
 												</h:inputText>
@@ -165,7 +182,7 @@
 										</b:column>
 										<b:column col-lg="7">
 											<h:panelGroup layout="block" styleClass="input-group color-picker outlineColor">
-												<h:inputText id="bottomOutlineColor" value="#{userSubConfigBean.profileBottom.outlineColor}" class="form-control" required="true"
+												<h:inputText id="bottomOutlineColor" value="#{userSubConfigBean.profileTwo.outlineColor}" class="form-control" required="true"
 													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
 													<f:validator validatorId="webColorValidator" />
 												</h:inputText>
@@ -184,7 +201,7 @@
 											<h:outputLabel value="#{msg['sub.outline']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileBottom.outlineWidth}" styleClass="form-control outlineWidth">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.outlineWidth}" styleClass="form-control outlineWidth">
 												<f:selectItems value="#{dropDownBean.outlineWidth}" />
 											</h:selectOneMenu>
 										</b:column>
@@ -195,7 +212,7 @@
 											<b:iconAwesome id="bottom-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileBottom.fontName}" styleClass="form-control fontName">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.fontName}" styleClass="form-control fontName">
 												<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
 											</h:selectOneMenu>
 										</b:column>
@@ -205,20 +222,37 @@
 											<h:outputLabel value="#{msg['sub.fontsize']}" />
 										</b:column>
 										<b:column col-lg="7">
-											<h:selectOneMenu value="#{userSubConfigBean.profileBottom.fontSize}" styleClass="form-control fontSize">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.fontSize}" styleClass="form-control fontSize">
 												<f:selectItems value="#{dropDownBean.fontSize}" />
 											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['index.position']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<b:column col-lg="6" styleClass="offSetAlignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileTwo.alignmentOffset}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.offsetAlignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+											<b:column col-lg="6" styleClass="alignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileTwo.alignment}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.alignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
 										</b:column>
 									</b:row>
 									<h:panelGroup class="fontPreview" layout="block">
 										<h:panelGroup class="previewLanguageSelect" layout="block">
 											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
-												<h:graphicImage library="default" name="img/flags/#{indexBean.languageBottom}.png" />
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageTwo}.png" />
 											</h:panelGroup>
 											<ul class="dropDownLanguage">
 												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
-													<h:panelGroup rendered="#{key.language != indexBean.languageBottom}">
-														<li><h:commandLink action="#{indexBean.updatePreviewLanguageBottom}">
+													<h:panelGroup rendered="#{key.language != indexBean.languageTwo}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageTwo}">
 																<p class="language">
 																	<f:param name="languageToSet" value="#{key.language}"></f:param>
 																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
@@ -228,7 +262,7 @@
 												</ui:repeat>
 											</ul>
 										</h:panelGroup>
-										<span class="textPreview">#{indexBean.previewBottom}</span>
+										<span class="textPreview">#{indexBean.previewTwo}</span>
 									</h:panelGroup>
 								</b:panel>
 							</b:column>
@@ -236,7 +270,8 @@
 								<b:panel title="#{msg['index.outputFile']}" collapsible="false">
 									<b:row>
 										<b:column offset-lg="3" col-lg="6" offset-sm="1" col-sm="10" offset-xs="1" col-xs="10">
-											<b:inputText tooltip="#{msg['sub.filename.tooltip']}" tooltip-delay="300" tooltip-position="top" fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{userSubConfigBean.filename}" maxlength="200">
+											<b:inputText tooltip="#{msg['sub.filename.tooltip']}" tooltip-delay="300" tooltip-position="top" fieldSize="sm" placeholder="#{msg['sub.filename']}"
+												value="#{userSubConfigBean.filename}" maxlength="200">
 												<f:facet name="append">
 													<h:outputText value=".ass" />
 												</f:facet>
@@ -251,7 +286,7 @@
 								</b:panel>
 							</b:column>
 						</b:row>
-					</h:panelGroup>                   
+					</h:panelGroup>
 				</b:container>
 			</h:form>
 			<h:panelGroup id="push" layout="block" styleClass="push" />

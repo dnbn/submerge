@@ -1,4 +1,4 @@
-package submerge.sub.utils;
+package com.submerge.sub.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

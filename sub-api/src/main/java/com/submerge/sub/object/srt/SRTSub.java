@@ -1,11 +1,11 @@
-package submerge.sub.object.srt;
+package com.submerge.sub.object.srt;
 
 import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
-import submerge.sub.object.itf.TimedLine;
-import submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.itf.TimedTextFile;
 
 /**
  * Class <SRTLine> represents an SRT file, meandin a complete set of subtitle

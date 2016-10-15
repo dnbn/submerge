@@ -1,10 +1,10 @@
-package submerge.sub.object.srt;
+package com.submerge.sub.object.srt;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 
-import submerge.sub.object.itf.TimedObject;
+import com.submerge.sub.object.itf.TimedObject;
 
 public class SRTTime implements Serializable, TimedObject {
 

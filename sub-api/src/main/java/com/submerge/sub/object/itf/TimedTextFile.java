@@ -1,4 +1,4 @@
-package submerge.sub.object.itf;
+package com.submerge.sub.object.itf;
 
 import java.util.Set;
 

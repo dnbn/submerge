@@ -1,4 +1,4 @@
-package submerge.sub.parser;
+package com.submerge.sub.parser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,13 +11,13 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import submerge.sub.object.itf.TimedTextFile;
-import submerge.sub.object.srt.SRTLine;
-import submerge.sub.object.srt.SRTSub;
-import submerge.sub.object.srt.SRTTime;
-import submerge.sub.parser.exception.InvalidFileException;
-import submerge.sub.parser.exception.InvalidSRTSubException;
-import submerge.sub.parser.exception.InvalidSubException;
+import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.srt.SRTLine;
+import com.submerge.sub.object.srt.SRTSub;
+import com.submerge.sub.object.srt.SRTTime;
+import com.submerge.sub.parser.exception.InvalidFileException;
+import com.submerge.sub.parser.exception.InvalidSRTSubException;
+import com.submerge.sub.parser.exception.InvalidSubException;
 
 /**
  * Parse SRT subtitles
@@ -112,14 +112,14 @@ public final class SRTParser extends AbstractSubtitleParser {
 	 */
 	private static SRTTime parseTime(String timeLine) throws InvalidSRTSubException {
 		SRTTime time = null;
-		String times[] = timeLine.split(SRTTime.DELIMITER);
+		String times[] = timeLine.split(SRTTime.DELIMITER.trim());
 		if (times.length != 2) {
 			throw new InvalidSRTSubException("Subtitle " + timeLine + " - invalid times : " + timeLine);
 		}
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SRTTime.PATTERN);
-			LocalTime start = LocalTime.parse(times[0], formatter);
-			LocalTime end = LocalTime.parse(times[1], formatter);
+			LocalTime start = LocalTime.parse(times[0].trim(), formatter);
+			LocalTime end = LocalTime.parse(times[1].trim(), formatter);
 			time = new SRTTime(start, end);
 		} catch (DateTimeParseException e) {
 			throw new InvalidSRTSubException("Invalid time string : " + timeLine, e);

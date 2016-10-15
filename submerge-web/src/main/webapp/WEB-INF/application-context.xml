@@ -18,7 +18,7 @@
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan" value="submerge.web.model.entity" />
+		<property name="packagesToScan" value="com.submerge.web.model.entity" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${db.dialect}</prop>
@@ -32,7 +32,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
 	<context:annotation-config />
-	<context:component-scan base-package="submerge.web"></context:component-scan>
+	<context:component-scan base-package="com.submerge.web"></context:component-scan>
 
 	<context:property-placeholder location="classpath:application.properties"></context:property-placeholder>
 

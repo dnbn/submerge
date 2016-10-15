@@ -1,8 +1,8 @@
-package submerge.sub.object.config;
+package com.submerge.sub.object.config;
 
 import java.io.Serializable;
 
-import submerge.sub.constant.FontName;
+import com.submerge.sub.constant.FontName;
 
 public class Font implements Serializable {
 

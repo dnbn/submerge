@@ -1,8 +1,8 @@
-package submerge.sub.utils;
+package com.submerge.sub.utils;
 
 import java.awt.Color;
 
-import submerge.sub.parser.exception.InvalidColorCode;
+import com.submerge.sub.parser.exception.InvalidColorCode;
 
 
 public final class ColorUtils {

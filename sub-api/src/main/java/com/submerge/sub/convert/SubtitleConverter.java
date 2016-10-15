@@ -1,4 +1,4 @@
-package submerge.sub.convert;
+package com.submerge.sub.convert;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,19 +7,19 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
-import submerge.sub.object.ass.ASSSub;
-import submerge.sub.object.ass.ASSTime;
-import submerge.sub.object.ass.Events;
-import submerge.sub.object.ass.V4Style;
-import submerge.sub.object.config.Font;
-import submerge.sub.object.config.SubInput;
-import submerge.sub.object.itf.TimedLine;
-import submerge.sub.object.itf.TimedObject;
-import submerge.sub.object.itf.TimedTextFile;
-import submerge.sub.object.srt.SRTLine;
-import submerge.sub.object.srt.SRTSub;
-import submerge.sub.object.srt.SRTTime;
-import submerge.sub.utils.ColorUtils;
+import com.submerge.sub.object.ass.ASSSub;
+import com.submerge.sub.object.ass.ASSTime;
+import com.submerge.sub.object.ass.Events;
+import com.submerge.sub.object.ass.V4Style;
+import com.submerge.sub.object.config.Font;
+import com.submerge.sub.object.config.SubInput;
+import com.submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.itf.TimedObject;
+import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.srt.SRTLine;
+import com.submerge.sub.object.srt.SRTSub;
+import com.submerge.sub.object.srt.SRTTime;
+import com.submerge.sub.utils.ColorUtils;
 
 /**
  * Service used to manage subtitles
@@ -132,6 +132,7 @@ public class SubtitleConverter {
 		style.setPrimaryColour(ColorUtils.hexToBGR(font.getColor()));
 		style.setOutlineColor(ColorUtils.hexToBGR(font.getOutlineColor()));
 		style.setOutline(font.getOutlineWidth());
+		style.setMarginV(config.getVerticalMargin());
 		return style;
 	}
 

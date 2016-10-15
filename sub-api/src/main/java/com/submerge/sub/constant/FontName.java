@@ -1,4 +1,4 @@
-package submerge.sub.constant;
+package com.submerge.sub.constant;
 
 /**
  * Enum all the supported font names of the application

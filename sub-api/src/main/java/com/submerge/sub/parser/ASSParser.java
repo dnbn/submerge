@@ -1,4 +1,4 @@
-package submerge.sub.parser;
+package com.submerge.sub.parser;
 
 import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
@@ -18,16 +18,16 @@ import java.util.TreeSet;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 
-import submerge.sub.object.ass.ASSSub;
-import submerge.sub.object.ass.ASSTime;
-import submerge.sub.object.ass.Events;
-import submerge.sub.object.ass.ScriptInfo;
-import submerge.sub.object.ass.V4Style;
-import submerge.sub.object.itf.TimedTextFile;
-import submerge.sub.parser.exception.InvalidAssSubException;
-import submerge.sub.parser.exception.InvalidFileException;
-import submerge.sub.parser.exception.InvalidSubException;
-import submerge.sub.utils.ColorUtils;
+import com.submerge.sub.object.ass.ASSSub;
+import com.submerge.sub.object.ass.ASSTime;
+import com.submerge.sub.object.ass.Events;
+import com.submerge.sub.object.ass.ScriptInfo;
+import com.submerge.sub.object.ass.V4Style;
+import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.parser.exception.InvalidAssSubException;
+import com.submerge.sub.parser.exception.InvalidFileException;
+import com.submerge.sub.parser.exception.InvalidSubException;
+import com.submerge.sub.utils.ColorUtils;
 
 /**
  * Parse SSA/ASS subtitles
@@ -81,10 +81,10 @@ public class ASSParser extends AbstractSubtitleParser {
 	 * Example of events section:
 	 * 
 	 * <pre>
-	 * [V4+ Styles]
-	 * Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour 
-	 * Style: StyleOne,Arial,16,64250,16777215,0 
-	 * Style: StyleTwo,Arial,16,16383999,16777215,0
+	 * [Events]
+	 * Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+	 * Dialogue: 0,0:02:30.84,0:02:34.70,StlyeOne,,0000,0000,0000,,A text line
+	 * Dialogue: 0,0:02:34.92,0:02:37.54,StyleTwo,,0000,0000,0000,,Another text line
 	 * </pre>
 	 * 
 	 * @param br: the buffered reader
@@ -141,10 +141,10 @@ public class ASSParser extends AbstractSubtitleParser {
 	 * Example of style section:
 	 * 
 	 * <pre>
-	 * [Events]
-	 * Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-	 * Dialogue: 0,0:02:30.84,0:02:34.70,StlyeOne,,0000,0000,0000,,A text line
-	 * Dialogue: 0,0:02:34.92,0:02:37.54,StyleTwo,,0000,0000,0000,,Another text line
+	 * [V4+ Styles]
+	 * Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour 
+	 * Style: StyleOne,Arial,16,64250,16777215,0 
+	 * Style: StyleTwo,Arial,16,16383999,16777215,0
 	 * </pre>
 	 * 
 	 * @param br: the buffered reader

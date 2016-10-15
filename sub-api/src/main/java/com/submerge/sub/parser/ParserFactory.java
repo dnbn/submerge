@@ -1,8 +1,8 @@
-package submerge.sub.parser;
+package com.submerge.sub.parser;
 
 import org.apache.commons.lang.NotImplementedException;
 
-import submerge.sub.parser.itf.SubtitleParser;
+import com.submerge.sub.parser.itf.SubtitleParser;
 
 public final class ParserFactory {
 

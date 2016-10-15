@@ -1,10 +1,10 @@
-package submerge.sub.parser.itf;
+package com.submerge.sub.parser.itf;
 
 import java.io.File;
 
-import submerge.sub.object.itf.TimedTextFile;
-import submerge.sub.parser.exception.InvalidFileException;
-import submerge.sub.parser.exception.InvalidSubException;
+import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.parser.exception.InvalidFileException;
+import com.submerge.sub.parser.exception.InvalidSubException;
 
 public interface SubtitleParser {
 

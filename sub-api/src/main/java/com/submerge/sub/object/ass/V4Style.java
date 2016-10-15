@@ -1,4 +1,4 @@
-package submerge.sub.object.ass;
+package com.submerge.sub.object.ass;
 
 import java.io.Serializable;
 

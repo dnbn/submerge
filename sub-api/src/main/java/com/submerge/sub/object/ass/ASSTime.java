@@ -1,10 +1,10 @@
-package submerge.sub.object.ass;
+package com.submerge.sub.object.ass;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import submerge.sub.object.itf.TimedObject;
+import com.submerge.sub.object.itf.TimedObject;
 
 /**
  * The class <code>ASSTime</code> represents a SubStation Alpha time : meaning the time at

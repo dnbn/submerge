@@ -1,8 +1,8 @@
-package submerge.sub.object.config;
+package com.submerge.sub.object.config;
 
 import java.io.Serializable;
 
-import submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.itf.TimedTextFile;
 
 public class SubInput implements Serializable {
 
@@ -12,6 +12,7 @@ public class SubInput implements Serializable {
 	private TimedTextFile sub;
 	private Font fontconfig = new Font();
 	private int alignment;
+	private int verticalMargin = 10;
 
 	public SubInput() {
 	}
@@ -53,6 +54,14 @@ public class SubInput implements Serializable {
 
 	public void setStyleName(String styleName) {
 		this.styleName = styleName;
+	}
+
+	public int getVerticalMargin() {
+		return this.verticalMargin;
+	}
+
+	public void setVerticalMargin(int verticalMargin) {
+		this.verticalMargin = verticalMargin;
 	}
 
 }

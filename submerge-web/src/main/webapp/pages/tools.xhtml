@@ -7,7 +7,7 @@
 	<f:event type="preRenderView" listener="#{toolsBean.onPageLoad}" />
 </f:metadata>
 
-<o:importConstants type="submerge.web.constant.Pages" var="Pages" />
+<o:importConstants type="com.submerge.web.constant.Pages" var="Pages" />
 
 <f:view locale="#{userBean.locale}">
 	<h:head>
@@ -136,6 +136,23 @@
 													<h:selectOneMenu value="#{userSubConfigBean.profileSimple.fontSize}" styleClass="form-control fontSize">
 														<f:selectItems value="#{dropDownBean.fontSize}" />
 													</h:selectOneMenu>
+												</b:column>
+											</b:row>
+											<b:row styleClass="form-group">
+												<b:column col-lg="5" styleClass="panel-label">
+													<h:outputLabel value="#{msg['index.position']}" />
+												</b:column>
+												<b:column col-lg="7">
+													<b:column col-lg="6" styleClass="offSetAlignment col-sm-6 col-xs-6 col-md-6">
+														<h:selectOneMenu value="#{userSubConfigBean.profileSimple.alignmentOffset}" styleClass="form-control fontSize">
+															<f:selectItems value="#{localizedDropDownBean.offsetAlignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+														</h:selectOneMenu>
+													</b:column>
+													<b:column col-lg="6" styleClass="alignment col-sm-6 col-xs-6 col-md-6">
+														<h:selectOneMenu value="#{userSubConfigBean.profileSimple.alignment}" styleClass="form-control fontSize">
+															<f:selectItems value="#{localizedDropDownBean.alignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+														</h:selectOneMenu>
+													</b:column>
 												</b:column>
 											</b:row>
 										</b:column>

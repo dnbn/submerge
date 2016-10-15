@@ -68,7 +68,10 @@ NOT DEFERRABLE;
 
 alter table dual_subtitle_config alter column filename TYPE VARCHAR(300); 
 
-alter table SUBTITLE_PROFILE add column language VARCHAR(5); 
+alter table SUBTITLE_PROFILE add column language VARCHAR(5);
 
 alter table account add column fk_profile_default INTEGER;
 ALTER TABLE account ADD FOREIGN KEY (fk_profile_default) REFERENCES subtitle_profile;
+
+alter table SUBTITLE_PROFILE add column alignment INTEGER NULL;
+alter table SUBTITLE_PROFILE add column alignment_offset INTEGER NULL;

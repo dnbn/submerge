@@ -146,4 +146,12 @@ public class SubtitleProfile implements Serializable {
 		this.alignmentOffset = alignmentOffset;
 	}
 
+	@Override
+	public String toString() {
+
+		int align = this.alignment + this.alignmentOffset;
+
+		return "Profile [c=" + this.primaryColor + "/" + this.outlineColor + ", ow=" + this.outlineWidth
+				+ ", " + this.fontName + "(" + this.fontSize + "), a=" + align + "]";
+	}
 }

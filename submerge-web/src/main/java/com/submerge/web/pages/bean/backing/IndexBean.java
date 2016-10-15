@@ -150,7 +150,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			}
 			ASSSub sub = new SubtitleConverter().mergeToAss(one, two);
 
-			logger.log(Level.FINE, "File generated from : " + this.userConfig.toString());
+			logger.log(Level.FINE, "Merged: " + this.userConfig.toString());
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
 		}
 

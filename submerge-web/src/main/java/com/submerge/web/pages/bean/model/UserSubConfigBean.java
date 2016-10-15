@@ -35,12 +35,21 @@ public class UserSubConfigBean implements Serializable {
 		if (!StringUtils.isEmpty(getFilename())) {
 			sb.append("Target filename [").append(getFilename()).append("]");
 		}
-		if (this.firstSubtitle != null && this.firstSubtitle.getFileName() != null) {
-			sb.append(" S1 [").append(this.firstSubtitle.getFileName()).append("]");
+		sb.append(toString(" S1 ", this.firstSubtitle, this.subConfig.getCurrent().getProfileOne()));
+		sb.append(toString(" S2 ", this.secondSubtitle, this.subConfig.getCurrent().getProfileTwo()));
+
+		return sb.toString();
+	}
+
+	private static String toString(String name, TimedTextFile sub, SubtitleProfile profile) {
+
+		StringBuilder sb = new StringBuilder();
+		if (sub != null && sub.getFileName() != null) {
+			sb.append(name).append(" [").append(sub.getFileName());
+			sb.append(" (").append(profile.toString());
+			sb.append(")]");
 		}
-		if (this.secondSubtitle != null && this.secondSubtitle.getFileName() != null) {
-			sb.append(" S2 [").append(this.secondSubtitle.getFileName()).append("]");
-		}
+
 		return sb.toString();
 	}
 

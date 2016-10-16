@@ -38,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>submerge.cli.MainCli</mainClass>
+							<mainClass>com.submerge.cli.MainCli</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

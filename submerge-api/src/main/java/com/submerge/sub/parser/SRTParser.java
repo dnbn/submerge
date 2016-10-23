@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.object.srt.SRTLine;
 import com.submerge.sub.object.srt.SRTSub;
 import com.submerge.sub.object.srt.SRTTime;
@@ -20,11 +19,10 @@ import com.submerge.sub.parser.exception.InvalidSubException;
 /**
  * Parse SRT subtitles
  */
-public final class SRTParser extends AbstractTimedTextFileParser<SRTSub> {
+public final class SRTParser extends AbstractParser<SRTSub> {
 
 	@Override
-	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException {
-		SRTSub sub = (SRTSub) parsableSub;
+	protected void parse(BufferedReader br, SRTSub sub) throws IOException, InvalidSubException {
 		boolean found = true;
 		while (found) {
 			SRTLine line = firstIn(br);

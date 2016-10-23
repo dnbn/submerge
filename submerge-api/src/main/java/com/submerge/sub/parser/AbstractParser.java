@@ -19,7 +19,7 @@ import com.submerge.sub.parser.exception.InvalidSubException;
 import com.submerge.sub.parser.itf.SubtitleParser;
 import com.submerge.sub.utils.FileUtils;
 
-public abstract class AbstractTimedTextFileParser<T extends TimedTextFile> implements SubtitleParser {
+public abstract class AbstractParser<T extends TimedTextFile> implements SubtitleParser {
 
 	/**
 	 * UTF-8 BOM Marker
@@ -45,7 +45,6 @@ public abstract class AbstractTimedTextFileParser<T extends TimedTextFile> imple
 	public T parse(InputStream is, String fileName) throws InvalidFileException, InvalidSubException {
 
 		try {
-
 			Type type = this.getClass().getGenericSuperclass();
 			T sub = ((Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0]).newInstance();
 
@@ -74,11 +73,11 @@ public abstract class AbstractTimedTextFileParser<T extends TimedTextFile> imple
 	 * Parse the subtitle file into a <code>ParsableSubtitle</code> object
 	 * 
 	 * @param br: the buffered reader
-	 * @param parsableSub : the subtitle object to fill
+	 * @param sub : the subtitle object to fill
 	 * @throws IOException
 	 * @throws InvalidSubException if an error has occured when parsing the subtitle file
 	 */
-	protected abstract void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException;
+	protected abstract void parse(BufferedReader br, T sub) throws IOException, InvalidSubException;
 
 	/**
 	 * Ignore blank spaces and return the first text line

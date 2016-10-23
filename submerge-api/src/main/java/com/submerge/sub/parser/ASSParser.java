@@ -22,14 +22,13 @@ import com.submerge.sub.object.ass.ASSTime;
 import com.submerge.sub.object.ass.Events;
 import com.submerge.sub.object.ass.ScriptInfo;
 import com.submerge.sub.object.ass.V4Style;
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.parser.exception.InvalidAssSubException;
 import com.submerge.sub.utils.ColorUtils;
 
 /**
  * Parse SSA/ASS subtitles
  */
-public class ASSParser extends AbstractTimedTextFileParser<ASSSub> {
+public class ASSParser extends AbstractParser<ASSSub> {
 
 	/**
 	 * Comments: lines that start with this character are ignored
@@ -37,8 +36,7 @@ public class ASSParser extends AbstractTimedTextFileParser<ASSSub> {
 	private static final String COMMENTS_MARK = ";";
 
 	@Override
-	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidAssSubException {
-		ASSSub sub = (ASSSub) parsableSub;
+	protected void parse(BufferedReader br, ASSSub sub) throws IOException, InvalidAssSubException {
 		String line = readFirstTextLine(br);
 
 		if (line != null && !("[script info]").equalsIgnoreCase(line.trim())) {

@@ -19,7 +19,7 @@ import com.submerge.sub.parser.exception.InvalidSubException;
 import com.submerge.sub.parser.itf.SubtitleParser;
 import com.submerge.sub.utils.FileUtils;
 
-public abstract class Parser<T extends TimedTextFile> implements SubtitleParser {
+public abstract class TTFParser<T extends TimedTextFile> implements SubtitleParser {
 
 	/**
 	 * UTF-8 BOM Marker

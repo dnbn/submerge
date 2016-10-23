@@ -20,7 +20,7 @@ import com.submerge.sub.parser.exception.InvalidSubException;
 /**
  * Parse SRT subtitles
  */
-public final class SRTParser extends Parser<SRTSub> {
+public final class SRTParser extends TTFParser<SRTSub> {
 
 	@Override
 	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException {

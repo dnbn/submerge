@@ -29,7 +29,7 @@ import com.submerge.sub.utils.ColorUtils;
 /**
  * Parse SSA/ASS subtitles
  */
-public class ASSParser extends Parser<ASSSub> {
+public class ASSParser extends TTFParser<ASSSub> {
 
 	/**
 	 * Comments: lines that start with this character are ignored

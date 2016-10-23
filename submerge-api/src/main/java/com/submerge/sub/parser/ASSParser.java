@@ -2,7 +2,6 @@ package com.submerge.sub.parser;
 
 import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.DateTimeException;
@@ -25,24 +24,17 @@ import com.submerge.sub.object.ass.ScriptInfo;
 import com.submerge.sub.object.ass.V4Style;
 import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.parser.exception.InvalidAssSubException;
-import com.submerge.sub.parser.exception.InvalidFileException;
-import com.submerge.sub.parser.exception.InvalidSubException;
 import com.submerge.sub.utils.ColorUtils;
 
 /**
  * Parse SSA/ASS subtitles
  */
-public class ASSParser extends AbstractSubtitleParser {
+public class ASSParser extends Parser<ASSSub> {
 
 	/**
 	 * Comments: lines that start with this character are ignored
 	 */
 	private static final String COMMENTS_MARK = ";";
-
-	@Override
-	public ASSSub parse(File file) throws InvalidSubException, InvalidFileException {
-		return (ASSSub) openAndParse(file, new ASSSub());
-	}
 
 	@Override
 	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidAssSubException {

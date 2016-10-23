@@ -1,11 +1,16 @@
 package com.submerge.sub.parser;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.submerge.sub.object.itf.TimedTextFile;
@@ -14,7 +19,7 @@ import com.submerge.sub.parser.exception.InvalidSubException;
 import com.submerge.sub.parser.itf.SubtitleParser;
 import com.submerge.sub.utils.FileUtils;
 
-public abstract class AbstractSubtitleParser implements SubtitleParser {
+public abstract class Parser<T extends TimedTextFile> implements SubtitleParser {
 
 	/**
 	 * UTF-8 BOM Marker
@@ -22,38 +27,46 @@ public abstract class AbstractSubtitleParser implements SubtitleParser {
 	private static final char BOM_MARKER = '\ufeff';
 
 	@Override
-	public abstract TimedTextFile parse(File file) throws InvalidSubException, InvalidFileException;
-
-	/**
-	 * Open the file, define the <code>ParsableSubtitle</code> filename and call the
-	 * abstract parsing method
-	 * 
-	 * @param file: the subtitle file
-	 * @param sub: the subtitle object
-	 * @return the subtitle object
-	 * @throws InvalidFileException if the file is invalid
-	 * @throws InvalidSubException if an error has occured with the subtitle file
-	 */
-	protected TimedTextFile openAndParse(File file, TimedTextFile sub) throws InvalidFileException, InvalidSubException {
+	public T parse(File file) throws InvalidSubException, InvalidFileException {
 
 		if (!file.isFile()) {
 			throw new InvalidFileException("File " + file.getName() + " is invalid");
 		}
 
-		try (FileInputStream fis = new FileInputStream(file);
-				InputStreamReader isr = new InputStreamReader(fis, FileUtils.guessEncoding(file));
-				BufferedReader br = new BufferedReader(isr)) {
+		try (FileInputStream fis = new FileInputStream(file)) {
+			return parse(fis, file.getName());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-			skipBom(br);
+	@SuppressWarnings("unchecked")
+	@Override
+	public T parse(InputStream is, String fileName) throws InvalidFileException, InvalidSubException {
 
-			sub.setFileName(file.getName());
-			parse(br, sub);
+		try {
+
+			Type type = this.getClass().getGenericSuperclass();
+			T sub = ((Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0]).newInstance();
+
+			byte[] bytes = IOUtils.toByteArray(is);
+
+			try (InputStream nis = new ByteArrayInputStream(bytes);
+					InputStreamReader isr = new InputStreamReader(nis, FileUtils.guessEncoding(bytes));
+					BufferedReader br = new BufferedReader(isr)) {
+
+				skipBom(br);
+				sub.setFileName(fileName);
+				parse(br, sub);
+			}
+
+			return sub;
 
 		} catch (IOException e) {
 			throw new InvalidFileException(e);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-
-		return sub;
 
 	}
 

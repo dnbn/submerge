@@ -1,6 +1,7 @@
 package com.submerge.sub.parser.itf;
 
 import java.io.File;
+import java.io.InputStream;
 
 import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.parser.exception.InvalidFileException;
@@ -16,6 +17,17 @@ public interface SubtitleParser {
 	 * @throws InvalidSubException if the subtitle is not valid
 	 * @throws InvalidFileException if the file is not valid
 	 */
-	public abstract TimedTextFile parse(File file) throws InvalidSubException, InvalidFileException;
+	TimedTextFile parse(File file) throws InvalidSubException, InvalidFileException;
 
+	/**
+	 * Parse a subtitle file from an inputstream and return the corresponding subtitle
+	 * object
+	 * 
+	 * @param is the input stream
+	 * @param fileName the fileName
+	 * @return the subtitle object
+	 * @throws InvalidSubException if the subtitle is not valid
+	 * @throws InvalidFileException if the file is not valid
+	 */
+	TimedTextFile parse(InputStream is, String fileName) throws InvalidSubException, InvalidFileException;
 }

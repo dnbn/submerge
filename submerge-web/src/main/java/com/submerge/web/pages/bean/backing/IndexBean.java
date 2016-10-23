@@ -1,6 +1,5 @@
 package com.submerge.web.pages.bean.backing;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -41,7 +40,6 @@ import com.submerge.web.pages.bean.model.UserBean;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
 import com.submerge.web.service.UserService;
 import com.submerge.web.utils.ProfileUtils;
-import com.submerge.web.utils.UploadedFileUtils;
 
 @Component("indexBean")
 @Scope(value = "request")
@@ -94,16 +92,16 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			String componentId = event.getComponent().getId();
 
 			UploadedFile uploadedFile = event.getFile();
-			File file = UploadedFileUtils.toFile(uploadedFile);
+			String filename = FilenameUtils.getName(uploadedFile.getFileName());
 			String extension = FilenameUtils.getExtension(uploadedFile.getFileName());
 			SubtitleParser parser = ParserFactory.getParser(extension);
 
 			replaceSub(componentId, null);
 
-			TimedTextFile sub = parser.parse(file);
+			TimedTextFile sub = parser.parse(uploadedFile.getInputstream(), filename);
 			replaceSub(componentId, sub);
 
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, null, file.getName());
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, null, filename);
 
 		} catch (InvalidSubException | InvalidFileException e) {
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("sub.invalid"), e.getMessage());
@@ -143,7 +141,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		if (subOne != null && subTwo != null) {
 			SubInput one = ProfileUtils.createSubInput(subOne, this.userConfig.getProfileOne(), "One");
 			SubInput two = ProfileUtils.createSubInput(subTwo, this.userConfig.getProfileTwo(), "Two");
-			
+
 			// If both subs have the same position, add margin to the first one
 			if (one.getAlignment() == two.getAlignment()) {
 				one.setVerticalMargin(40);
@@ -232,8 +230,8 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	 */
 	private void updateFilesMessages(boolean renderError) {
 
-		updateFileMessage(this.userConfig.getFirstSubtitle(), "index-form:topUpload", renderError);
-		updateFileMessage(this.userConfig.getSecondSubtitle(), "index-form:bottomUpload", renderError);
+		updateFileMessage(this.userConfig.getFirstSubtitle(), "index-form:uploadOne", renderError);
+		updateFileMessage(this.userConfig.getSecondSubtitle(), "index-form:uploadTwo", renderError);
 	}
 
 	/**

@@ -1,7 +1,6 @@
 package com.submerge.sub.parser;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -15,19 +14,13 @@ import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.object.srt.SRTLine;
 import com.submerge.sub.object.srt.SRTSub;
 import com.submerge.sub.object.srt.SRTTime;
-import com.submerge.sub.parser.exception.InvalidFileException;
 import com.submerge.sub.parser.exception.InvalidSRTSubException;
 import com.submerge.sub.parser.exception.InvalidSubException;
 
 /**
  * Parse SRT subtitles
  */
-public final class SRTParser extends AbstractSubtitleParser {
-
-	@Override
-	public SRTSub parse(File file) throws InvalidSubException, InvalidFileException {
-		return (SRTSub) openAndParse(file, new SRTSub());
-	}
+public final class SRTParser extends Parser<SRTSub> {
 
 	@Override
 	protected void parse(BufferedReader br, TimedTextFile parsableSub) throws IOException, InvalidSubException {

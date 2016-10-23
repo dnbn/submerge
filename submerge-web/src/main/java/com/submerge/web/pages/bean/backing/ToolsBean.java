@@ -1,8 +1,7 @@
 package com.submerge.web.pages.bean.backing;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -17,6 +16,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,6 @@ import com.submerge.web.pages.bean.model.UserBean;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
 import com.submerge.web.service.UserService;
 import com.submerge.web.utils.ProfileUtils;
-import com.submerge.web.utils.UploadedFileUtils;
 
 @Component("toolsBean")
 @Scope(value = "session")
@@ -67,11 +66,13 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	 */
 	public void convertAss() {
 
-		try {
-			File file = UploadedFileUtils.toFile(this.uploadedFile);
-			String extension = FilenameUtils.getExtension(this.uploadedFile.getFileName());
+		String fullName = this.uploadedFile.getFileName();
 
-			TimedTextFile ttf = ParserFactory.getParser(extension).parse(file);
+		try {
+			String filename = FilenameUtils.getName(fullName);
+			String extension = FilenameUtils.getExtension(fullName);
+
+			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
 			SubtitleProfile profile = this.userConfig.getProfileSimple();
 
 			SubInput subInput = ProfileUtils.createSubInput(ttf, profile, "Default");
@@ -79,21 +80,19 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			SubtitleConverter convert = new SubtitleConverter();
 			ASSSub ass = convert.toASS(subInput);
 
-			String filename = FilenameUtils.getName(file.getName());
 			String destFileName = StringUtils.removeEnd(filename, extension) + ".ass";
 
 			writeString(destFileName, ass.toString());
 
 			saveState();
 
-			logger.log(Level.FINE, "File : " + file.getName() + " converted to ASS");
+			logger.log(Level.FINE, "File : " + filename + " converted to ASS");
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 			if (this.uploadedFile != null) {
-				logger.log(Level.SEVERE,
-						"Cannot convert " + this.uploadedFile.getFileName() + " to ass : " + e.getMessage());
+				logger.log(Level.SEVERE, "Cannot convert " + fullName + " to ass : " + e.getMessage());
 			}
 		} finally {
 			this.uploadedFile = null;
@@ -106,21 +105,22 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	 */
 	public void convertSrt() {
 
-		try {
-			File file = UploadedFileUtils.toFile(this.uploadedFile);
-			String extension = FilenameUtils.getExtension(this.uploadedFile.getFileName());
+		String fullName = this.uploadedFile.getFileName();
 
-			TimedTextFile ttf = ParserFactory.getParser(extension).parse(file);
+		try {
+			String filename = FilenameUtils.getName(fullName);
+			String extension = FilenameUtils.getExtension(fullName);
+
+			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
 			SRTSub srtSub = new SubtitleConverter().toSRT(ttf);
 
-			String filename = FilenameUtils.getName(file.getName());
 			String destFileName = StringUtils.removeEnd(filename, extension) + ".srt";
 
 			writeString(destFileName, srtSub.toString());
 
 			saveState();
 
-			logger.log(Level.FINE, "File : " + file.getName() + " converted to SRT");
+			logger.log(Level.FINE, "File : " + filename + " converted to SRT");
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -142,14 +142,14 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	public void convertUtf8() {
 
 		try {
-			File file = UploadedFileUtils.toFile(this.uploadedFile);
-			String encoding = FileUtils.guessEncoding(file);
+			byte[] bytes = IOUtils.toByteArray(this.uploadedFile.getInputstream());
+			String encoding = FileUtils.guessEncoding(bytes);
 
 			StringBuffer sbf = new StringBuffer();
 			StringBuilder sb = new StringBuilder(sbf);
 
-			try (FileInputStream fis = new FileInputStream(file);
-					InputStreamReader isr = new InputStreamReader(fis, encoding);
+			try (ByteArrayInputStream bai = new ByteArrayInputStream(bytes);
+					InputStreamReader isr = new InputStreamReader(bai, encoding);
 					BufferedReader br = new BufferedReader(isr)) {
 
 				for (int c; (c = br.read()) != -1;) {
@@ -157,11 +157,12 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 				}
 			}
 
-			writeString(file.getName(), sb.toString());
+			String filename = FilenameUtils.getName(this.uploadedFile.getFileName());
+			writeString(filename, sb.toString());
 
 			saveState();
 
-			logger.log(Level.FINE, "File encoding changed from " + encoding + " - file : " + file.getName());
+			logger.log(Level.FINE, "File encoding changed from " + encoding + " - file : " + filename);
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -261,5 +262,5 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 		Locale locale = new Locale(this.previewLanguage);
 		return getBundleMessages(locale).getString("sub.preview");
 	}
-	
+
 }

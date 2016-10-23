@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -38,6 +36,7 @@ import com.submerge.web.model.entity.SubtitleProfile;
 import com.submerge.web.pages.bean.AbstractManagedBean;
 import com.submerge.web.pages.bean.model.UserBean;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
+import com.submerge.web.service.HistoService;
 import com.submerge.web.service.UserService;
 import com.submerge.web.utils.ProfileUtils;
 
@@ -47,8 +46,6 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 	private static final long serialVersionUID = -3227108053080225466L;
 
-	private static final transient Logger logger = Logger.getLogger(IndexBean.class.getName());
-
 	@Autowired
 	private transient UserService userService;
 
@@ -57,6 +54,9 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 	@Autowired
 	private UserBean userBean;
+
+	@Autowired
+	private HistoService histoService;
 
 	private String languageOne;
 
@@ -148,8 +148,8 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			}
 			ASSSub sub = new SubtitleConverter().mergeToAss(one, two);
 
-			logger.log(Level.FINE, "Merged: " + this.userConfig.toString());
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
+			this.histoService.traceMerge(one, two);
 		}
 
 		saveState();

@@ -29,13 +29,13 @@ public class UserLoginValidator implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		UIInput cpntPasswordLogin = (UIInput) component.getAttributes().get(PWD_FIELD);
-		String password = (String) cpntPasswordLogin.getValue();
-		String userName = (String) value;
+		String userName = (String) cpntPasswordLogin.getValue();
+		String password = (String) value;
 
 		if (password == null || StringUtils.isEmpty(userName)) {
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, MISSING_INFORMATION, null));
 		}
-		
+
 		String hash = this.userService.hashPassword(password);
 		User result = this.userService.findByName(userName);
 		if (result == null || !result.getPassword().equals(hash)) {

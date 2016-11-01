@@ -141,7 +141,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 			// Adjust timecodes
 			if (this.userConfig.isAdjustTimecodes()) {
-				subConverter.adjustTimecodes(subTwo, subOne, 1500);
+				subConverter.adjustTimecodes(subTwo, subOne, 850);
 			}
 
 			SubInput one = ProfileUtils.createSubInput(subOne, this.userConfig.getProfileOne(), "One");

@@ -130,8 +130,11 @@ public class SubtitleConverter {
 				TimedLine startIntersect = ConverterUtils.intersectedLines(timedLines, targetStart);
 				TimedLine endIntersect = ConverterUtils.intersectedLines(timedLines, targetEnd);
 
-				LocalTime newStart = (startIntersect != null) ? startIntersect.getTime().getEnd() : targetStart;
-				originalTime.setStart(newStart);
+				if (startIntersect == null || originalTime.equals(startIntersect.getTime())) {
+					originalTime.setStart(targetStart);
+				} else {
+					originalTime.setStart(startIntersect.getTime().getEnd());
+				}
 
 				if (endIntersect == null || originalTime.getStart().equals(endIntersect.getTime().getStart())) {
 					originalTime.setEnd(targetEnd);
@@ -141,7 +144,7 @@ public class SubtitleConverter {
 			}
 		}
 
-		SubtitleConverter.expandLongLines(timedLines, referenceLines, delay * 3);
+		SubtitleConverter.expandLongLines(timedLines, referenceLines, 1500);
 	}
 
 	/**

@@ -47,13 +47,13 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	private static final long serialVersionUID = -3227108053080225466L;
 
 	@Autowired
-	private transient UserService userService;
+	protected transient UserService userService;
+
+	@Autowired
+	protected UserBean userBean;
 
 	@Autowired
 	private UserSubConfigBean userConfig;
-
-	@Autowired
-	private UserBean userBean;
 
 	@Autowired
 	private HistoService histoService;
@@ -112,21 +112,6 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	}
 
 	/**
-	 * Replace the subtitle in session
-	 * 
-	 * @param componentId: the id of the component
-	 * @param sub the subtitle to set
-	 */
-	private void replaceSub(String componentId, TimedTextFile sub) {
-
-		if ("uploadOne".equals(componentId)) {
-			this.userConfig.setFirstSubtitle(sub);
-		} else {
-			this.userConfig.setSecondSubtitle(sub);
-		}
-	}
-
-	/**
 	 * Merge 2 srt input files into one .ass returned as StreamedContent
 	 * 
 	 * @return the merged ass subtitle
@@ -139,20 +124,48 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 		StreamedContent sc = null;
 
 		if (subOne != null && subTwo != null) {
+
+			SubtitleConverter subConverter = new SubtitleConverter();
+
+			// Clean ASS formatting
+			if (this.userConfig.isClean()) {
+				subOne = subConverter.toSRT(subOne);
+				subTwo = subConverter.toSRT(subTwo);
+			}
+
+			// Disallow multi-lines
+			if (this.userConfig.isOneLine()) {
+				subConverter.mergeTextLines(subOne);
+				subConverter.mergeTextLines(subTwo);
+			}
+
+			// Adjust timecodes
+			if (this.userConfig.isAdjustTimecodes()) {
+				subConverter.adjustTimecodes(subOne, subTwo, 500);
+			}
+
 			SubInput one = ProfileUtils.createSubInput(subOne, this.userConfig.getProfileOne(), "One");
 			SubInput two = ProfileUtils.createSubInput(subTwo, this.userConfig.getProfileTwo(), "Two");
 
 			// If both subs have the same position, add margin to the first one
-			if (one.getAlignment() == two.getAlignment()) {
+			if (this.userConfig.isAvoidSwitch() && one.getAlignment() == two.getAlignment()) {
 				one.setVerticalMargin(40);
+				if (two.getFontconfig().getSize() > 12) {
+					one.setVerticalMargin(45);
+					two.setVerticalMargin(5);
+				}
+				if (this.userConfig.isOneLine()) {
+					one.setVerticalMargin(35);
+					two.setVerticalMargin(10);
+				}
 			}
-			ASSSub sub = new SubtitleConverter().mergeToAss(one, two);
+			ASSSub sub = subConverter.mergeToAss(one, two);
 
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
-			this.histoService.traceMerge(one, two);
+			this.histoService.traceMerge(one, two, this.userConfig);
 		}
 
-		saveState();
+		saveUserState();
 		updateFilesMessages(true);
 		return sc;
 	}
@@ -185,15 +198,6 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	}
 
 	// ===================== private methods start =====================
-
-	/**
-	 * Save user profiles in database if the user is logged
-	 */
-	private void saveState() {
-		if (this.userBean.isLogged()) {
-			this.userService.save(this.userBean.getUser());
-		}
-	}
 
 	/**
 	 * Get the final filename of the generated .ass subtitle
@@ -278,6 +282,30 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			} else {
 				this.languageOne = SupportedLocales.ENGLISH.getLanguage();
 			}
+		}
+	}
+
+	/**
+	 * Replace the subtitle in session
+	 * 
+	 * @param componentId: the id of the component
+	 * @param sub the subtitle to set
+	 */
+	private void replaceSub(String componentId, TimedTextFile sub) {
+
+		if ("uploadOne".equals(componentId)) {
+			this.userConfig.setFirstSubtitle(sub);
+		} else {
+			this.userConfig.setSecondSubtitle(sub);
+		}
+	}
+
+	/**
+	 * Save user profiles in database if the user is logged
+	 */
+	private void saveUserState() {
+		if (this.userBean.isLogged()) {
+			this.userService.save(this.userBean.getUser());
 		}
 	}
 

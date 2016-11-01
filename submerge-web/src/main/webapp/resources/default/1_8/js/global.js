@@ -1,7 +1,7 @@
 $(function() {
-	// ====== KEEP CONNECT MENU OPEN ON CLICK ========
+	// ====== KEEP DROP MENU OPEN ON CLICK ========
 
-	$('#navbar ul.dropdown-menu').on('click', function(event) {
+	$('ul.dropdown-menu').on('click', function(event) {
 		var events = $._data(document, 'events') || {};
 		events = events.click || [];
 		for (var i = 0; i < events.length; i++) {
@@ -17,6 +17,7 @@ $(function() {
 				$(event.target).parents(events[i].selector).each(function() {
 					events[i].handler.call(this, event);
 				});
+				
 			}
 		}
 		event.stopPropagation(); // Always stop propagation

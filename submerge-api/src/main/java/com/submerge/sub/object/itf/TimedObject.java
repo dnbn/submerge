@@ -1,12 +1,13 @@
 package com.submerge.sub.object.itf;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
  * 
  * Simple object that contains timed start ant end
  */
-public interface TimedObject {
+public interface TimedObject extends Serializable {
 
 	/**
 	 * Return the time elapsed during script playback at which the text will appear
@@ -14,7 +15,7 @@ public interface TimedObject {
 	 * 
 	 * @return start time
 	 */
-	public abstract LocalTime getStart();
+	LocalTime getStart();
 
 	/**
 	 * Return the time elapsed during script playback at which the text will disappear
@@ -22,6 +23,20 @@ public interface TimedObject {
 	 * 
 	 * @return end time
 	 */
-	public abstract LocalTime getEnd();
+	LocalTime getEnd();
 
+	/**
+	 * Set the time elapsed during script playback at which the text will appear onscreen.
+	 * 
+	 * @param start time
+	 */
+	void setStart(LocalTime start);
+
+	/**
+	 * Set the time elapsed during script playback at which the text will disappear
+	 * offscreen.
+	 * 
+	 * @param end time
+	 */
+	void setEnd(LocalTime end);
 }

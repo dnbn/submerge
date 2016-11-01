@@ -1,6 +1,5 @@
 package com.submerge.sub.object.srt;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.submerge.sub.object.itf.TimedLine;
@@ -10,7 +9,7 @@ import com.submerge.sub.object.itf.TimedObject;
  * Class <SRTLine> represents an abstract line of SRT, meaning text, timecodes and index
  *
  */
-public class SRTLine implements Comparable<SRTLine>, Serializable, TimedLine {
+public class SRTLine implements Comparable<SRTLine>, TimedLine {
 
 	private static final long serialVersionUID = -1220593401999895814L;
 

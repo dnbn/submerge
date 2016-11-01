@@ -1,6 +1,5 @@
 package com.submerge.sub.object.ass;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import com.submerge.sub.object.itf.TimedLine;
  * versions of the software to read the fields it recognises - even if the field order is
  * changed.
  */
-public class Events implements Comparable<Events>, Serializable, TimedLine {
+public class Events implements Comparable<Events>, TimedLine {
 
 	/**
 	 * Serial

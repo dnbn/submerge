@@ -1,6 +1,5 @@
 package com.submerge.sub.object.srt;
 
-import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -8,11 +7,10 @@ import com.submerge.sub.object.itf.TimedLine;
 import com.submerge.sub.object.itf.TimedTextFile;
 
 /**
- * Class <SRTLine> represents an SRT file, meandin a complete set of subtitle
- * lines
+ * Class <SRTLine> represents an SRT file, meandin a complete set of subtitle lines
  *
  */
-public class SRTSub implements Serializable, TimedTextFile {
+public class SRTSub implements TimedTextFile {
 
 	private static final long serialVersionUID = -2909833999376537734L;
 
@@ -41,7 +39,7 @@ public class SRTSub implements Serializable, TimedTextFile {
 	public Set<SRTLine> getLines() {
 		return this.lines;
 	}
-	
+
 	@Override
 	public Set<? extends TimedLine> getTimedLines() {
 		return this.lines;

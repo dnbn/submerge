@@ -266,8 +266,40 @@
 								<b:panel title="#{msg['index.outputFile']}" collapsible="false">
 									<b:row>
 										<b:column offset-lg="3" col-lg="6" offset-sm="1" col-sm="10" offset-xs="1" col-xs="10">
-											<b:inputText tooltip="#{msg['sub.filename.tooltip']}" tooltip-delay="300" tooltip-position="top" fieldSize="sm" placeholder="#{msg['sub.filename']}"
-												value="#{userSubConfigBean.filename}" maxlength="200">
+											<b:inputText fieldSize="sm" placeholder="#{msg['sub.filename']}" value="#{userSubConfigBean.filename}" maxlength="200" styleClass="with-facet">
+												<f:facet name="prepend">
+													<b:dropButton value="#{msg['indexSettings.settings']}  " drop="up" size="sm">
+														<b:navLink header="#{msg['indexSettings.settings']}"></b:navLink>
+														<h:panelGroup layout="block" styleClass="drop-menu-content">
+															<b:row id="row-settings-1">
+																<b:column col-lg="6" col-md="6" col-sm="6">
+																	<div id="div-collision"></div>
+																	<b:switch id="collision" label="#{msg['indexSettings.avoidSwitch']}" render-label="true" fieldSize="xs" 
+																		value="#{userSubConfigBean.avoidSwitch}" onColor="success" tooltip="#{msg['indexSettings.avoidSwitchTooltip']}" />
+																</b:column>
+																<b:column col-lg="6" col-md="6" col-sm="6">
+																	<div id="div-clean">
+																		<b:switch id="clean" label="#{msg['indexSettings.clean']}" renderLabel="true" fieldSize="xs" 
+																			value="#{userSubConfigBean.clean}" onColor="success" tooltip="#{msg['indexSettings.cleanTooltip']}" />
+																	</div>
+																</b:column>
+															</b:row>
+															<b:row id="row-settings-2">
+																<b:column col-lg="6" col-md="6" col-sm="6">
+																	<div id="div-adjustTimecodes"></div>
+																	<b:switch id="adjustTimecodes" label="#{msg['indexSettings.adjustTimecodes']}" render-label="true" fieldSize="xs" 
+																		value="#{userSubConfigBean.adjustTimecodes}" onColor="success" tooltip="#{msg['indexSettings.adjustTimecodesTooltip']}"/>
+																</b:column>
+																<b:column col-lg="6" col-md="6" col-sm="6">
+																	<div id="div-oneLine">
+																		<b:switch id="oneLine" label="#{msg['indexSettings.oneLineSubtitles']}" renderLabel="true" fieldSize="xs" 
+																			value="#{userSubConfigBean.oneLine}" onColor="success" tooltip="#{msg['indexSettings.oneLineSubtitlesTooltip']}" />
+																	</div>
+																</b:column>
+															</b:row>
+														</h:panelGroup>
+													</b:dropButton>
+												</f:facet>
 												<f:facet name="append">
 													<h:outputText value=".ass" />
 												</f:facet>

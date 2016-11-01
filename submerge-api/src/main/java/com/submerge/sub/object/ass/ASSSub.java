@@ -2,7 +2,6 @@ package com.submerge.sub.object.ass;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,7 @@ import com.submerge.sub.object.itf.TimedTextFile;
  * The class <code>ASSSub</code> represents a SubStation Alpha subtitle
  *
  */
-public class ASSSub implements Serializable, TimedTextFile {
+public class ASSSub implements TimedTextFile {
 
 	/**
 	 * Serial

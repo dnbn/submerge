@@ -20,3 +20,9 @@ REFERENCES public.MERGE_HISTO (ID)
 ON DELETE NO ACTION	
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+
+alter table MERGE_HISTO add column avoid_switch BOOLEAN;
+alter table MERGE_HISTO add column clean BOOLEAN;
+alter table MERGE_HISTO add column adjust_timecodes BOOLEAN;
+alter table MERGE_HISTO add column one_line BOOLEAN;

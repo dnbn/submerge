@@ -75,3 +75,8 @@ ALTER TABLE account ADD FOREIGN KEY (fk_profile_default) REFERENCES subtitle_pro
 
 alter table SUBTITLE_PROFILE add column alignment INTEGER NULL;
 alter table SUBTITLE_PROFILE add column alignment_offset INTEGER NULL;
+
+alter table dual_subtitle_config add column avoid_switch BOOLEAN NOT NULL DEFAULT true;
+alter table dual_subtitle_config add column clean BOOLEAN NOT NULL DEFAULT true;
+alter table dual_subtitle_config add column adjust_timecodes BOOLEAN NOT NULL DEFAULT false;
+alter table dual_subtitle_config add column one_line BOOLEAN NOT NULL DEFAULT false;

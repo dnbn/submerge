@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum Pages {
 
-	INDEX("index"), 
+	INDEX("index"),
+	INDEX_DIALOG("indexDialog"),
 	ABOUT("about"), 
 	CONTACT("contact"), 
 	SIGNUP("signup"), 

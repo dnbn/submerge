@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.submerge.sub.object.config.SubInput;
 import com.submerge.web.model.entity.MergeHisto;
+import com.submerge.web.pages.bean.model.UserSubConfigBean;
 import com.submerge.web.service.HistoService;
 
 @Service("sbmHistoService")
@@ -20,12 +21,12 @@ public class SbmHistoService implements HistoService {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void traceMerge(SubInput one, SubInput two) {
+	public void traceMerge(SubInput one, SubInput two, UserSubConfigBean config) {
 
 		Date currDate = Calendar.getInstance().getTime();
 
-		MergeHisto histoLineOne = createFomSubInput(one, currDate);
-		MergeHisto histoLineTwo = createFomSubInput(two, currDate);
+		MergeHisto histoLineOne = createHistoLine(one, config, currDate);
+		MergeHisto histoLineTwo = createHistoLine(two, config, currDate);
 
 		int idLine = (int) this.sessionFactory.getCurrentSession().save(histoLineOne);
 
@@ -36,7 +37,7 @@ public class SbmHistoService implements HistoService {
 		this.sessionFactory.getCurrentSession().saveOrUpdate(histoLineTwo);
 	}
 
-	private static MergeHisto createFomSubInput(SubInput input, Date dateHisto) {
+	private static MergeHisto createHistoLine(SubInput input, UserSubConfigBean config, Date dateHisto) {
 
 		MergeHisto histo = new MergeHisto();
 
@@ -47,6 +48,10 @@ public class SbmHistoService implements HistoService {
 		histo.setOutlineColor(input.getFontconfig().getOutlineColor());
 		histo.setOutlineWidth(input.getFontconfig().getOutlineWidth());
 		histo.setHistoDate(dateHisto);
+		histo.setAdjustTimecodes(config.isAdjustTimecodes());
+		histo.setAvoidSwitch(config.isAvoidSwitch());
+		histo.setClean(config.isClean());
+		histo.setOneLine(config.isOneLine());
 
 		return histo;
 	}

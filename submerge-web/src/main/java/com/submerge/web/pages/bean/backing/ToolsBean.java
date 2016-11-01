@@ -84,7 +84,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 
 			writeString(destFileName, ass.toString());
 
-			saveState();
+			saveUserState();
 
 			logger.log(Level.FINE, "File : " + filename + " converted to ASS");
 		} catch (Exception e) {
@@ -118,7 +118,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 
 			writeString(destFileName, srtSub.toString());
 
-			saveState();
+			saveUserState();
 
 			logger.log(Level.FINE, "File : " + filename + " converted to SRT");
 		} catch (Exception e) {
@@ -160,7 +160,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			String filename = FilenameUtils.getName(this.uploadedFile.getFileName());
 			writeString(filename, sb.toString());
 
-			saveState();
+			saveUserState();
 
 			logger.log(Level.FINE, "File encoding changed from " + encoding + " - file : " + filename);
 		} catch (Exception e) {
@@ -175,6 +175,15 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			this.uploadedFile = null;
 		}
 
+	}
+
+	/**
+	 * Save user profiles in database if the user is logged
+	 */
+	private void saveUserState() {
+		if (this.userBean.isLogged()) {
+			this.userService.save(this.userBean.getUser());
+		}
 	}
 
 	/**
@@ -225,16 +234,6 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 		output.write(message.getBytes("UTF-8"));
 
 		facesContext.responseComplete();
-	}
-
-	/**
-	 * Save user profiles in database if the user is logged
-	 */
-	private void saveState() {
-
-		if (this.userBean.isLogged()) {
-			this.userService.save(this.userBean.getUser());
-		}
 	}
 
 	// ======================== GETTER and SETTER methods ==========================

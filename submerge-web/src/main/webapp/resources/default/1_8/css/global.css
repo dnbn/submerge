@@ -225,6 +225,38 @@ label {
     padding-top: 11px;
 }
 
+.with-facet button.dropdown-toggle {
+	color: #555555;
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+.drop-menu-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.spacingRight {
+    margin-right: 5px !important;
+}
+
+.fakeButton .ui-button-text {
+    display: none;
+}
+
+.fakeButton .ui-icon {
+    margin-top: -13px;
+}
+
+.ui-widget-overlay {
+    opacity: 0.5;
+    filter: Alpha(Opacity=50);
+}
+
+.input-group-btn button.dropdown-toggle {
+    background-color: #eeeeee;
+}
+
 /* Header
 -------------------------------------------------------------------------------------------------------------------- */
 #navbar {
@@ -236,12 +268,11 @@ label {
 	color: #FEFEFE;
 }
 
-#navbar li>a, #navbar a.navbar-brand, #navbar .language a {
-	color: #FEFEFE;
+#navbar li>a, #navbar a.navbar-brand, #navbar .language a, span#pg-nav a {
+	color: #FEFEFE !important;
 }
 
-#navbar li.active>a, #navbar li.focus>a, #navbar li.open>a, #navbar li:hover
-	{
+#navbar li.active>a, #navbar li.focus>a, #navbar li.open>a, #navbar li:hover {
 	background-image: none;
 	box-shadow: none;
 	background-color: #36383F;
@@ -434,6 +465,11 @@ label {
 .offSetAlignment {
 	padding-left: 0;
 	padding-right: 2px;
+}
+
+.explaination {
+	margin-bottom: 15px;
+	text-align: justify;
 }
 
 /* Footer

@@ -2,6 +2,15 @@
 	color: #31A241;
 }
 
+
+.drop-menu-content {
+	width: 375px;
+}
+
+.dropdown-header {
+    margin-bottom: 5px;
+}
+
 /* ====================================================
 
    ============ Skin the fileupload widget ============ 

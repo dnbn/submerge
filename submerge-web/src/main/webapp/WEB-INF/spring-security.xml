@@ -34,6 +34,9 @@
 			<csrf disabled="true" />
 			<intercept-url access="permitAll" pattern="/**"></intercept-url>
 			<remember-me services-ref="rememberMeServices"></remember-me>
+			<headers>
+		        <frame-options policy="SAMEORIGIN"/>
+		    </headers>
 		</http>
 
 		<beans:bean class="org.springframework.security.authentication.RememberMeAuthenticationProvider" id="rememberMeAuthenticationProvider">

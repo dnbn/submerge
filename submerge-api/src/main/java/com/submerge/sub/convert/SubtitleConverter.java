@@ -1,17 +1,15 @@
 package com.submerge.sub.convert;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
+import java.util.stream.Collectors;
 
 import com.submerge.sub.object.ass.ASSSub;
-import com.submerge.sub.object.ass.ASSTime;
 import com.submerge.sub.object.ass.Events;
-import com.submerge.sub.object.ass.V4Style;
-import com.submerge.sub.object.config.Font;
 import com.submerge.sub.object.config.SubInput;
 import com.submerge.sub.object.itf.TimedLine;
 import com.submerge.sub.object.itf.TimedObject;
@@ -19,18 +17,11 @@ import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.object.srt.SRTLine;
 import com.submerge.sub.object.srt.SRTSub;
 import com.submerge.sub.object.srt.SRTTime;
-import com.submerge.sub.utils.ColorUtils;
 
 /**
  * Service used to manage subtitles
  */
 public class SubtitleConverter {
-
-	private static final String RGX_ASS_FORMATTING = "\\{[^\\}]*\\}";
-	private static final String SRT_ITALIC_CLOSE = "\\</i\\>";
-	private static final String SRT_ITALIC_OPEN = "\\<i\\>";
-	private static final String ASS_ITALIC_CLOSE = "\\{\\\\i0\\}";
-	private static final String ASS_ITALIC_OPEN = "\\{\\\\i1\\}";
 
 	/**
 	 * TimedTextFile to SRT conversion
@@ -54,7 +45,7 @@ public class SubtitleConverter {
 			List<String> newLines = new ArrayList<>();
 
 			for (String textLine : textLines) {
-				newLines.add(toSRTString(textLine));
+				newLines.add(ConverterUtils.toSRTString(textLine));
 			}
 
 			SRTLine srtLine = new SRTLine(id, srtTime, newLines);
@@ -88,81 +79,109 @@ public class SubtitleConverter {
 		Set<Events> ev = ass.getEvents();
 
 		for (SubInput config : configs) {
-			ass.getStyle().add(createV4Style(config));
+			ass.getStyle().add(ConverterUtils.createV4Style(config));
 			TimedTextFile sub = config.getSub();
-			sub.getTimedLines().forEach(line -> ev.add(createEvent(line, config.getStyleName())));
+			sub.getTimedLines().forEach(line -> ev.add(ConverterUtils.createEvent(line, config.getStyleName())));
 		}
 
 		return ass;
 	}
 
 	/**
-	 * Create an <code>Events</code> object from a timed line
+	 * Transform all multi-lines subtitles to single-line
 	 * 
-	 * @param line: a timed line
-	 * @param style: the style name
-	 * @return the corresponding <code>Events</code>
+	 * @param timedFile the TimedTextFile
 	 */
-	private static Events createEvent(TimedLine line, String style) {
+	public void mergeTextLines(TimedTextFile timedFile) {
 
-		List<String> newLine = new ArrayList<>();
-
-		for (String text : line.getTextLines()) {
-			newLine.add(toASSString(text));
+		for (TimedLine timedLine : timedFile.getTimedLines()) {
+			List<String> textLines = timedLine.getTextLines();
+			if (textLines.size() > 1) {
+				textLines.set(0, textLines.stream().collect(Collectors.joining(" ")));
+				textLines.subList(1, textLines.size()).clear();
+			}
 		}
-		TimedObject timeLine = line.getTime();
-		ASSTime time = new ASSTime(timeLine.getStart(), timeLine.getEnd());
-
-		return new Events(style, time, newLine);
 	}
 
 	/**
-	 * Create a <code>V4Style</code> object from <code>SubInput</code>
+	 * Synchronise the timecodes of a subtitle from another one
 	 * 
-	 * @param config: the configuration object
-	 * @return the corresponding style
+	 * @param fileToAdjust the subtitle to modify
+	 * @param referenceFile the subtitle to take the timecodes from
+	 * @param delay the number of milliseconds allowed to differ
 	 */
-	private static V4Style createV4Style(SubInput config) {
+	public void adjustTimecodes(TimedTextFile fileToAdjust, TimedTextFile referenceFile, int delay) {
 
-		V4Style style = new V4Style(config.getStyleName());
-		Font font = config.getFontconfig();
-		style.setFontname(font.getName());
-		style.setFontsize(font.getSize());
-		style.setAlignment(config.getAlignment());
-		style.setPrimaryColour(ColorUtils.hexToBGR(font.getColor()));
-		style.setOutlineColor(ColorUtils.hexToBGR(font.getOutlineColor()));
-		style.setOutline(font.getOutlineWidth());
-		style.setMarginV(config.getVerticalMargin());
-		return style;
+		List<? extends TimedLine> timedLines = new ArrayList<>(fileToAdjust.getTimedLines());
+		List<? extends TimedLine> referenceLines = new ArrayList<>(referenceFile.getTimedLines());
+
+		for (TimedLine lineToAdjust : timedLines) {
+
+			TimedObject originalTime = lineToAdjust.getTime();
+			LocalTime originalStart = originalTime.getStart();
+
+			Optional<? extends TimedLine> referenceLine = ConverterUtils.closestLineByStart(referenceLines,
+					originalStart, delay);
+
+			if (referenceLine.isPresent()) {
+				LocalTime targetStart = referenceLine.get().getTime().getStart();
+				LocalTime targetEnd = referenceLine.get().getTime().getEnd();
+
+				Optional<? extends TimedLine> startIntersect = ConverterUtils.intersectedLines(timedLines, targetStart);
+				Optional<? extends TimedLine> endIntersect = ConverterUtils.intersectedLines(timedLines, targetEnd);
+
+				boolean hasStartIntersect = startIntersect.isPresent();
+				boolean hasEndIntersect = endIntersect.isPresent();
+
+				LocalTime newStart = hasStartIntersect ? startIntersect.get().getTime().getEnd() : targetStart;
+				originalTime.setStart(newStart);
+
+				if (!hasEndIntersect || originalTime.getStart().equals(endIntersect.get().getTime().getStart())) {
+					originalTime.setEnd(targetEnd);
+				} else {
+					originalTime.setEnd(endIntersect.get().getTime().getStart());
+				}
+			}
+		}
+
+		SubtitleConverter.expandLongLines(timedLines, referenceLines, delay * 3);
 	}
 
 	/**
-	 * Format a text line to be srt compliant
+	 * Once the times are adjusted, we need to detect lines in the adjusted file that
+	 * should be displayed during 2 lines of the reference file
 	 * 
-	 * @param textLine the text line
-	 * @return the formatted text line
+	 * @param adjustedLines the adjusted lines
+	 * @param referenceLines the reference lines
 	 */
-	private static String toSRTString(String textLine) {
+	private static void expandLongLines(List<? extends TimedLine> adjustedLines,
+			List<? extends TimedLine> referenceLines, int delay) {
 
-		String formatted = textLine.replaceAll(ASS_ITALIC_OPEN, SRT_ITALIC_OPEN);
-		formatted = formatted.replaceAll(ASS_ITALIC_CLOSE, SRT_ITALIC_CLOSE);
-		formatted = formatted.replaceAll(RGX_ASS_FORMATTING, StringUtils.EMPTY);
+		for (int i = 0; i < adjustedLines.size(); i++) {
 
-		return formatted;
+			TimedObject currentElement = adjustedLines.get(i).getTime();
+			Optional<? extends TimedLine> referenceLine = referenceLines.stream()
+					.filter(r -> r.getTime().equals(currentElement)).findFirst();
+
+			if (referenceLine.isPresent()) {
+
+				int nextReferenceIndex = referenceLines.indexOf(referenceLine.get()) + 1;
+
+				if (nextReferenceIndex < referenceLines.size() && i + 1 < adjustedLines.size()) {
+
+					TimedObject nextReference = referenceLines.get(nextReferenceIndex).getTime();
+					TimedObject nextElement = adjustedLines.get(i + 1).getTime();
+
+					if ((nextReference.getStart().isAfter(currentElement.getEnd()) || nextReference.getStart().equals(
+							currentElement.getEnd()))
+							&& ChronoUnit.MILLIS.between(currentElement.getEnd(), nextReference.getStart()) < delay
+							&& (nextElement.getStart().isAfter(nextReference.getEnd()) || nextElement.getStart()
+									.equals(nextReference.getEnd()))) {
+
+						currentElement.setEnd(nextReference.getEnd());
+					}
+				}
+			}
+		}
 	}
-
-	/**
-	 * Format a text line to be ass compliant
-	 * 
-	 * @param textLine the text line
-	 * @return
-	 */
-	private static String toASSString(String textLine) {
-
-		String formatted = textLine.replaceAll(SRT_ITALIC_OPEN, ASS_ITALIC_OPEN);
-		formatted = formatted.replaceAll(SRT_ITALIC_CLOSE, ASS_ITALIC_CLOSE);
-
-		return formatted;
-	}
-
 }

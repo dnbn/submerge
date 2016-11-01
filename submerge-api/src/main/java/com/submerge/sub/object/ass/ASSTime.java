@@ -1,6 +1,5 @@
 package com.submerge.sub.object.ass;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,7 +10,7 @@ import com.submerge.sub.object.itf.TimedObject;
  * which the text will appear and disappear onscreen
  *
  */
-public class ASSTime implements Comparable<ASSTime>, Serializable, TimedObject {
+public class ASSTime implements Comparable<ASSTime>, TimedObject {
 
 	/**
 	 * Serial
@@ -73,6 +72,7 @@ public class ASSTime implements Comparable<ASSTime>, Serializable, TimedObject {
 		return this.start;
 	}
 
+	@Override
 	public void setStart(LocalTime start) {
 		this.start = start;
 	}
@@ -82,8 +82,21 @@ public class ASSTime implements Comparable<ASSTime>, Serializable, TimedObject {
 		return this.end;
 	}
 
+	@Override
 	public void setEnd(LocalTime end) {
 		this.end = end;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		ASSTime other = (ASSTime) obj;
+		return compareTo(other) == 0;
 	}
 
 	@Override

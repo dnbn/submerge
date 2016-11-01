@@ -25,6 +25,10 @@ public class MergeHisto {
 	private Date histoDate;
 	private int alignment;
 	private Integer fkHisto;
+	private boolean avoidSwitch = true;
+	private boolean clean = true;
+	private boolean adjustTimecodes;
+	private boolean oneLine;
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -109,6 +113,42 @@ public class MergeHisto {
 
 	public void setFkHisto(Integer fkHisto) {
 		this.fkHisto = fkHisto;
+	}
+
+	@Column(name = "avoid_switch", nullable = false)
+	public boolean isAvoidSwitch() {
+		return this.avoidSwitch;
+	}
+
+	public void setAvoidSwitch(boolean avoidSwitch) {
+		this.avoidSwitch = avoidSwitch;
+	}
+
+	@Column(name = "clean", nullable = false)
+	public boolean isClean() {
+		return this.clean;
+	}
+
+	public void setClean(boolean clean) {
+		this.clean = clean;
+	}
+
+	@Column(name = "adjust_timecodes", nullable = false)
+	public boolean isAdjustTimecodes() {
+		return this.adjustTimecodes;
+	}
+
+	public void setAdjustTimecodes(boolean adjustTimecodes) {
+		this.adjustTimecodes = adjustTimecodes;
+	}
+
+	@Column(name = "one_line", nullable = false)
+	public boolean isOneLine() {
+		return this.oneLine;
+	}
+
+	public void setOneLine(boolean oneLine) {
+		this.oneLine = oneLine;
 	}
 
 	@Override

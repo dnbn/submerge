@@ -3,19 +3,23 @@ package com.submerge.sub.convert;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.submerge.sub.object.ass.ASSTime;
 import com.submerge.sub.object.ass.Events;
 import com.submerge.sub.object.ass.V4Style;
+import com.submerge.sub.object.common.Line;
+import com.submerge.sub.object.common.Time;
+import com.submerge.sub.object.common.TimedLine;
+import com.submerge.sub.object.common.TimedObject;
 import com.submerge.sub.object.config.Font;
 import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedLine;
-import com.submerge.sub.object.itf.TimedObject;
 import com.submerge.sub.utils.ColorUtils;
 
 public class ConverterUtils {
@@ -101,29 +105,96 @@ public class ConverterUtils {
 	 * line will be ignored.
 	 * 
 	 * @param tolerance the maximum gap in millis
-	 * @param lines the lines
+	 * @param lines the lines (ascending sort)
 	 * @param time the target start time
 	 * @return
 	 */
-	public static Optional<? extends TimedLine> closestLineByStart(Collection<? extends TimedLine> lines,
-			LocalTime time, int tolerance) {
+	public static TimedLine closestLineByStart(List<? extends TimedLine> lines, final LocalTime time, int tolerance) {
 
-		return lines.stream().filter(r -> ChronoUnit.MILLIS.between(time, r.getTime().getStart()) < tolerance)
-				.sorted((l1, l2) -> l2.getTime().getStart().compareTo((l1.getTime().getStart()))).findFirst();
+		// Binary search will find the first "random" match
+		int iAnyMatch = Collections.binarySearch(lines, new Line<>(new Time(time, null)), new Comparator<TimedLine>() {
+
+			@Override
+			public int compare(TimedLine compare, TimedLine base) {
+
+				LocalTime search = base.getTime().getStart();
+				LocalTime start = compare.getTime().getStart();
+
+				if (distance(search, start) < tolerance) {
+					return 0;
+				}
+
+				return start.compareTo(search);
+			}
+		});
+
+		if (iAnyMatch < 0) {
+			return null;
+		}
+
+		// Search for other matches
+		Set<TimedLine> matches = new TreeSet<>();
+		matches.add(lines.get(iAnyMatch));
+
+		int i = iAnyMatch;
+		while (i > 0) {
+			TimedLine previous = lines.get(--i);
+			if (distance(time, previous.getTime().getStart()) >= tolerance) {
+				break;
+			}
+			matches.add(previous);
+		}
+
+		i = iAnyMatch;
+		while (i < lines.size()) {
+			TimedLine next = lines.get(++i);
+			if (distance(time, next.getTime().getStart()) >= tolerance) {
+				break;
+			}
+			matches.add(next);
+		}
+
+		// return the closest match
+		return matches.stream()
+				.sorted((m1, m2) -> distance(m1.getTime().getStart(), time) - distance(m2.getTime().getStart(), time))
+				.findFirst().get();
 	}
 
 	/**
-	 * Find the first line displayed at <code>targetTime</code>
 	 * 
-	 * @param lines the lines
+	 * @return the absolute distance beetween 2 times
+	 */
+	static int distance(LocalTime search, LocalTime start) {
+
+		return (int) Math.abs(ChronoUnit.MILLIS.between(search, start));
+	}
+
+	/**
+	 * Find the line displayed at <code>targetTime</code>
+	 * 
+	 * @param lines the lines (ascending sort)
 	 * @param time the target time
 	 * @return
 	 */
-	public static Optional<? extends TimedLine> intersectedLines(Collection<? extends TimedLine> lines, LocalTime time) {
+	public static TimedLine intersectedLines(List<? extends TimedLine> lines, LocalTime time) {
 
-		return lines
-				.stream()
-				.filter(l -> (l.getTime().getStart().isBefore(time) || l.getTime().getStart().equals(time))
-						&& (l.getTime().getEnd().isAfter(time) || l.getTime().getStart().equals(time))).findFirst();
+		int index = Collections.binarySearch(lines, new Line<>(new Time(time, null)), new Comparator<TimedLine>() {
+
+			@Override
+			public int compare(TimedLine compare, TimedLine base) {
+
+				LocalTime search = base.getTime().getStart();
+				LocalTime start = compare.getTime().getStart();
+				LocalTime end = compare.getTime().getEnd();
+
+				if ((start.isBefore(search) || start.equals(search)) && (end.isAfter(search) || start.equals(search))) {
+					return 0;
+				}
+
+				return start.compareTo(search);
+			}
+		});
+
+		return index < 0 ? null : lines.get(index);
 	}
 }

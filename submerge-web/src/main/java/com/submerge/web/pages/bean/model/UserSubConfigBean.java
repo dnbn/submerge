@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.web.model.entity.SubtitleProfile;
 import com.submerge.web.pages.bean.model.proxy.SubConfig;
 

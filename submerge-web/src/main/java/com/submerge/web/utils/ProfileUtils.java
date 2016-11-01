@@ -3,9 +3,9 @@ package com.submerge.web.utils;
 import org.apache.commons.lang.StringUtils;
 
 import com.submerge.sub.constant.FontName;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.object.config.Font;
 import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.web.model.entity.SubtitleProfile;
 
 public class ProfileUtils {

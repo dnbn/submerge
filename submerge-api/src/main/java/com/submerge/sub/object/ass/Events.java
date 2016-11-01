@@ -1,11 +1,10 @@
 package com.submerge.sub.object.ass;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.submerge.sub.object.itf.TimedLine;
+import com.submerge.sub.object.common.Line;
 
 /**
  * Contain the subtitle text, their timings, and how it should be displayed. The fields
@@ -22,7 +21,7 @@ import com.submerge.sub.object.itf.TimedLine;
  * versions of the software to read the fields it recognises - even if the field order is
  * changed.
  */
-public class Events implements Comparable<Events>, TimedLine {
+public class Events extends Line<ASSTime> {
 
 	/**
 	 * Serial
@@ -56,11 +55,6 @@ public class Events implements Comparable<Events>, TimedLine {
 	 * Higher numbered layers will be drawn over the lower numbered.
 	 */
 	private int layer;
-
-	/**
-	 * Timecodes
-	 */
-	private ASSTime time;
 
 	/**
 	 * Style name. If it is "Default", then your own *Default style will be subtituted.
@@ -112,16 +106,6 @@ public class Events implements Comparable<Events>, TimedLine {
 	private String effect = StringUtils.EMPTY;
 
 	/**
-	 * Subtitle Text. This is the actual text which will be displayed as a subtitle
-	 * onscreen. Everything after the 9th comma is treated as the subtitle text, so it can
-	 * include commas.
-	 * 
-	 * The text can include \n codes which is a line break, and can include Style Override
-	 * control codes, which appear between braces { }.
-	 */
-	private List<String> textLines;
-
-	/**
 	 * Constructor
 	 * 
 	 * @param name style name to apply
@@ -139,9 +123,9 @@ public class Events implements Comparable<Events>, TimedLine {
 	 * 
 	 */
 	public Events() {
+		super();
 		this.style = StringUtils.EMPTY;
 		this.time = new ASSTime();
-		this.textLines = new ArrayList<>();
 	}
 
 	@Override
@@ -163,18 +147,6 @@ public class Events implements Comparable<Events>, TimedLine {
 		return StringUtils.removeEnd(sb.toString(), ESCAPED_RETURN);
 	}
 
-	@Override
-	public int compareTo(Events event) {
-		int compare = this.time.compareTo(event.time);
-		if (compare == 0) {
-			String thisText = String.join(",", this.textLines);
-			String eventText = String.join(",", event.textLines);
-			compare = thisText.compareTo(eventText);
-		}
-
-		return compare;
-	}
-
 	// ===================== getter and setter start =====================
 
 	public int getLayer() {
@@ -183,15 +155,6 @@ public class Events implements Comparable<Events>, TimedLine {
 
 	public void setLayer(int layer) {
 		this.layer = layer;
-	}
-
-	@Override
-	public ASSTime getTime() {
-		return this.time;
-	}
-
-	public void setTime(ASSTime time) {
-		this.time = time;
 	}
 
 	public String getStyle() {
@@ -234,10 +197,6 @@ public class Events implements Comparable<Events>, TimedLine {
 		this.marginV = marginV;
 	}
 
-	public void setTextLines(List<String> textLines) {
-		this.textLines = textLines;
-	}
-
 	public String getEffect() {
 		return this.effect;
 	}
@@ -245,10 +204,4 @@ public class Events implements Comparable<Events>, TimedLine {
 	public void setEffect(String effect) {
 		this.effect = effect;
 	}
-
-	@Override
-	public List<String> getTextLines() {
-		return this.textLines;
-	}
-
 }

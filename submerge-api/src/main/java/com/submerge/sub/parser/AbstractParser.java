@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.parser.exception.InvalidFileException;
 import com.submerge.sub.parser.exception.InvalidSubException;
 import com.submerge.sub.parser.itf.SubtitleParser;

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.submerge.sub.object.itf.TimedLine;
-import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.common.TimedLine;
+import com.submerge.sub.object.common.TimedTextFile;
 
 /**
  * The class <code>ASSSub</code> represents a SubStation Alpha subtitle

@@ -1,13 +1,14 @@
-package com.submerge.sub.object.itf;
+package com.submerge.sub.object.common;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Comparator;
 
 /**
  * 
  * Simple object that contains timed start ant end
  */
-public interface TimedObject extends Serializable {
+public interface TimedObject extends Serializable, Comparable<TimedObject>, Comparator<TimedObject> {
 
 	/**
 	 * Return the time elapsed during script playback at which the text will appear

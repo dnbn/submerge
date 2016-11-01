@@ -1,13 +1,14 @@
-package com.submerge.sub.object.itf;
+package com.submerge.sub.object.common;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Simple object that contains a text line with a time
  *
  */
-public interface TimedLine extends Serializable {
+public interface TimedLine extends Serializable, Comparable<TimedLine>, Comparator<TimedLine> {
 
 	/**
 	 * Get the text lines

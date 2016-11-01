@@ -1,4 +1,4 @@
-package com.submerge.sub.object.itf;
+package com.submerge.sub.object.common;
 
 import java.io.Serializable;
 import java.util.Set;

@@ -3,17 +3,18 @@ package com.submerge.sub.convert;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.submerge.sub.object.ass.ASSSub;
 import com.submerge.sub.object.ass.Events;
+import com.submerge.sub.object.common.Line;
+import com.submerge.sub.object.common.TimedLine;
+import com.submerge.sub.object.common.TimedObject;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedLine;
-import com.submerge.sub.object.itf.TimedObject;
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.object.srt.SRTLine;
 import com.submerge.sub.object.srt.SRTSub;
 import com.submerge.sub.object.srt.SRTTime;
@@ -120,26 +121,22 @@ public class SubtitleConverter {
 			TimedObject originalTime = lineToAdjust.getTime();
 			LocalTime originalStart = originalTime.getStart();
 
-			Optional<? extends TimedLine> referenceLine = ConverterUtils.closestLineByStart(referenceLines,
-					originalStart, delay);
+			TimedLine referenceLine = ConverterUtils.closestLineByStart(referenceLines, originalStart, delay);
 
-			if (referenceLine.isPresent()) {
-				LocalTime targetStart = referenceLine.get().getTime().getStart();
-				LocalTime targetEnd = referenceLine.get().getTime().getEnd();
+			if (referenceLine != null) {
+				LocalTime targetStart = referenceLine.getTime().getStart();
+				LocalTime targetEnd = referenceLine.getTime().getEnd();
 
-				Optional<? extends TimedLine> startIntersect = ConverterUtils.intersectedLines(timedLines, targetStart);
-				Optional<? extends TimedLine> endIntersect = ConverterUtils.intersectedLines(timedLines, targetEnd);
+				TimedLine startIntersect = ConverterUtils.intersectedLines(timedLines, targetStart);
+				TimedLine endIntersect = ConverterUtils.intersectedLines(timedLines, targetEnd);
 
-				boolean hasStartIntersect = startIntersect.isPresent();
-				boolean hasEndIntersect = endIntersect.isPresent();
-
-				LocalTime newStart = hasStartIntersect ? startIntersect.get().getTime().getEnd() : targetStart;
+				LocalTime newStart = (startIntersect != null) ? startIntersect.getTime().getEnd() : targetStart;
 				originalTime.setStart(newStart);
 
-				if (!hasEndIntersect || originalTime.getStart().equals(endIntersect.get().getTime().getStart())) {
+				if (endIntersect == null || originalTime.getStart().equals(endIntersect.getTime().getStart())) {
 					originalTime.setEnd(targetEnd);
 				} else {
-					originalTime.setEnd(endIntersect.get().getTime().getStart());
+					originalTime.setEnd(endIntersect.getTime().getStart());
 				}
 			}
 		}
@@ -151,8 +148,8 @@ public class SubtitleConverter {
 	 * Once the times are adjusted, we need to detect lines in the adjusted file that
 	 * should be displayed during 2 lines of the reference file
 	 * 
-	 * @param adjustedLines the adjusted lines
-	 * @param referenceLines the reference lines
+	 * @param adjustedLines the adjusted lines (ascending sort)
+	 * @param referenceLines the reference lines (ascending sort)
 	 */
 	private static void expandLongLines(List<? extends TimedLine> adjustedLines,
 			List<? extends TimedLine> referenceLines, int delay) {
@@ -160,13 +157,11 @@ public class SubtitleConverter {
 		for (int i = 0; i < adjustedLines.size(); i++) {
 
 			TimedObject currentElement = adjustedLines.get(i).getTime();
-			Optional<? extends TimedLine> referenceLine = referenceLines.stream()
-					.filter(r -> r.getTime().equals(currentElement)).findFirst();
 
-			if (referenceLine.isPresent()) {
+			int index = Collections.binarySearch(referenceLines, new Line<>(currentElement), Line.timeComparator);
+			if (index >= 0) {
 
-				int nextReferenceIndex = referenceLines.indexOf(referenceLine.get()) + 1;
-
+				int nextReferenceIndex = index + 1;
 				if (nextReferenceIndex < referenceLines.size() && i + 1 < adjustedLines.size()) {
 
 					TimedObject nextReference = referenceLines.get(nextReferenceIndex).getTime();

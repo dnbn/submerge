@@ -25,8 +25,8 @@ import org.springframework.stereotype.Component;
 
 import com.submerge.sub.convert.SubtitleConverter;
 import com.submerge.sub.object.ass.ASSSub;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.parser.ParserFactory;
 import com.submerge.sub.parser.exception.InvalidFileException;
 import com.submerge.sub.parser.exception.InvalidSubException;
@@ -141,7 +141,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 			// Adjust timecodes
 			if (this.userConfig.isAdjustTimecodes()) {
-				subConverter.adjustTimecodes(subTwo, subOne, 500);
+				subConverter.adjustTimecodes(subTwo, subOne, 1500);
 			}
 
 			SubInput one = ProfileUtils.createSubInput(subOne, this.userConfig.getProfileOne(), "One");

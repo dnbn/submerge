@@ -25,8 +25,8 @@ import org.springframework.stereotype.Component;
 
 import com.submerge.sub.convert.SubtitleConverter;
 import com.submerge.sub.object.ass.ASSSub;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedTextFile;
 import com.submerge.sub.object.srt.SRTSub;
 import com.submerge.sub.parser.ParserFactory;
 import com.submerge.sub.utils.FileUtils;

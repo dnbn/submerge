@@ -2,7 +2,7 @@ package com.submerge.sub.object.config;
 
 import java.io.Serializable;
 
-import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.common.TimedTextFile;
 
 public class SubInput implements Serializable {
 

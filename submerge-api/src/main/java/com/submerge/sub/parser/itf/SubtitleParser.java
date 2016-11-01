@@ -3,7 +3,7 @@ package com.submerge.sub.parser.itf;
 import java.io.File;
 import java.io.InputStream;
 
-import com.submerge.sub.object.itf.TimedTextFile;
+import com.submerge.sub.object.common.TimedTextFile;
 import com.submerge.sub.parser.exception.InvalidFileException;
 import com.submerge.sub.parser.exception.InvalidSubException;
 

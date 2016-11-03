@@ -2,10 +2,10 @@ package com.submerge.web.utils;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.submerge.sub.api.object.common.TimedTextFile;
+import com.submerge.sub.api.object.config.Font;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
 import com.submerge.sub.constant.FontName;
-import com.submerge.sub.object.common.TimedTextFile;
-import com.submerge.sub.object.config.Font;
-import com.submerge.sub.object.config.SubInput;
 import com.submerge.web.model.entity.SubtitleProfile;
 
 public class ProfileUtils {
@@ -38,7 +38,7 @@ public class ProfileUtils {
 	 * @param alignment: the alignment of the subtitle (top, bottom,...)
 	 * @return the SubInput object
 	 */
-	public static SubInput createSubInput(TimedTextFile subtitle, SubtitleProfile profile, String styleName) {
+	public static SimpleSubConfig createSubConfig(TimedTextFile subtitle, SubtitleProfile profile, String styleName) {
 
 		Font font = new Font();
 		font.setColor(profile.getPrimaryColor());
@@ -46,10 +46,10 @@ public class ProfileUtils {
 		font.setOutlineColor(profile.getOutlineColor());
 		font.setOutlineWidth(profile.getOutlineWidth());
 		font.setSize(profile.getFontSize());
-		SubInput si = new SubInput(subtitle, font);
+		SimpleSubConfig si = new SimpleSubConfig(subtitle, font);
 		si.setStyleName(styleName);
 		si.setAlignment(profile.getAlignment() + profile.getAlignmentOffset());
-		
+
 		return si;
 	}
 }

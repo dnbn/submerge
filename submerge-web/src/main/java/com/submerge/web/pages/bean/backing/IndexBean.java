@@ -23,14 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.convert.SubtitleConverter;
-import com.submerge.sub.object.ass.ASSSub;
-import com.submerge.sub.object.common.TimedTextFile;
-import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.parser.ParserFactory;
-import com.submerge.sub.parser.exception.InvalidFileException;
-import com.submerge.sub.parser.exception.InvalidSubException;
-import com.submerge.sub.parser.itf.SubtitleParser;
+import com.submerge.sub.api.SubmergeAPI;
+import com.submerge.sub.api.object.ass.ASSSub;
+import com.submerge.sub.api.object.common.TimedTextFile;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
+import com.submerge.sub.api.parser.ParserFactory;
+import com.submerge.sub.api.parser.SubtitleParser;
+import com.submerge.sub.api.parser.exception.InvalidFileException;
+import com.submerge.sub.api.parser.exception.InvalidSubException;
 import com.submerge.web.constant.SupportedLocales;
 import com.submerge.web.model.entity.SubtitleProfile;
 import com.submerge.web.pages.bean.AbstractManagedBean;
@@ -125,7 +125,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 		if (subOne != null && subTwo != null) {
 
-			SubtitleConverter subConverter = new SubtitleConverter();
+			SubmergeAPI subConverter = new SubmergeAPI();
 
 			// Clean ASS formatting
 			if (this.userConfig.isClean()) {
@@ -144,8 +144,8 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 				subConverter.adjustTimecodes(subTwo, subOne, 850);
 			}
 
-			SubInput one = ProfileUtils.createSubInput(subOne, this.userConfig.getProfileOne(), "One");
-			SubInput two = ProfileUtils.createSubInput(subTwo, this.userConfig.getProfileTwo(), "Two");
+			SimpleSubConfig one = ProfileUtils.createSubConfig(subOne, this.userConfig.getProfileOne(), "One");
+			SimpleSubConfig two = ProfileUtils.createSubConfig(subTwo, this.userConfig.getProfileTwo(), "Two");
 
 			// If both subs have the same position, add margin to the first one
 			if (this.userConfig.isAvoidSwitch() && one.getAlignment() == two.getAlignment()) {
@@ -162,7 +162,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 			ASSSub sub = subConverter.mergeToAss(one, two);
 
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
-			this.histoService.traceMerge(one, two, this.userConfig);
+			this.histoService.trace(one, two, this.userConfig);
 		}
 
 		saveUserState();

@@ -1,6 +1,6 @@
 package com.submerge.web.service;
 
-import com.submerge.sub.object.config.SubInput;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
 
 /**
@@ -15,5 +15,5 @@ public interface HistoService {
 	 * @param profileTwo
 	 * @param userSubConfig the user sub configuration
 	 */
-	void traceMerge(SubInput one, SubInput two, UserSubConfigBean userSubConfig);
+	void trace(SimpleSubConfig one, SimpleSubConfig two, UserSubConfigBean userSubConfig);
 }

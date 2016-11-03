@@ -3,7 +3,7 @@ package com.submerge.cli.configuration.user;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.submerge.sub.object.config.Font;
+import com.submerge.sub.api.object.config.Font;
 
 @XmlRootElement
 public class FontConfiguration {

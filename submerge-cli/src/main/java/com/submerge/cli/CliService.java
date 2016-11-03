@@ -13,15 +13,15 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import com.submerge.cli.configuration.ConfigurationLoader;
 import com.submerge.cli.configuration.user.AssConfiguration;
 import com.submerge.cli.configuration.user.DualSubConfiguration;
-import com.submerge.sub.convert.SubtitleConverter;
-import com.submerge.sub.object.ass.ASSSub;
-import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.itf.TimedTextFile;
-import com.submerge.sub.object.srt.SRTSub;
-import com.submerge.sub.parser.ParserFactory;
-import com.submerge.sub.parser.exception.InvalidFileException;
-import com.submerge.sub.parser.exception.InvalidSubException;
-import com.submerge.sub.parser.itf.SubtitleParser;
+import com.submerge.sub.api.SubmergeAPI;
+import com.submerge.sub.api.object.ass.ASSSub;
+import com.submerge.sub.api.object.common.TimedTextFile;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
+import com.submerge.sub.api.object.srt.SRTSub;
+import com.submerge.sub.api.parser.ParserFactory;
+import com.submerge.sub.api.parser.SubtitleParser;
+import com.submerge.sub.api.parser.exception.InvalidFileException;
+import com.submerge.sub.api.parser.exception.InvalidSubException;
 
 public class CliService {
 
@@ -42,8 +42,8 @@ public class CliService {
 		SubtitleParser parser = ParserFactory.getParser(ext);
 
 		TimedTextFile ttf = parser.parse(file);
-		SubtitleConverter convert = new SubtitleConverter();
-		SRTSub srt = convert.toSRT(ttf);
+		SubmergeAPI api = new SubmergeAPI();
+		SRTSub srt = api.toSRT(ttf);
 
 		String finalName = getFinalFilename(outputFilename, file, ext, "srt");
 		FileUtils.writeStringToFile(new File(finalName), srt.toString());
@@ -68,11 +68,11 @@ public class CliService {
 
 		AssConfiguration config = ConfigurationLoader.loadUserConfiguration().getSimpleAssConfig();
 
-		SubInput subInput = new SubInput(ttf, config.getFontConfig().getFont());
+		SimpleSubConfig subInput = new SimpleSubConfig(ttf, config.getFontConfig().getFont());
 		subInput.setStyleName(config.getStyleName());
 		subInput.setAlignment(2);
 
-		SubtitleConverter convert = new SubtitleConverter();
+		SubmergeAPI convert = new SubmergeAPI();
 		ASSSub ass = convert.toASS(subInput);
 
 		String finalName = getFinalFilename(outputFilename, file, ext, "ass");
@@ -126,8 +126,8 @@ public class CliService {
 		AssConfiguration topConfig = config.getTop();
 		AssConfiguration botConfig = config.getBottom();
 
-		SubInput topSubInput = new SubInput(topTtf, topConfig.getFontConfig().getFont());
-		SubInput botSubInput = new SubInput(botTtf, botConfig.getFontConfig().getFont());
+		SimpleSubConfig topSubInput = new SimpleSubConfig(topTtf, topConfig.getFontConfig().getFont());
+		SimpleSubConfig botSubInput = new SimpleSubConfig(botTtf, botConfig.getFontConfig().getFont());
 
 		topSubInput.setStyleName(topConfig.getStyleName());
 		botSubInput.setStyleName(botConfig.getStyleName());
@@ -135,7 +135,7 @@ public class CliService {
 		topSubInput.setAlignment(8);
 		botSubInput.setAlignment(2);
 
-		SubtitleConverter convert = new SubtitleConverter();
+		SubmergeAPI convert = new SubmergeAPI();
 		ASSSub ass = convert.mergeToAss(topSubInput, botSubInput);
 
 		String finalName = outputFilename;
@@ -192,6 +192,7 @@ public class CliService {
 	 * @throws InvalidFileException
 	 */
 	private static void validFiles(File... files) throws InvalidFileException {
+
 		for (File file : files) {
 			if (!file.exists()) {
 				throw new InvalidFileException("File " + file.getName() + " does not exists.");
@@ -201,5 +202,5 @@ public class CliService {
 			}
 		}
 	}
-	
+
 }

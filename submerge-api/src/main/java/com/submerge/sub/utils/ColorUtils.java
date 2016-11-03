@@ -2,7 +2,7 @@ package com.submerge.sub.utils;
 
 import java.awt.Color;
 
-import com.submerge.sub.parser.exception.InvalidColorCode;
+import com.submerge.sub.api.parser.exception.InvalidColorCode;
 
 
 public final class ColorUtils {

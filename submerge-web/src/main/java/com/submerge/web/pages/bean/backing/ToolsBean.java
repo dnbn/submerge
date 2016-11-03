@@ -23,12 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.convert.SubtitleConverter;
-import com.submerge.sub.object.ass.ASSSub;
-import com.submerge.sub.object.common.TimedTextFile;
-import com.submerge.sub.object.config.SubInput;
-import com.submerge.sub.object.srt.SRTSub;
-import com.submerge.sub.parser.ParserFactory;
+import com.submerge.sub.api.SubmergeAPI;
+import com.submerge.sub.api.object.ass.ASSSub;
+import com.submerge.sub.api.object.common.TimedTextFile;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
+import com.submerge.sub.api.object.srt.SRTSub;
+import com.submerge.sub.api.parser.ParserFactory;
 import com.submerge.sub.utils.FileUtils;
 import com.submerge.web.model.entity.SubtitleProfile;
 import com.submerge.web.pages.bean.AbstractManagedBean;
@@ -75,9 +75,9 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
 			SubtitleProfile profile = this.userConfig.getProfileSimple();
 
-			SubInput subInput = ProfileUtils.createSubInput(ttf, profile, "Default");
+			SimpleSubConfig subInput = ProfileUtils.createSubConfig(ttf, profile, "Default");
 
-			SubtitleConverter convert = new SubtitleConverter();
+			SubmergeAPI convert = new SubmergeAPI();
 			ASSSub ass = convert.toASS(subInput);
 
 			String destFileName = StringUtils.removeEnd(filename, extension) + ".ass";
@@ -112,7 +112,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			String extension = FilenameUtils.getExtension(fullName);
 
 			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
-			SRTSub srtSub = new SubtitleConverter().toSRT(ttf);
+			SRTSub srtSub = new SubmergeAPI().toSRT(ttf);
 
 			String destFileName = StringUtils.removeEnd(filename, extension) + ".srt";
 

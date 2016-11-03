@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.submerge.sub.object.config.SubInput;
+import com.submerge.sub.api.object.config.SimpleSubConfig;
 import com.submerge.web.model.entity.MergeHisto;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
 import com.submerge.web.service.HistoService;
@@ -21,7 +21,7 @@ public class SbmHistoService implements HistoService {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void traceMerge(SubInput one, SubInput two, UserSubConfigBean config) {
+	public void trace(SimpleSubConfig one, SimpleSubConfig two, UserSubConfigBean config) {
 
 		Date currDate = Calendar.getInstance().getTime();
 
@@ -37,7 +37,7 @@ public class SbmHistoService implements HistoService {
 		this.sessionFactory.getCurrentSession().saveOrUpdate(histoLineTwo);
 	}
 
-	private static MergeHisto createHistoLine(SubInput input, UserSubConfigBean config, Date dateHisto) {
+	private static MergeHisto createHistoLine(SimpleSubConfig input, UserSubConfigBean config, Date dateHisto) {
 
 		MergeHisto histo = new MergeHisto();
 

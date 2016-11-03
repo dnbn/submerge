@@ -18,11 +18,13 @@ public class SRTTime extends SubtitleTime {
 	}
 
 	public SRTTime(LocalTime start, LocalTime end) {
+		
 		super(start, end);
 	}
 
 	@Override
 	public String toString() {
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(format(this.start));
 		sb.append(DELIMITER);

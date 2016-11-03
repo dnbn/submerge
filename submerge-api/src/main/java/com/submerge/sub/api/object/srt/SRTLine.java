@@ -17,6 +17,7 @@ public class SRTLine extends SubtitleLine<SRTTime> {
 	private int id;
 
 	public SRTLine(int id, SRTTime time, List<String> textLines) {
+		
 		this.id = id;
 		this.time = time;
 		this.textLines = textLines;
@@ -24,6 +25,7 @@ public class SRTLine extends SubtitleLine<SRTTime> {
 
 	@Override
 	public String toString() {
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.id).append(NEW_LINE);
 		sb.append(this.time).append(NEW_LINE);

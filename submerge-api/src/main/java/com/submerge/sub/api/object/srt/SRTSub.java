@@ -20,15 +20,18 @@ public class SRTSub implements TimedTextFile {
 	// ======================== Public methods ==========================
 
 	public void add(SRTLine line) {
+		
 		this.lines.add(line);
 	}
 
 	public void remove(TimedLine line) {
+		
 		this.lines.remove(line);
 	}
 
 	@Override
 	public String toString() {
+		
 		StringBuilder sb = new StringBuilder();
 		this.lines.forEach(srtLine -> sb.append(srtLine));
 		return sb.toString();

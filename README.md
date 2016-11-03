@@ -48,7 +48,7 @@ File file = new File("subtitle.ass");
 ASSParser parser = new ASSParser();
 ASSSub ass = parser.parse(file);
 
-SubmergeAPIapi= new SubmergeAPI();
+SubmergeAPI api= new SubmergeAPI();
 SRTSub srt = convert.toSRT(ass);
 
 System.out.println(srt.toString());

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.api.object.common.TimedTextFile;
-import com.submerge.web.model.entity.SubtitleProfile;
+import com.submerge.api.subtitle.common.TimedTextFile;
+import com.submerge.web.model.SubtitleProfileBO;
 import com.submerge.web.pages.bean.model.proxy.SubConfig;
 
 /**
@@ -29,15 +29,15 @@ public class UserSubConfigBean implements Serializable {
 
 	// ========================= delegates start =========================
 
-	public SubtitleProfile getProfileOne() {
+	public SubtitleProfileBO getProfileOne() {
 		return this.subConfig.getCurrent().getProfileOne();
 	}
 
-	public SubtitleProfile getProfileTwo() {
+	public SubtitleProfileBO getProfileTwo() {
 		return this.subConfig.getCurrent().getProfileTwo();
 	}
 
-	public SubtitleProfile getProfileSimple() {
+	public SubtitleProfileBO getProfileSimple() {
 		return this.subConfig.getSimpleAssConfig();
 	}
 

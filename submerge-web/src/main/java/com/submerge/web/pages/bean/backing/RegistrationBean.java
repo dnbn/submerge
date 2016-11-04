@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.web.model.entity.User;
+import com.submerge.web.model.UserBO;
 import com.submerge.web.pages.bean.AbstractManagedBean;
 import com.submerge.web.service.UserService;
 
@@ -17,7 +17,7 @@ import com.submerge.web.service.UserService;
 public class RegistrationBean extends AbstractManagedBean {
 
 	private static final transient Logger logger = Logger.getLogger(RegistrationBean.class.getName());
-	
+
 	@Autowired
 	private transient UserService userService;
 
@@ -27,7 +27,7 @@ public class RegistrationBean extends AbstractManagedBean {
 	/**
 	 * The user
 	 */
-	private User user = new User();
+	private UserBO user = new UserBO();
 
 	/**
 	 * Register the user and redirect to the main page
@@ -35,7 +35,7 @@ public class RegistrationBean extends AbstractManagedBean {
 	 * @return the page to be displayed
 	 */
 	public String register() {
-		
+
 		this.loginBean.setUsername(this.user.getName());
 		this.loginBean.setPassword(this.user.getPassword());
 		this.loginBean.setRemember(true);
@@ -53,7 +53,7 @@ public class RegistrationBean extends AbstractManagedBean {
 	 * Create the user
 	 */
 	private void processRegistration() {
-		
+
 		Date currDate = Calendar.getInstance().getTime();
 		this.user.setCreation(currDate);
 		this.user.setLastLogin(currDate);
@@ -63,11 +63,11 @@ public class RegistrationBean extends AbstractManagedBean {
 
 	// ====================== getter & setter start ======================
 
-	public User getUser() {
+	public UserBO getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserBO user) {
 		this.user = user;
 	}
 

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.web.model.entity.User;
+import com.submerge.web.model.UserBO;
 import com.submerge.web.service.UserService;
 
 @Component("userLoginValidator")
@@ -37,7 +37,7 @@ public class UserLoginValidator implements Validator {
 		}
 
 		String hash = this.userService.hashPassword(password);
-		User result = this.userService.findByName(userName);
+		UserBO result = this.userService.findByName(userName);
 		if (result == null || !result.getPassword().equals(hash)) {
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, INCORRECT_USER_LOGIN, null));
 		}

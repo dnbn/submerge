@@ -269,7 +269,7 @@ label {
 }
 
 #navbar li>a, #navbar a.navbar-brand, #navbar .language a, span#pg-nav a {
-	color: #FEFEFE !important;
+	color: #FEFEFE;
 }
 
 #navbar li.active>a, #navbar li.focus>a, #navbar li.open>a, #navbar li:hover {
@@ -545,4 +545,8 @@ label {
 
 #footer .sourceCode a:hover {
 	text-decoration: underline;
+}
+
+#form-login\:signup-link {
+	color: #23527c !important;
 }

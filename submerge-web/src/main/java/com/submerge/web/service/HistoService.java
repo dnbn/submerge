@@ -1,6 +1,6 @@
 package com.submerge.web.service;
 
-import com.submerge.sub.api.object.config.SimpleSubConfig;
+import com.submerge.api.subtitle.config.SimpleSubConfig;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
 
 /**

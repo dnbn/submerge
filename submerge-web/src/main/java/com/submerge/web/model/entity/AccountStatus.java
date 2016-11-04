@@ -15,22 +15,6 @@ import javax.persistence.Table;
 @Table(name = "account_status", schema = "public")
 public class AccountStatus implements Serializable {
 
-	public enum Status {
-		LOCKED(3), 
-		DISABLED(2), 
-		ENABLED(1);
-
-		private int id;
-
-		Status(int id) {
-			this.id = id;
-		}
-
-		public int getId() {
-			return this.id;
-		}
-	}
-
 	private static final long serialVersionUID = -8133484130630670009L;
 	
 	protected int id;

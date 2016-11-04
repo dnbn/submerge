@@ -3,19 +3,19 @@ package com.submerge.web.pages.bean.model.proxy;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.submerge.web.model.entity.DualSubtitleConfig;
-import com.submerge.web.model.entity.SubtitleProfile;
+import com.submerge.web.model.DualSubtitleConfigBO;
+import com.submerge.web.model.SubtitleProfileBO;
 
 public interface SubConfig extends Serializable {
 
-	public Set<DualSubtitleConfig> getConfigs();
+	public Set<DualSubtitleConfigBO> getConfigs();
 
-	public void setConfigs(Set<DualSubtitleConfig> dualSubConfigs, SubtitleProfile simpleAssConfig);
+	public void setConfigs(Set<DualSubtitleConfigBO> dualSubConfigs, SubtitleProfileBO simpleAssConfig);
 
-	public DualSubtitleConfig getCurrent();
+	public DualSubtitleConfigBO getCurrent();
 
-	public Set<DualSubtitleConfig> getCustoms();
+	public Set<DualSubtitleConfigBO> getCustoms();
 
-	public SubtitleProfile getSimpleAssConfig();
+	public SubtitleProfileBO getSimpleAssConfig();
 
 }

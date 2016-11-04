@@ -10,18 +10,18 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 
+import com.submerge.api.SubmergeAPI;
+import com.submerge.api.parser.ParserFactory;
+import com.submerge.api.parser.SubtitleParser;
+import com.submerge.api.parser.exception.InvalidFileException;
+import com.submerge.api.parser.exception.InvalidSubException;
+import com.submerge.api.subtitle.ass.ASSSub;
+import com.submerge.api.subtitle.common.TimedTextFile;
+import com.submerge.api.subtitle.config.SimpleSubConfig;
+import com.submerge.api.subtitle.srt.SRTSub;
 import com.submerge.cli.configuration.ConfigurationLoader;
 import com.submerge.cli.configuration.user.AssConfiguration;
 import com.submerge.cli.configuration.user.DualSubConfiguration;
-import com.submerge.sub.api.SubmergeAPI;
-import com.submerge.sub.api.object.ass.ASSSub;
-import com.submerge.sub.api.object.common.TimedTextFile;
-import com.submerge.sub.api.object.config.SimpleSubConfig;
-import com.submerge.sub.api.object.srt.SRTSub;
-import com.submerge.sub.api.parser.ParserFactory;
-import com.submerge.sub.api.parser.SubtitleParser;
-import com.submerge.sub.api.parser.exception.InvalidFileException;
-import com.submerge.sub.api.parser.exception.InvalidSubException;
 
 public class CliService {
 
@@ -90,7 +90,7 @@ public class CliService {
 	public void toUTF8(File file, String outputFilename) throws IOException, InvalidFileException {
 
 		validFiles(file);
-		String encoding = com.submerge.sub.utils.FileUtils.guessEncoding(file);
+		String encoding = com.submerge.api.utils.FileUtils.guessEncoding(file);
 		String content = FileUtils.readFileToString(file, encoding);
 
 		if (StringUtils.isEmpty(outputFilename)) {

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.submerge.web.constant.SupportedLocales;
-import com.submerge.web.model.entity.User;
+import com.submerge.web.model.UserBO;
 import com.submerge.web.pages.bean.AbstractManagedBean;
 import com.submerge.web.pages.bean.model.proxy.AuthenticatedUser;
 
@@ -73,7 +73,7 @@ public class UserBean extends AbstractManagedBean implements Serializable {
 
 	// ===================== getter and setter start =====================
 
-	public User getUser() {
+	public UserBO getUser() {
 		return this.authenticatedUser.getUser();
 	}
 

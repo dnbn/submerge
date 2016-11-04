@@ -2,11 +2,11 @@ package com.submerge.web.utils;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.submerge.sub.api.object.common.TimedTextFile;
-import com.submerge.sub.api.object.config.Font;
-import com.submerge.sub.api.object.config.SimpleSubConfig;
-import com.submerge.sub.constant.FontName;
-import com.submerge.web.model.entity.SubtitleProfile;
+import com.submerge.api.constant.FontName;
+import com.submerge.api.subtitle.common.TimedTextFile;
+import com.submerge.api.subtitle.config.Font;
+import com.submerge.api.subtitle.config.SimpleSubConfig;
+import com.submerge.web.model.SubtitleProfileBO;
 
 public class ProfileUtils {
 
@@ -15,9 +15,9 @@ public class ProfileUtils {
 	 * 
 	 * @param profile the subtitle profile
 	 */
-	public static void initProfiles(SubtitleProfile... profiles) {
+	public static void initProfiles(SubtitleProfileBO... profiles) {
 
-		for (SubtitleProfile profile : profiles) {
+		for (SubtitleProfileBO profile : profiles) {
 			if (StringUtils.isEmpty(profile.getFontName())) {
 				profile.setPrimaryColor("#fffff9");
 				profile.setOutlineColor("000000");
@@ -38,7 +38,7 @@ public class ProfileUtils {
 	 * @param alignment: the alignment of the subtitle (top, bottom,...)
 	 * @return the SubInput object
 	 */
-	public static SimpleSubConfig createSubConfig(TimedTextFile subtitle, SubtitleProfile profile, String styleName) {
+	public static SimpleSubConfig createSubConfig(TimedTextFile subtitle, SubtitleProfileBO profile, String styleName) {
 
 		Font font = new Font();
 		font.setColor(profile.getPrimaryColor());

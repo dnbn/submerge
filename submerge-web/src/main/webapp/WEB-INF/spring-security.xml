@@ -12,7 +12,7 @@
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 		<authentication-manager alias="authenticationManager">
-			<authentication-provider user-service-ref="sbmUserDetailsService">
+			<authentication-provider user-service-ref="userDetailsServiceImpl">
 				<password-encoder hash="sha-256"></password-encoder>
 			</authentication-provider>
 			<authentication-provider ref="rememberMeAuthenticationProvider"></authentication-provider>
@@ -46,8 +46,8 @@
 		<beans:bean class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices"
 			id="rememberMeServices">
 			<beans:constructor-arg name="key" value="myAppKey" />
-			<beans:constructor-arg name="userDetailsService" ref="sbmUserDetailsService" />
-			<beans:constructor-arg name="tokenRepository" ref="sbmPersistentTokenRepository" />
+			<beans:constructor-arg name="userDetailsService" ref="userDetailsServiceImpl" />
+			<beans:constructor-arg name="tokenRepository" ref="persistentTokenRepositoryServiceImpl" />
 			<beans:property name="tokenValiditySeconds" value="1728000"></beans:property>
 			<beans:property name="cookieName" value="remember-me"></beans:property>
 		</beans:bean>

@@ -1,12 +1,14 @@
 package com.submerge.web.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.submerge.web.model.UserBO;
 import com.submerge.web.model.entity.Authorities;
-import com.submerge.web.model.entity.User;
 
 /**
  * Service used to manage users
  */
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
 	/**
 	 * Find a user from its id
@@ -14,7 +16,7 @@ public interface UserService {
 	 * @param id: the user id
 	 * @return the user
 	 */
-	public User findById(int id);
+	public UserBO findById(int id);
 
 	/**
 	 * Find a user from its email
@@ -22,7 +24,7 @@ public interface UserService {
 	 * @param email: the user email
 	 * @return the user
 	 */
-	public User findByEmail(String email);
+	public UserBO findByEmail(String email);
 
 	/**
 	 * Find a user from its login
@@ -30,21 +32,21 @@ public interface UserService {
 	 * @param name: the user login
 	 * @return the user
 	 */
-	public User findByName(String name);
+	public UserBO findByName(String name);
 
 	/**
 	 * Save a user in database
 	 * 
 	 * @param user: the user to be saved
 	 */
-	public void save(User user);
+	public void save(UserBO user);
 
 	/**
 	 * Create a new user
 	 * 
 	 * @param user: the user to be saved
 	 */
-	public void create(User user);
+	public void create(UserBO user);
 
 	/**
 	 * Add an authority to a user
@@ -52,7 +54,7 @@ public interface UserService {
 	 * @param user: the user
 	 * @param authority: the authority
 	 */
-	public void addAuthority(User user, Authorities authority);
+	public void addAuthority(UserBO user, Authorities authority);
 
 	/**
 	 * Encode a user password

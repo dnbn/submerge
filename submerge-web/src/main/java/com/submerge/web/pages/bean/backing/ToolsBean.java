@@ -23,14 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.api.SubmergeAPI;
-import com.submerge.sub.api.object.ass.ASSSub;
-import com.submerge.sub.api.object.common.TimedTextFile;
-import com.submerge.sub.api.object.config.SimpleSubConfig;
-import com.submerge.sub.api.object.srt.SRTSub;
-import com.submerge.sub.api.parser.ParserFactory;
-import com.submerge.sub.utils.FileUtils;
-import com.submerge.web.model.entity.SubtitleProfile;
+import com.submerge.api.SubmergeAPI;
+import com.submerge.api.parser.ParserFactory;
+import com.submerge.api.subtitle.ass.ASSSub;
+import com.submerge.api.subtitle.common.TimedTextFile;
+import com.submerge.api.subtitle.config.SimpleSubConfig;
+import com.submerge.api.subtitle.srt.SRTSub;
+import com.submerge.api.utils.FileUtils;
+import com.submerge.web.model.SubtitleProfileBO;
 import com.submerge.web.pages.bean.AbstractManagedBean;
 import com.submerge.web.pages.bean.model.UserBean;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
@@ -73,7 +73,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			String extension = FilenameUtils.getExtension(fullName);
 
 			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
-			SubtitleProfile profile = this.userConfig.getProfileSimple();
+			SubtitleProfileBO profile = this.userConfig.getProfileSimple();
 
 			SimpleSubConfig subInput = ProfileUtils.createSubConfig(ttf, profile, "Default");
 
@@ -200,7 +200,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	 */
 	public void onPageLoad() {
 
-		SubtitleProfile profile = this.userConfig.getProfileSimple();
+		SubtitleProfileBO profile = this.userConfig.getProfileSimple();
 		ProfileUtils.initProfiles(profile);
 
 		this.previewLanguage = this.userConfig.getProfileSimple().getLanguage();

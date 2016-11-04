@@ -8,7 +8,7 @@ import java.util.Set;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.constant.FontName;
+import com.submerge.api.constant.FontName;
 
 @Component("dropDownBean")
 @Scope("application")

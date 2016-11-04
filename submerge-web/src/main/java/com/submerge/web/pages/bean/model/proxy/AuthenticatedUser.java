@@ -2,12 +2,12 @@ package com.submerge.web.pages.bean.model.proxy;
 
 import java.io.Serializable;
 
-import com.submerge.web.model.entity.User;
+import com.submerge.web.model.UserBO;
 
 public interface AuthenticatedUser extends Serializable {
 
-	public User getUser();
+	public UserBO getUser();
 
-	public void setUser(User user);
+	public void setUser(UserBO user);
 
 }

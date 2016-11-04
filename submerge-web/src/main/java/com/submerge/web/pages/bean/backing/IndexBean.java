@@ -23,16 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.submerge.sub.api.SubmergeAPI;
-import com.submerge.sub.api.object.ass.ASSSub;
-import com.submerge.sub.api.object.common.TimedTextFile;
-import com.submerge.sub.api.object.config.SimpleSubConfig;
-import com.submerge.sub.api.parser.ParserFactory;
-import com.submerge.sub.api.parser.SubtitleParser;
-import com.submerge.sub.api.parser.exception.InvalidFileException;
-import com.submerge.sub.api.parser.exception.InvalidSubException;
+import com.submerge.api.SubmergeAPI;
+import com.submerge.api.parser.ParserFactory;
+import com.submerge.api.parser.SubtitleParser;
+import com.submerge.api.parser.exception.InvalidFileException;
+import com.submerge.api.parser.exception.InvalidSubException;
+import com.submerge.api.subtitle.ass.ASSSub;
+import com.submerge.api.subtitle.common.TimedTextFile;
+import com.submerge.api.subtitle.config.SimpleSubConfig;
 import com.submerge.web.constant.SupportedLocales;
-import com.submerge.web.model.entity.SubtitleProfile;
+import com.submerge.web.model.SubtitleProfileBO;
 import com.submerge.web.pages.bean.AbstractManagedBean;
 import com.submerge.web.pages.bean.model.UserBean;
 import com.submerge.web.pages.bean.model.UserSubConfigBean;
@@ -67,8 +67,8 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 	@PostConstruct
 	public void doInit() {
 
-		SubtitleProfile one = this.userConfig.getProfileOne();
-		SubtitleProfile two = this.userConfig.getProfileTwo();
+		SubtitleProfileBO one = this.userConfig.getProfileOne();
+		SubtitleProfileBO two = this.userConfig.getProfileTwo();
 
 		if (one.getAlignment() == 0) {
 			two.setAlignmentOffset(4);

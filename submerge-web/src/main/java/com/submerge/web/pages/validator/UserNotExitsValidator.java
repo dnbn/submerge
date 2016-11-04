@@ -23,8 +23,9 @@ public class UserNotExitsValidator implements Validator {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		String email = (String) value;
-		if (this.userService.findByName(email) != null) {
+		
+		String login = (String) value;
+		if (this.userService.findByName(login) != null) {
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, USER_EXISTS, null));
 		}
 	}

@@ -4,14 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class AuthorityBO implements GrantedAuthority {
 
-	/**
-	 * Serial
-	 */
 	private static final long serialVersionUID = -7521460933659506665L;
 
-	/**
-	 * Authority name
-	 */
 	private String authority;
 
 	/**

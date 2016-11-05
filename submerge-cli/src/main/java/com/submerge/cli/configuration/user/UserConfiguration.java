@@ -1,39 +1,35 @@
 package com.submerge.cli.configuration.user;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "userConfiguration", propOrder = { "dualAssConfig", "simpleAssConfig" })
 public class UserConfiguration {
 
-	/**
-	 * Configuration for simple ass
-	 */
-	private AssConfiguration simpleAssConfig;
-
-	/**
-	 * Configuration for dual sub ass
-	 */
-	private DualSubConfiguration dualAssConfig;
-
-	// ===================== getter and setter start =====================
-	
-	public AssConfiguration getSimpleAssConfig() {
-		return this.simpleAssConfig;
-	}
-
 	@XmlElement(required = true)
-	public void setSimpleAssConfig(AssConfiguration simpleAssConfig) {
-		this.simpleAssConfig = simpleAssConfig;
-	}
+	protected DualAssConfig dualAssConfig;
+	@XmlElement(required = true)
+	protected SubtitleConfig simpleAssConfig;
 
-	public DualSubConfiguration getDualAssConfig() {
+	public DualAssConfig getDualAssConfig() {
 		return this.dualAssConfig;
 	}
 
-	@XmlElement(required = true)
-	public void setDualAssConfig(DualSubConfiguration dualAssConfig) {
-		this.dualAssConfig = dualAssConfig;
+	public void setDualAssConfig(DualAssConfig value) {
+		this.dualAssConfig = value;
+	}
+
+	public SubtitleConfig getSimpleAssConfig() {
+		return this.simpleAssConfig;
+	}
+
+	public void setSimpleAssConfig(SubtitleConfig value) {
+		this.simpleAssConfig = value;
 	}
 
 }

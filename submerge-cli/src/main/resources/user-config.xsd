@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="userConfiguration" type="userConfiguration" />
+	<xs:complexType name="fontConfig">
+		<xs:sequence>
+			<xs:element type="xs:string" name="color" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="name" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="outlineColor" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:byte" name="outlineWidth" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:byte" name="size" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="alignment" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="centered" />
+			<xs:enumeration value="left" />
+			<xs:enumeration value="right" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="alignmentOffset" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="top" />
+			<xs:enumeration value="bottom" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="subtitleConfig">
+		<xs:sequence>
+			<xs:element type="fontConfig" name="fontConfig" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="styleName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="alignment" name="alignment" minOccurs="1" maxOccurs="1" />
+			<xs:element type="alignmentOffset" name="alignmentOffset" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="adjustTimecodes">
+		<xs:simpleContent>
+			<xs:extension base="xs:boolean">
+				<xs:attribute type="xs:int" name="tolerance" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="dualAssConfig">
+		<xs:sequence>
+			<xs:element type="xs:string" name="filename" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:boolean" name="cleanSubtitles" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:boolean" name="mergeIntoOneLine" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:boolean" name="fixPosition" minOccurs="1" maxOccurs="1" />
+			<xs:element type="adjustTimecodes" name="adjustTimecodes" minOccurs="1" maxOccurs="1" />
+			<xs:element type="subtitleConfig" name="one" minOccurs="1" maxOccurs="1" />
+			<xs:element type="subtitleConfig" name="two" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="userConfiguration">
+		<xs:sequence>
+			<xs:element type="dualAssConfig" name="dualAssConfig" minOccurs="1" maxOccurs="1" />
+			<xs:element type="subtitleConfig" name="simpleAssConfig" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

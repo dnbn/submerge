@@ -34,7 +34,7 @@ public class ConfigurationLoader {
 	/**
 	 * Load the user configuration file
 	 * 
-	 * @return the user configuration object
+	 * @return the Ouser configuration object
 	 */
 	public static UserConfiguration loadUserConfiguration() {
 

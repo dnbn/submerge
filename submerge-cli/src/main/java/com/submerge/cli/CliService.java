@@ -20,10 +20,13 @@ import com.submerge.api.subtitle.common.TimedTextFile;
 import com.submerge.api.subtitle.config.SimpleSubConfig;
 import com.submerge.api.subtitle.srt.SRTSub;
 import com.submerge.cli.configuration.ConfigurationLoader;
-import com.submerge.cli.configuration.user.AssConfiguration;
-import com.submerge.cli.configuration.user.DualSubConfiguration;
+import com.submerge.cli.configuration.user.AdjustTimecodes;
+import com.submerge.cli.configuration.user.DualAssConfig;
+import com.submerge.cli.configuration.user.SubtitleConfig;
 
 public class CliService {
+
+	private SubmergeAPI api = new SubmergeAPI();
 
 	/**
 	 * Convert a file (srt or ass) to srt and write the new file on disk
@@ -42,8 +45,7 @@ public class CliService {
 		SubtitleParser parser = ParserFactory.getParser(ext);
 
 		TimedTextFile ttf = parser.parse(file);
-		SubmergeAPI api = new SubmergeAPI();
-		SRTSub srt = api.toSRT(ttf);
+		SRTSub srt = this.api.toSRT(ttf);
 
 		String finalName = getFinalFilename(outputFilename, file, ext, "srt");
 		FileUtils.writeStringToFile(new File(finalName), srt.toString());
@@ -66,14 +68,12 @@ public class CliService {
 		SubtitleParser parser = ParserFactory.getParser(ext);
 		TimedTextFile ttf = parser.parse(file);
 
-		AssConfiguration config = ConfigurationLoader.loadUserConfiguration().getSimpleAssConfig();
+		SubtitleConfig config = ConfigurationLoader.loadUserConfiguration().getSimpleAssConfig();
 
-		SimpleSubConfig subInput = new SimpleSubConfig(ttf, config.getFontConfig().getFont());
-		subInput.setStyleName(config.getStyleName());
-		subInput.setAlignment(2);
+		SimpleSubConfig subConfig = createSimpleSubConfig(ttf, config);
+		subConfig.setAlignment(2);
 
-		SubmergeAPI convert = new SubmergeAPI();
-		ASSSub ass = convert.toASS(subInput);
+		ASSSub ass = this.api.toASS(subConfig);
 
 		String finalName = getFinalFilename(outputFilename, file, ext, "ass");
 		FileUtils.writeStringToFile(new File(finalName), ass.toString());
@@ -115,28 +115,49 @@ public class CliService {
 
 		validFiles(topFile, botFile);
 
-		String topExt = FilenameUtils.getExtension(topFile.getName());
-		String botExt = FilenameUtils.getExtension(botFile.getName());
+		String extOne = FilenameUtils.getExtension(topFile.getName());
+		String extTwo = FilenameUtils.getExtension(botFile.getName());
 
-		TimedTextFile topTtf = ParserFactory.getParser(topExt).parse(topFile);
-		TimedTextFile botTtf = ParserFactory.getParser(botExt).parse(botFile);
+		TimedTextFile subOne = ParserFactory.getParser(extOne).parse(topFile);
+		TimedTextFile subTwo = ParserFactory.getParser(extTwo).parse(botFile);
 
-		DualSubConfiguration config = ConfigurationLoader.loadUserConfiguration().getDualAssConfig();
+		DualAssConfig config = ConfigurationLoader.loadUserConfiguration().getDualAssConfig();
 
-		AssConfiguration topConfig = config.getTop();
-		AssConfiguration botConfig = config.getBottom();
+		// Clean ASS formatting
+		if (config.isCleanSubtitles()) {
+			subOne = this.api.toSRT(subOne);
+			subTwo = this.api.toSRT(subTwo);
+		}
 
-		SimpleSubConfig topSubInput = new SimpleSubConfig(topTtf, topConfig.getFontConfig().getFont());
-		SimpleSubConfig botSubInput = new SimpleSubConfig(botTtf, botConfig.getFontConfig().getFont());
+		// Disallow multi-lines
+		if (config.isMergeIntoOneLine()) {
+			this.api.mergeTextLines(subOne);
+			this.api.mergeTextLines(subTwo);
+		}
 
-		topSubInput.setStyleName(topConfig.getStyleName());
-		botSubInput.setStyleName(botConfig.getStyleName());
+		// Adjust timecodes
+		AdjustTimecodes adjustmentConfig = config.getAdjustTimecodes();
+		if (adjustmentConfig.getValue()) {
+			this.api.adjustTimecodes(subTwo, subOne, adjustmentConfig.getTolerance());
+		}
 
-		topSubInput.setAlignment(8);
-		botSubInput.setAlignment(2);
+		SimpleSubConfig subConfigOne = createSimpleSubConfig(subOne, config.getOne());
+		SimpleSubConfig subConfigTwo = createSimpleSubConfig(subTwo, config.getTwo());
 
-		SubmergeAPI convert = new SubmergeAPI();
-		ASSSub ass = convert.mergeToAss(topSubInput, botSubInput);
+		// If both subs have the same position, add margin to the first one
+		if (config.isFixPosition() && subConfigOne.getAlignment() == subConfigTwo.getAlignment()) {
+			subConfigOne.setVerticalMargin(40);
+			if (subConfigTwo.getFontconfig().getSize() > 12) {
+				subConfigOne.setVerticalMargin(45);
+				subConfigTwo.setVerticalMargin(5);
+			}
+			if (config.isMergeIntoOneLine()) {
+				subConfigOne.setVerticalMargin(35);
+				subConfigTwo.setVerticalMargin(10);
+			}
+		}
+
+		ASSSub ass = this.api.mergeToAss(subConfigOne, subConfigTwo);
 
 		String finalName = outputFilename;
 		if (StringUtils.isEmpty(finalName)) {
@@ -183,6 +204,15 @@ public class CliService {
 			finalName = finalName + finalExt;
 		}
 		return finalName;
+	}
+
+	private static SimpleSubConfig createSimpleSubConfig(TimedTextFile ttf, SubtitleConfig config) {
+
+		SimpleSubConfig subConfig = new SimpleSubConfig(ttf, config.getFontConfig());
+		subConfig.setStyleName(config.getStyleName());
+		subConfig.setStyleName(config.getStyleName());
+		subConfig.setAlignment(config.getAlignment().value() + config.getAlignmentOffset().value());
+		return subConfig;
 	}
 
 	/**

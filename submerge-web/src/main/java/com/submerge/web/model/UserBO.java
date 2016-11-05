@@ -11,9 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserBO implements UserDetails {
 
-	/**
-	 * Serial
-	 */
 	private static final long serialVersionUID = 8109287543247336865L;
 
 	private int id;

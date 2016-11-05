@@ -93,6 +93,8 @@ public class UserServiceImpl implements UserService {
 		if (!subConfigs.stream().anyMatch(sc -> sc.isCurrent())) {
 			DualSubtitleConfig dsc = new DualSubtitleConfig(user, defaultProfile(), defaultProfile(), true);
 			dsc.setLastUpdate(currDate);
+			dsc.setAvoidSwitch(true);
+			dsc.setClean(true);
 			subConfigs.add(dsc);
 			user.setDualSubtitleConfigs(subConfigs);
 		}

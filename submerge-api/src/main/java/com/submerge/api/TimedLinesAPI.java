@@ -132,6 +132,39 @@ public class TimedLinesAPI {
 	}
 
 	/**
+	 * Find a line displayed between 2 times
+	 * 
+	 * @param lines the lines (ascending sort)
+	 * @param
+	 * 
+	 * @return
+	 */
+	public TimedLine intersected(List<? extends TimedLine> lines, LocalTime start, LocalTime end) {
+
+		int index = Collections.binarySearch(lines, new SubtitleLine<>(new SubtitleTime(start, end)),
+				new Comparator<TimedLine>() {
+
+					@Override
+					public int compare(TimedLine compare, TimedLine base) {
+
+						LocalTime searchStart = base.getTime().getStart();
+						LocalTime searchEnd = base.getTime().getEnd();
+
+						LocalTime start = compare.getTime().getStart();
+						LocalTime end = compare.getTime().getEnd();
+
+						if (searchStart.isBefore(start) && searchEnd.isAfter(end)) {
+							return 0;
+						}
+
+						return compare.compareTo(base);
+					}
+				});
+
+		return index < 0 ? null : lines.get(index);
+	}
+
+	/**
 	 * Find a sublitle line from it's time
 	 * 
 	 * @param lines the subtitle lines

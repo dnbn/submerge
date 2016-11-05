@@ -34,7 +34,7 @@ public class SubmergeAPI {
 
 		int i = 0;
 		for (TimedLine timedLine : timedFile.getTimedLines()) {
-			
+
 			int id = ++i;
 			TimedObject time = timedLine.getTime();
 			LocalTime start = time.getStart();
@@ -126,6 +126,12 @@ public class SubmergeAPI {
 			if (referenceLine != null) {
 				LocalTime targetStart = referenceLine.getTime().getStart();
 				LocalTime targetEnd = referenceLine.getTime().getEnd();
+
+				TimedLine fullIntersect = linesAPI.intersected(timedLines, targetStart, targetEnd);
+
+				if (fullIntersect != null && !lineToAdjust.equals(fullIntersect)) {
+					continue;
+				}
 
 				TimedLine startIntersect = linesAPI.intersected(timedLines, targetStart);
 				TimedLine endIntersect = linesAPI.intersected(timedLines, targetEnd);

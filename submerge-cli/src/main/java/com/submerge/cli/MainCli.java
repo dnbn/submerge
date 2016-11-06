@@ -35,8 +35,8 @@ public class MainCli {
 
 			} else if (result.hasMergeOption()) {
 
-				File fileTop = result.getTopSub();
-				File fileBot = result.getBottomSub();
+				File fileTop = result.getMerge().get(0);
+				File fileBot = result.getMerge().get(1);
 				service.mergeToASS(fileTop, fileBot, outputName);
 
 			} else {

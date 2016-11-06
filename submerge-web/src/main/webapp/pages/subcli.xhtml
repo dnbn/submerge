@@ -53,11 +53,11 @@ mv sbm /usr/bin/</pre>
 						<b:tab id="tab-merge" title="#{msg['subcli.merge']}">
 							<p>#{msg['subcli.merge.intro']}</p>
 							<p>#{msg['subcli.example']}</p>
-							<pre>sbm --merge --top subtitle_top.srt --bottom subtitle_bottom.ass</pre>
+							<pre>sbm --merge first_subtitle.srt second_subtitle.ass</pre>
 							<p>#{msg['subcli.merge.optionOutput']}</p>
-							<pre>sbm --merge --top subtitle_top.srt --bottom subtitle_bottom.ass --output subtitle_output</pre>
+							<pre>sbm --merge --output subtitle_output first_subtitle.srt second_subtitle.ass</pre>
 							<p>#{msg['subcli.merge.shortOptions']}</p>
-							<pre>sbm -m -t subtitle_top.srt -b subtitle_bottom.ass -o subtitle_output</pre>
+							<pre>sbm -m -o subtitle_output first_subtitle.srt second_subtitle.ass</pre>
 						</b:tab>
 						<b:tab title="#{msg['subcli.srt']}">
 							<p>#{msg['subcli.srt.intro']}</p>

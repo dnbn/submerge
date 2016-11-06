@@ -24,12 +24,4 @@
 		<description>Output filename</description>
 		<longOption>output</longOption>
 	</outputName>
-	<topSubtitle>
-		<description>Filename of the top subtitle</description>
-		<longOption>top</longOption>
-	</topSubtitle>
-	<bottomSubtitle>
-		<description>Filename of the bottom subtitle</description>
-		<longOption>bottom</longOption>
-	</bottomSubtitle>
 </cliConfiguration>

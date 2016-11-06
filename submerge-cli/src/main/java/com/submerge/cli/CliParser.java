@@ -3,6 +3,7 @@ package com.submerge.cli;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
@@ -29,9 +30,8 @@ public class CliParser {
 	private OptionSpec<File> ass;
 	private OptionSpec<File> srt;
 	private OptionSpec<Void> merge;
-	private OptionSpec<File> fileTop;
-	private OptionSpec<File> fileBot;
 	private OptionSpec<String> outputName;
+	private OptionSpec<File> files;
 
 	/**
 	 * Private constructor
@@ -49,9 +49,7 @@ public class CliParser {
 		this.outputName = build(cc.getOutputName(), String.class);
 		this.merge = build(cc.getMergeToASS(), Void.class);
 
-		this.fileTop = build(cc.getTopSubtitle(), File.class, false, this.merge);
-		this.fileBot = build(cc.getBottomSubtitle(), File.class, false, this.merge);
-
+		this.files = this.parser.nonOptions().ofType(File.class);
 	}
 
 	/**
@@ -77,6 +75,10 @@ public class CliParser {
 			OptionSet options = this.parser.parse(args);
 			result.options = options;
 			result.cliParser = this;
+
+			if (result.hasMergeOption() && result.getMerge().size() < 2) {
+				throw new ParsingOptionException("Merge option requires 2 arguments");
+			}
 
 		} catch (OptionException e) {
 			throw new ParsingOptionException(e);
@@ -123,12 +125,8 @@ public class CliParser {
 			return this.options.valueOf(this.cliParser.srt);
 		}
 
-		public File getTopSub() {
-			return this.options.valueOf(this.cliParser.fileTop);
-		}
-
-		public File getBottomSub() {
-			return this.options.valueOf(this.cliParser.fileBot);
+		public List<File> getMerge() {
+			return this.options.valuesOf(this.cliParser.files);
 		}
 
 		public String getOutputName() {

@@ -5,8 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.DateTimeException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.TreeSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 import com.submerge.api.parser.exception.InvalidAssSubException;
 import com.submerge.api.subtitle.ass.ASSSub;
@@ -176,7 +175,6 @@ public class ASSParser extends BaseParser<ASSSub> {
 	 */
 	private static Events parseDialog(String[] eventsFormat, String[] dialogLine) throws InvalidAssSubException {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ASSTime.TIME_PATTERN);
 		Events events = new Events();
 
 		for (int i = 0; i < eventsFormat.length; i++) {
@@ -186,10 +184,10 @@ public class ASSParser extends BaseParser<ASSSub> {
 			try {
 				switch (property) {
 				case "start":
-					events.getTime().setStart(LocalTime.parse(value, formatter));
+					events.getTime().setStart(ASSTime.fromString(value));
 					break;
 				case "end":
-					events.getTime().setEnd(LocalTime.parse(value, formatter));
+					events.getTime().setEnd(ASSTime.fromString(value));
 					break;
 				case "text":
 					List<String> textLines = Arrays.asList(value.split("\\\\N"));
@@ -356,28 +354,15 @@ public class ASSParser extends BaseParser<ASSSub> {
 					PropertyUtils.setProperty(object, property, value);
 					break;
 				case "int":
-					try {
-						int intValue = Integer.parseInt(value);
-						PropertyUtils.setProperty(object, property, intValue);
-					} catch (NumberFormatException e) {
-						error = property + " must be an integer";
-					}
+					PropertyUtils.setProperty(object, property, NumberUtils.toInt(value));
 					break;
 				case "boolean":
-					try {
-						boolean boolValue = Integer.parseInt(value) == -1;
-						PropertyUtils.setProperty(object, property, boolValue);
-					} catch (NumberFormatException e) {
-						error = property + " must be -1 or 0";
-					}
+					boolean boolValue = NumberUtils.toInt(value) == -1;
+					PropertyUtils.setProperty(object, property, boolValue);
 					break;
 				case "double":
-					try {
-						double doubleValue = Double.parseDouble(value.replace(",", ".").trim());
-						PropertyUtils.setProperty(object, property, doubleValue);
-					} catch (NumberFormatException e) {
-						error = property + " must be a double";
-					}
+					double doubleValue = NumberUtils.toDouble(value.replace(",", ".").trim());
+					PropertyUtils.setProperty(object, property, doubleValue);
 					break;
 				default:
 					break;

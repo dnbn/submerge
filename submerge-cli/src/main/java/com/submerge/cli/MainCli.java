@@ -39,6 +39,14 @@ public class MainCli {
 				File fileBot = result.getMerge().get(1);
 				service.mergeToASS(fileTop, fileBot, outputName);
 
+			} else if (result.hasFramerateOption()) {
+
+				double source = Double.parseDouble(result.getSource());
+				double destination = Double.parseDouble(result.getDestination());
+				File file = result.getFramerate();
+
+				service.convertFramerate(file, source, destination, outputName);
+
 			} else {
 
 				result.printHelpOn(System.out);
@@ -48,7 +56,7 @@ public class MainCli {
 			System.err.println(e.getMessage());
 			System.out.println("Try --help for more information");
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

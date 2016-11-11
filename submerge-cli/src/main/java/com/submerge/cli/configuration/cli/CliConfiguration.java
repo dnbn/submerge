@@ -32,19 +32,24 @@ public class CliConfiguration {
 	private OptionDescription mergeToASS;
 
 	/**
+	 * Source
+	 */
+	private OptionDescription source;
+
+	/**
+	 * Destination
+	 */
+	private OptionDescription destination;
+
+	/**
+	 * Framerate conversion
+	 */
+	private OptionDescription framerate;
+
+	/**
 	 * Output filename
 	 */
 	private OptionDescription outputName;
-
-	/**
-	 * Top subtitle
-	 */
-	private OptionDescription topSubtitle;
-
-	/**
-	 * Bottom subtitle
-	 */
-	private OptionDescription bottomSubtitle;
 
 	// ===================== getter and setter start =====================
 
@@ -102,22 +107,31 @@ public class CliConfiguration {
 		this.outputName = outputName;
 	}
 
-	public OptionDescription getTopSubtitle() {
-		return this.topSubtitle;
+	public OptionDescription getSource() {
+		return this.source;
 	}
 
 	@XmlElement(required = true)
-	public void setTopSubtitle(OptionDescription topSubtitle) {
-		this.topSubtitle = topSubtitle;
+	public void setSource(OptionDescription source) {
+		this.source = source;
 	}
 
-	public OptionDescription getBottomSubtitle() {
-		return this.bottomSubtitle;
+	public OptionDescription getDestination() {
+		return this.destination;
 	}
 
 	@XmlElement(required = true)
-	public void setBottomSubtitle(OptionDescription bottomSubtitle) {
-		this.bottomSubtitle = bottomSubtitle;
+	public void setDestination(OptionDescription destination) {
+		this.destination = destination;
+	}
+
+	public OptionDescription getFramerate() {
+		return this.framerate;
+	}
+
+	@XmlElement(required = true)
+	public void setFramerate(OptionDescription framerate) {
+		this.framerate = framerate;
 	}
 
 }

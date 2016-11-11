@@ -62,10 +62,9 @@ public abstract class BaseParser<T extends TimedTextFile> implements SubtitlePar
 
 		} catch (IOException e) {
 			throw new InvalidFileException(e);
-		} catch (Exception e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	/**

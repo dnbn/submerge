@@ -63,7 +63,7 @@ public class TimedLinesAPI {
 		}
 
 		i = iAnyMatch;
-		while (i < lines.size()) {
+		while (i < lines.size() -1) {
 			TimedLine next = lines.get(++i);
 			if (getDelay(time, next.getTime().getStart()) >= tolerance) {
 				break;

@@ -125,23 +125,23 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 
 		if (subOne != null && subTwo != null) {
 
-			SubmergeAPI subConverter = new SubmergeAPI();
+			SubmergeAPI api = new SubmergeAPI();
 
 			// Clean ASS formatting
 			if (this.userConfig.isClean()) {
-				subOne = subConverter.toSRT(subOne);
-				subTwo = subConverter.toSRT(subTwo);
+				subOne = api.toSRT(subOne);
+				subTwo = api.toSRT(subTwo);
 			}
 
 			// Disallow multi-lines
 			if (this.userConfig.isOneLine()) {
-				subConverter.mergeTextLines(subOne);
-				subConverter.mergeTextLines(subTwo);
+				api.mergeTextLines(subOne);
+				api.mergeTextLines(subTwo);
 			}
 
 			// Adjust timecodes
 			if (this.userConfig.isAdjustTimecodes()) {
-				subConverter.adjustTimecodes(subTwo, subOne, 850);
+				api.adjustTimecodes(subTwo, subOne, 850);
 			}
 
 			SimpleSubConfig one = ProfileUtils.createSubConfig(subOne, this.userConfig.getProfileOne(), "One");
@@ -159,7 +159,7 @@ public class IndexBean extends AbstractManagedBean implements Serializable {
 					two.setVerticalMargin(10);
 				}
 			}
-			ASSSub sub = subConverter.mergeToAss(one, two);
+			ASSSub sub = api.mergeToAss(one, two);
 
 			sc = new DefaultStreamedContent(sub.toInputStream(), "text/plain", getFileName() + ".ass");
 			this.histoService.trace(one, two, this.userConfig);

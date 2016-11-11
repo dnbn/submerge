@@ -23,6 +23,28 @@ import com.submerge.api.utils.ConvertionUtils;
 public class SubmergeAPI {
 
 	/**
+	 * Change the framerate of a subtitle
+	 * 
+	 * @param timedFile the subtitle
+	 * @param sourceFramerate le source framerate. Ex: 25.000
+	 * @param targetFramerate the target framerate. Ex: 23.976
+	 */
+	public void convertFramerate(TimedTextFile timedFile, double sourceFramerate, double targetFramerate) {
+
+		double ratio = sourceFramerate / targetFramerate;
+
+		for (TimedLine timedLine : timedFile.getTimedLines()) {
+
+			TimedObject time = timedLine.getTime();
+			long s = Math.round(time.getStart().toNanoOfDay() * ratio);
+			long e = Math.round(time.getEnd().toNanoOfDay() * ratio);
+
+			time.setStart(LocalTime.ofNanoOfDay(s));
+			time.setEnd(LocalTime.ofNanoOfDay(e));
+		}
+	}
+
+	/**
 	 * TimedTextFile to SRT conversion
 	 * 
 	 * @param timedFile the TimedTextFile

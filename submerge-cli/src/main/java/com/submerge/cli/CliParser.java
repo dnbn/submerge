@@ -32,6 +32,9 @@ public class CliParser {
 	private OptionSpec<Void> merge;
 	private OptionSpec<String> outputName;
 	private OptionSpec<File> files;
+	private OptionSpec<String> source;
+	private OptionSpec<String> destination;
+	private OptionSpec<File> framerate;
 
 	/**
 	 * Private constructor
@@ -48,6 +51,9 @@ public class CliParser {
 		this.srt = build(cc.getConvertToSrt(), File.class);
 		this.outputName = build(cc.getOutputName(), String.class);
 		this.merge = build(cc.getMergeToASS(), Void.class);
+		this.source = build(cc.getSource(), String.class);
+		this.destination = build(cc.getDestination(), String.class);
+		this.framerate = build(cc.getFramerate(), File.class);
 
 		this.files = this.parser.nonOptions().ofType(File.class);
 	}
@@ -80,6 +86,12 @@ public class CliParser {
 				throw new ParsingOptionException("Merge option requires 2 arguments");
 			}
 
+			if (result.hasFramerateOption()) {
+				if (!result.hasSourceOption() && !result.hasDestinationOption()) {
+					throw new ParsingOptionException(
+							"Framerate option requires --source and --destination. Ex --source 25.000");
+				}
+			}
 		} catch (OptionException e) {
 			throw new ParsingOptionException(e);
 		}
@@ -113,6 +125,18 @@ public class CliParser {
 			return this.options.has(this.cliParser.utf8);
 		}
 
+		public boolean hasSourceOption() {
+			return this.options.has(this.cliParser.source);
+		}
+
+		public boolean hasDestinationOption() {
+			return this.options.has(this.cliParser.destination);
+		}
+
+		public boolean hasFramerateOption() {
+			return this.options.has(this.cliParser.framerate);
+		}
+
 		public File getUtf8() {
 			return this.options.valueOf(this.cliParser.utf8);
 		}
@@ -131,6 +155,18 @@ public class CliParser {
 
 		public String getOutputName() {
 			return this.options.valueOf(this.cliParser.outputName);
+		}
+
+		public String getSource() {
+			return this.options.valueOf(this.cliParser.source);
+		}
+
+		public String getDestination() {
+			return this.options.valueOf(this.cliParser.destination);
+		}
+
+		public File getFramerate() {
+			return this.options.valueOf(this.cliParser.framerate);
 		}
 
 		public void printHelpOn(OutputStream sink) throws IOException {

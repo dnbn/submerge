@@ -181,6 +181,34 @@ public class CliService {
 	}
 
 	/**
+	 * Convert the framerate of a subtitle
+	 * 
+	 * @param subtitle the subtitle to convert
+	 * @param source the source framerate
+	 * @param destination the destination framerate
+	 * @param outputName th output file name
+	 * @throws InvalidFileException
+	 * @throws InvalidSubException
+	 * @throws IOException
+	 */
+	public void convertFramerate(File file, double source, double destination, String outputFilename)
+			throws InvalidFileException, InvalidSubException, IOException {
+
+		validFiles(file);
+
+		String ext = FilenameUtils.getExtension(file.getName());
+		TimedTextFile sub = ParserFactory.getParser(ext).parse(file);
+
+		this.api.convertFramerate(sub, source, destination);
+
+		if (StringUtils.isEmpty(outputFilename)) {
+			FileUtils.writeStringToFile(file, sub.toString(), "UTF-8");
+		} else {
+			FileUtils.writeStringToFile(new File(outputFilename + "." + ext), sub.toString(), "UTF-8");
+		}
+	}
+
+	/**
 	 * Determine the filename of the generated file
 	 * 
 	 * @param outputFilename

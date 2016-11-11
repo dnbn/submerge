@@ -5,23 +5,35 @@
 		<longOption>help</longOption>
 	</help>
 	<mergeToASS>
-		<description>Merge 2 subtitles (SRT / ASS) into one ASS</description>
+		<description>Merge 2 subtitles (SRT / ASS) into one ASS (Ex: sbm --merge subtitle1.srt subtitle2.ass)</description>
 		<longOption>merge</longOption>
 	</mergeToASS>
 	<convertToAss>
-		<description>ASS /SRT to ASS conversion</description>
+		<description>ASS /SRT to ASS conversion (Ex: sbm --ass subtitle.srt)</description>
 		<longOption>ass</longOption>
 	</convertToAss>
 	<convertToSrt>
-		<description>ASS /SRT to SRT conversion</description>
+		<description>ASS /SRT to SRT conversion (Ex: sbm --srt subtitle.ass)</description>
 		<longOption>srt</longOption>
 	</convertToSrt>
 	<convertToUtf8>
-		<description>UTF-8 conversion</description>
+		<description>UTF-8 conversion (Ex: sbm --utf8 subtitle.srt)</description>
 		<longOption>utf8</longOption>
 	</convertToUtf8>
+	<framerate>
+		<description>Framerate conversion (Ex: sbm --framerate subtitle.srt --source 25 --destination 23.976)</description>
+		<longOption>framerate</longOption>
+	</framerate>
 	<outputName>
 		<description>Output filename</description>
 		<longOption>output</longOption>
 	</outputName>
+	<source>
+		<description>Source</description>
+		<longOption>source</longOption>
+	</source>
+	<destination>
+		<description>destination</description>
+		<longOption>destination</longOption>
+	</destination>
 </cliConfiguration>

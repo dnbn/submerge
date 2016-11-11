@@ -25,7 +25,7 @@ public class ASSTime extends SubtitleTime {
 	/**
 	 * The time pattern formatter
 	 */
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
+	public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
 
 	/**
 	 * Constructor
@@ -48,6 +48,20 @@ public class ASSTime extends SubtitleTime {
 	 * @return the formatted time
 	 */
 	public static String format(LocalTime time) {
+
 		return time.format(FORMATTER);
+	}
+
+	/**
+	 * Convert a string pattern to a Local time
+	 * 
+	 * @param time
+	 * @see ASSTime.PATTERN
+	 * @return
+	 * @throws DateTimeParseException
+	 */
+	public static LocalTime fromString(String time) {
+
+		return LocalTime.parse(time.replace(',', '.'), FORMATTER);
 	}
 }

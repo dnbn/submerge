@@ -3,7 +3,6 @@ package com.submerge.api.parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +50,7 @@ public final class SRTParser extends BaseParser<SRTSub> {
 	 */
 	private static SRTLine firstIn(BufferedReader br) throws IOException, InvalidSRTSubException {
 
-		String idLine = null;
-		while ((idLine = br.readLine()) != null) {
-			if (!StringUtils.isEmpty(idLine.trim())) {
-				break;
-			}
-		}
-
+		String idLine = readFirstTextLine(br);
 		String timeLine = br.readLine();
 
 		if (idLine == null || timeLine == null) {
@@ -115,9 +108,8 @@ public final class SRTParser extends BaseParser<SRTSub> {
 		}
 
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SRTTime.PATTERN);
-			LocalTime start = LocalTime.parse(times[0].trim(), formatter);
-			LocalTime end = LocalTime.parse(times[1].trim(), formatter);
+			LocalTime start = SRTTime.fromString(times[0]);
+			LocalTime end = SRTTime.fromString(times[1]);
 			time = new SRTTime(start, end);
 		} catch (DateTimeParseException e) {
 			throw new InvalidSRTSubException("Invalid time string : " + timeLine, e);

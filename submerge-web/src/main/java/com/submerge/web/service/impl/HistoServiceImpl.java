@@ -28,6 +28,9 @@ public class HistoServiceImpl implements HistoService {
 		MergeHisto histoLineOne = createHistoLine(one, config, currDate);
 		MergeHisto histoLineTwo = createHistoLine(two, config, currDate);
 
+		histoLineOne.setFileName(config.getFirstSubtitle().getFileName());
+		histoLineTwo.setFileName(config.getSecondSubtitle().getFileName());
+
 		int idLine = (int) this.sessionFactory.getCurrentSession().save(histoLineOne);
 
 		histoLineOne.setFkHisto(idLine);

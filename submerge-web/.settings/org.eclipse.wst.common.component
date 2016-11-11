@@ -5,6 +5,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/fonts"/>
+        <dependent-module archiveName="submerge-api-1.6.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/submerge-api/submerge-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/submerge-web/target/classes"/>
         <property name="component.exclusion.patterns" value="**/hibernate*.xml"/>
         <property name="context-root" value="submerge-web"/>

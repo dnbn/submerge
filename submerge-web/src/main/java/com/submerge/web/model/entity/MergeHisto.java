@@ -29,8 +29,7 @@ public class MergeHisto {
 	private boolean clean = true;
 	private boolean adjustTimecodes;
 	private boolean oneLine;
-	private String filename;
-	
+
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_merge_histo_id")
@@ -150,16 +149,6 @@ public class MergeHisto {
 
 	public void setOneLine(boolean oneLine) {
 		this.oneLine = oneLine;
-	}
-
-	
-	@Column(name = "filename", nullable = true)
-	public String getFileName() {
-		return this.filename;
-	}
-
-	public void setFileName(String filename) {
-		this.filename = filename;
 	}
 
 	@Override

@@ -53,6 +53,10 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	@Autowired
 	private UserSubConfigBean userConfig;
 
+	private Double sourceFramerate;
+
+	private Double destinationFramerate;
+
 	@Autowired
 	private UserBean userBean;
 
@@ -142,6 +146,9 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 	public void convertUtf8() {
 
 		try {
+			if (StringUtils.isEmpty(this.uploadedFile.getFileName())) {
+				throw new RuntimeException("Empty file");
+			}
 			byte[] bytes = IOUtils.toByteArray(this.uploadedFile.getInputstream());
 			String encoding = FileUtils.guessEncoding(bytes);
 
@@ -175,6 +182,43 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 			this.uploadedFile = null;
 		}
 
+	}
+
+	/**
+	 * Change the framerate of a subtitle
+	 * 
+	 */
+	public void convertFramerate() {
+
+		String fullName = this.uploadedFile.getFileName();
+
+		try {
+			if (StringUtils.isEmpty(this.uploadedFile.getFileName())) {
+				throw new RuntimeException("Empty file");
+			}
+
+			String filename = FilenameUtils.getName(fullName);
+			String extension = FilenameUtils.getExtension(fullName);
+
+			TimedTextFile ttf = ParserFactory.getParser(extension).parse(this.uploadedFile.getInputstream(), filename);
+			new SubmergeAPI().convertFramerate(ttf, this.sourceFramerate, this.destinationFramerate);
+
+			writeString(fullName, ttf.toString());
+
+			logger.log(Level.FINE, "File : " + filename + " framerate change from " + this.sourceFramerate + "to "
+					+ this.destinationFramerate);
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+
+			if (this.uploadedFile != null) {
+				logger.log(Level.SEVERE, "Cannot change the framerate of " + this.uploadedFile.getFileName() + " : "
+						+ e.getMessage());
+			}
+
+		} finally {
+			this.uploadedFile = null;
+		}
 	}
 
 	/**
@@ -260,6 +304,22 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 
 		Locale locale = new Locale(this.previewLanguage);
 		return getBundleMessages(locale).getString("sub.preview");
+	}
+
+	public Double getSourceFramerate() {
+		return this.sourceFramerate;
+	}
+
+	public void setSourceFramerate(Double sourceFramerate) {
+		this.sourceFramerate = sourceFramerate;
+	}
+
+	public Double getDestinationFramerate() {
+		return this.destinationFramerate;
+	}
+
+	public void setDestinationFramerate(Double destinationFramerate) {
+		this.destinationFramerate = destinationFramerate;
 	}
 
 }

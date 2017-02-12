@@ -25,7 +25,7 @@
 			<b:container id="container">
 				<ui:include src="#{Pages.NOTIFICATION.fullPath}" />
 				<b:row id="row-convert1">
-					<b:column col-lg="6" id="column-panel-srt">
+					<b:column col-lg="4" id="column-panel-srt">
 						<b:panel title="#{msg['tools.convertsrt']}" collapsible="false" id="panel-srt-convert" styleClass="sub-panel">
 							<h:panelGroup id="group-srt-upload" layout="block" styleClass="upload-zone">
 								<h:form id="form-srt" enctype="multipart/form-data">
@@ -48,7 +48,7 @@
 							</h:panelGroup>
 						</b:panel>
 					</b:column>
-					<b:column col-lg="6" id="column-panel-utf8">
+					<b:column col-lg="4" id="column-panel-utf8">
 						<b:panel title="#{msg['tools.convertutf8']}" collapsible="false" id="panel-utf8-convert" styleClass="sub-panel">
 							<h:panelGroup id="group-utf8-upload" layout="block" styleClass="upload-zone">
 								<h:form id="form-utf8" enctype="multipart/form-data">
@@ -59,12 +59,44 @@
 									</b:row>
 									<b:row styleClass="form-group">
 										<b:column>
-											<p:fileUpload value="#{toolsBean.file}" mode="simple" skinSimple="true" label="#{msg['tools.choose']}" sizeLimit="10485760" required="true" />
+											<p:fileUpload rendered="true" value="#{toolsBean.file}" mode="simple" skinSimple="true" label="#{msg['tools.choose']}" sizeLimit="10485760" required="true" />
 										</b:column>
 									</b:row>
 									<b:row styleClass="form-group">
 										<b:column>
 											<p:commandButton value="#{msg['tools.convert']}" ajax="false" actionListener="#{toolsBean.convertUtf8}" />
+										</b:column>
+									</b:row>
+								</h:form>
+							</h:panelGroup>
+						</b:panel>
+					</b:column>
+					<b:column col-lg="4" id="column-panel-framerate">
+						<b:panel title="#{msg['tools.framerate.title']}" collapsible="false" id="panel-framerate-convert" styleClass="sub-panel">
+							<h:panelGroup id="group-framerate-upload" layout="block" styleClass="upload-zone">
+								<h:form id="form-framerate" enctype="multipart/form-data">
+									<b:row styleClass="form-group">
+										<b:column col-lg="6">
+											<p>#{msg['tools.framerate.source']}</p>
+											<h:selectOneMenu id="source-framerate" required="true" value="#{toolsBean.sourceFramerate}" styleClass="form-control framerate">
+												<f:selectItem itemValue="#{null}" itemLabel="--" />
+												<f:selectItems value="#{dropDownBean.framerate}" />
+											</h:selectOneMenu>
+										</b:column>
+										<b:column col-lg="6">
+											<p>#{msg['tools.framerate.destination']}</p>
+											<h:selectOneMenu id="destination-framerate" required="true" value="#{toolsBean.destinationFramerate}" styleClass="form-control framerate">
+												<f:selectItem itemValue="#{null}" itemLabel="--" noSelectionOption="true" />
+												<f:selectItems value="#{dropDownBean.framerate}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="6">
+											<p:fileUpload value="#{toolsBean.file}" mode="simple" skinSimple="true" label="#{msg['tools.choose']}" sizeLimit="10485760" required="true" />
+										</b:column>
+										<b:column col-lg="6">
+											<p:commandButton value="#{msg['tools.convert']}" ajax="false" actionListener="#{toolsBean.convertFramerate}" />
 										</b:column>
 									</b:row>
 								</h:form>

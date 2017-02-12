@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserBO findByEmail(String email) {
 
-		User user = (User) this.sessionFactory.getCurrentSession()
-				.createCriteria(User.class)
-				.add(Restrictions.eq("email", email))
-				.uniqueResult();
+		User user = (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
+				.add(Restrictions.eq("email", email)).uniqueResult();
 
 		return UserConverter.convert(user);
 	}
@@ -67,10 +66,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserBO findByName(String name) {
 
-		User user = (User) this.sessionFactory.getCurrentSession()
-				.createCriteria(User.class)
-				.add(Restrictions.eq("name", name))
-				.uniqueResult();
+		User user = (User) this.sessionFactory.getCurrentSession().createCriteria(User.class)
+				.add(Restrictions.eq("name", name)).uniqueResult();
 
 		return UserConverter.convert(user);
 	}
@@ -107,6 +104,10 @@ public class UserServiceImpl implements UserService {
 		// Assign default status (enabled)
 		if (user.getAccountStatus() == null) {
 			user.setAccountStatus(new EnabledStatus());
+		}
+
+		if (StringUtils.isEmpty(user.getEmail())) {
+			user.setEmail(null);
 		}
 
 		// Save user and profiles

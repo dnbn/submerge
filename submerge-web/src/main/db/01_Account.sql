@@ -121,3 +121,5 @@ insert into authorities(id,name) values('1', 'ROLE_ADMIN');
 
 alter table SUBTITLE_PROFILE add LAST_UPDATE TIMESTAMP NOT NULL;
 alter table DUAL_SUBTITLE_CONFIG add LAST_UPDATE TIMESTAMP NOT NULL;
+
+alter table account alter column email drop not null;

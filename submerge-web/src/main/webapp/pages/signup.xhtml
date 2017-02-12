@@ -39,7 +39,7 @@
 							</b:row>
 							<b:row id="row-email" styleClass="signup-row">
 								<b:column col-lg="10" offset-lg="1" id="col-email">
-									<b:inputText id="email" placeholder="#{msg['signUp.email']}" fieldSize="sm" value="#{registrationBean.user.email}" required="true"
+									<b:inputText id="email" placeholder="#{msg['signUp.email']}" fieldSize="sm" value="#{registrationBean.user.email}" required="false"
 										requiredMessage="#{msg['validator.requiredField']}" maxlength="320">
 										<f:ajax event="change" render="emailMessage" />
 										<o:validator binding="#{emailNotExistValidator}" message="#{msg['validator.exists.email']}" />

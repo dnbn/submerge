@@ -25,6 +25,7 @@ public class DropDownBean implements Serializable {
 	private static Set<Integer> fontSize;
 	private static Set<FontName> fontName;
 	private static Set<Integer> outlineWidth;
+	private static Set<Double> framerate;
 
 	// ===================== Static initialisation =======================
 
@@ -46,6 +47,16 @@ public class DropDownBean implements Serializable {
 		}
 	}
 
+	static {
+		framerate = new LinkedHashSet<>();
+		framerate.add(23.976);
+		framerate.add(24.000);
+		framerate.add(25.000);
+		framerate.add(29.970);
+		framerate.add(30.000);
+		framerate.add(60.000);
+	}
+
 	// ===================== getter and setter start =====================
 
 	public Set<Integer> getFontSize() {
@@ -62,6 +73,10 @@ public class DropDownBean implements Serializable {
 
 	public Set<Integer> getOutlineWidth() {
 		return DropDownBean.outlineWidth;
+	}
+
+	public Set<Double> getFramerate() {
+		return DropDownBean.framerate;
 	}
 
 }

@@ -1,7 +1,7 @@
 # submerge
 
 <p>
-Submerge is a tool that aims to merge two subtitles into one ASS displaying both: one at the top of the screen, the other at the bottom. It can also be used toapiSRT to ASS or ASS to SRT, or to change the encoding of a file.
+Submerge is a tool that aims to merge two subtitles into one ASS displaying both: one at the top of the screen, the other at the bottom. It can also be used to convert SRT to ASS or ASS to SRT, or to change the encoding of a file.
 </p>
 
 The project is made up of three sub-project :
@@ -14,6 +14,7 @@ The project is made up of three sub-project :
 <p>
 Parsing ASS subtitles :
 </p>
+
 ```
 File file = new File("subtitle.ass");
 
@@ -22,7 +23,9 @@ ASSSub subtitle = parser.parse(file);
 
 System.out.println(subtitle.toString());
 ```
+
 Parsing SRT subtitles :
+
 ```
 File file = new File("subtitle.srt");
 SRTParser parser = new SRTParser();
@@ -31,7 +34,9 @@ SRTSub subtitle = parser.parse(file);
 
 System.out.println(subtitle.toString());
 ```
+
 Using interfaces :
+
 ```
 File file = new File("subtitle.srt");
 String extension = FilenameUtils.getExtension(file.getName());
@@ -41,7 +46,9 @@ TimedTextFile subtitle = parser.parse(file);
 
 System.out.println(subtitle.toString());
 ```
+
 ASS to SRT :
+
 ```
 File file = new File("subtitle.ass");
 
@@ -53,7 +60,9 @@ SRTSub srt = convert.toSRT(ass);
 
 System.out.println(srt.toString());
 ```
+
 SRT (or ASS) to ASS :
+
 ```
 File file = new File("subtitle.srt");
 String extension = FilenameUtils.getExtension(file.getName());

@@ -15,7 +15,7 @@ The project is made up of three sub-project :
 Parsing ASS subtitles :
 </p>
 
-```
+``` java
 File file = new File("subtitle.ass");
 
 ASSParser parser = new ASSParser();

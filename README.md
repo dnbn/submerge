@@ -26,7 +26,7 @@ System.out.println(subtitle.toString());
 
 Parsing SRT subtitles :
 
-```
+``` java
 File file = new File("subtitle.srt");
 SRTParser parser = new SRTParser();
 
@@ -37,7 +37,7 @@ System.out.println(subtitle.toString());
 
 Using interfaces :
 
-```
+``` java
 File file = new File("subtitle.srt");
 String extension = FilenameUtils.getExtension(file.getName());
 
@@ -49,7 +49,7 @@ System.out.println(subtitle.toString());
 
 ASS to SRT :
 
-```
+``` java
 File file = new File("subtitle.ass");
 
 ASSParser parser = new ASSParser();
@@ -63,7 +63,7 @@ System.out.println(srt.toString());
 
 SRT (or ASS) to ASS :
 
-```
+``` java
 File file = new File("subtitle.srt");
 String extension = FilenameUtils.getExtension(file.getName());
 

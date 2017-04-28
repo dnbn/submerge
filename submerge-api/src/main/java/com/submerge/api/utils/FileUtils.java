@@ -8,6 +8,9 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.mozilla.universalchardet.UniversalDetector;
 
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
+
 public class FileUtils {
 
 	/**
@@ -49,8 +52,15 @@ public class FileUtils {
 		String encoding = detector.getDetectedCharset();
 		detector.reset();
 
-		if (encoding == null) {
-			encoding = "UTF-8";
+		if (encoding == null || "MACCYRILLIC".equals(encoding)) {
+			// juniversalchardet incorrectly detects windows-1256 as MACCYRILLIC
+			// Si if encoding is MACCYRILLIC or null, we use ICU4J
+			CharsetMatch detected = new CharsetDetector().setText(bytes).detect();
+			if (detected != null) {
+				encoding = detected.getName();
+			} else {
+				encoding = "UTF-8";
+			}
 		}
 
 		return encoding;

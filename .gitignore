@@ -5,3 +5,4 @@ application.properties
 application.prod.properties
 hibernate.cfg.xml
 hibernate.reveng.xml
+bin/

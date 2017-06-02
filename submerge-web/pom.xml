@@ -6,7 +6,7 @@
 		<artifactId>submerge-root</artifactId>
 		<version>1.8.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>submerge</groupId>
 	<artifactId>submerge-web</artifactId>
@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>com.github.dnbn.submerge</groupId>
 			<artifactId>submerge-api</artifactId>
-			<version>${submerge-api.version}</version>			
+			<version>${submerge-api.version}</version>
 		</dependency>
 
 		<dependency>
@@ -123,7 +123,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -220,7 +220,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j-api.version}</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<repositories>
@@ -266,6 +266,14 @@
 				<version>2.6</version>
 				<configuration>
 					<packagingExcludes>**/hibernate*.xml</packagingExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>

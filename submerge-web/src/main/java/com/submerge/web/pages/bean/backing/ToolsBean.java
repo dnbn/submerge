@@ -205,7 +205,7 @@ public class ToolsBean extends AbstractManagedBean implements Serializable {
 
 			writeString(fullName, ttf.toString());
 
-			logger.log(Level.FINE, "File : " + filename + " framerate change from " + this.sourceFramerate + "to "
+			logger.log(Level.FINE, "File : " + filename + " framerate change from " + this.sourceFramerate + " to "
 					+ this.destinationFramerate);
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());

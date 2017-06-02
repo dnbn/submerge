@@ -54,7 +54,7 @@ public class FileUtils {
 
 		if (encoding == null || "MACCYRILLIC".equals(encoding)) {
 			// juniversalchardet incorrectly detects windows-1256 as MACCYRILLIC
-			// Si if encoding is MACCYRILLIC or null, we use ICU4J
+			// If encoding is MACCYRILLIC or null, we use ICU4J
 			CharsetMatch detected = new CharsetDetector().setText(bytes).detect();
 			if (detected != null) {
 				encoding = detected.getName();

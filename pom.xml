@@ -3,16 +3,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.submerge</groupId>
 	<artifactId>submerge-root</artifactId>
-	<version>1.7</version>
+	<version>1.8.0</version>
 	<name>submerge-root</name>
 	<packaging>pom</packaging>
+
+	<description>Submerge is a tool that aims to merge two subtitles into one ASS displaying both: one at the top of the screen, the other at the bottom. It can also be used to convert SRT to ASS or ASS to SRT, or to change the encoding of a file.</description>
+	<url>https://github.com/dnbn/submerge</url>
+
+	<developers>
+		<developer>
+			<name>dnbn</name>
+			<email>submerge.contact@gmail.com</email>
+			<organization>github</organization>
+			<organizationUrl>https://github.com/dnbn/</organizationUrl>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+
 
 	<modules>
 		<module>submerge-api</module>
 		<module>submerge-web</module>
 		<module>submerge-cli</module>
 	</modules>
-	
+
 	<build>
 		<plugins>
 			<plugin>

@@ -1,9 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dnbn.submerge</groupId>
 	<artifactId>submerge-root</artifactId>
-	<version>1.8.1</version>
+	<version>1.8.1-SNAPSHOT</version>
 	<name>submerge-root</name>
 	<packaging>pom</packaging>
 
@@ -26,7 +33,11 @@
 		</license>
 	</licenses>
 
-
+	<scm>
+		<connection>scm:git:git://github.com/dnbn/submerge.git</connection>
+		<developerConnection>scm:git:ssh://github.dnbn/submerge.git</developerConnection>
+		<url>https://github.com/dnbn/submerge/tree/master</url>
+	</scm>
 
 	<modules>
 		<module>submerge-api</module>
@@ -60,6 +71,31 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-releases</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+	</distributionManagement>
 </project>

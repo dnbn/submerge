@@ -88,14 +88,14 @@
 	</build>
 
 	<distributionManagement>
-		<snapshotRepository>
+		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus Release Repository</name>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</snapshotRepository>
-		<repository>
+		</repository>
+		<snapshotRepository>
 			<id>sonatype-nexus-snapshots</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
+		</snapshotRepository>
 	</distributionManagement>
 </project>

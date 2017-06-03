@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dnbn.submerge</groupId>
 	<artifactId>submerge-root</artifactId>
-	<version>1.8.1-SNAPSHOT</version>
+	<version>1.8.1</version>
 	<name>submerge-root</name>
 	<packaging>pom</packaging>
 
@@ -33,8 +33,8 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:ssh://git@github.com:dnbn/submerge.git</connection>
-		<developerConnection>>scm:git:ssh://git@github.com:dnbn/submerge.git</developerConnection>
+		<connection>scm:git:ssh://github.com/dnbn/submerge.git</connection>
+		<developerConnection>scm:git:ssh://github.com/dnbn/submerge.git</developerConnection>
 		<url>https://github.com/dnbn/submerge</url>
 	</scm>
 

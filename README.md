@@ -11,8 +11,18 @@ The project is made up of three sub-project :
 
 # Basic use of submerge-api
 
+
+``` xml
+<dependency>
+  <groupId>com.github.dnbn.submerge</groupId>
+  <artifactId>submerge-api</artifactId>
+  <version>1.8.3</version>
+</dependency>
+```
+
+
 <p>
-Parsing ASS subtitles :
+Parsing ASS subtitles:
 </p>
 
 ``` java
@@ -24,7 +34,7 @@ ASSSub subtitle = parser.parse(file);
 System.out.println(subtitle.toString());
 ```
 
-Parsing SRT subtitles :
+Parsing SRT subtitles:
 
 ``` java
 File file = new File("subtitle.srt");
@@ -35,7 +45,7 @@ SRTSub subtitle = parser.parse(file);
 System.out.println(subtitle.toString());
 ```
 
-Using interfaces :
+Using interfaces:
 
 ``` java
 File file = new File("subtitle.srt");
@@ -47,7 +57,7 @@ TimedTextFile subtitle = parser.parse(file);
 System.out.println(subtitle.toString());
 ```
 
-ASS to SRT :
+ASS to SRT:
 
 ``` java
 File file = new File("subtitle.ass");
@@ -61,7 +71,7 @@ SRTSub srt = convert.toSRT(ass);
 System.out.println(srt.toString());
 ```
 
-SRT (or ASS) to ASS :
+SRT (or ASS) to ASS:
 
 ``` java
 File file = new File("subtitle.srt");

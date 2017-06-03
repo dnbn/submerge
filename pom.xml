@@ -32,6 +32,10 @@
 		</license>
 	</licenses>
 
+	<properties>
+		<project.scm.id>scm-server</project.scm.id>
+	</properties>
+	
 	<scm>
 		<connection>scm:git:https://github.com/dnbn/submerge.git</connection>
 		<developerConnection>scm:git:https://github.com/dnbn/submerge.git</developerConnection>

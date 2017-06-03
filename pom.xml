@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dnbn.submerge</groupId>
 	<artifactId>submerge-root</artifactId>
-	<version>1.8.3-SNAPSHOT</version>
+	<version>1.8.3</version>
 	<name>submerge-root</name>
 	<packaging>pom</packaging>
 
@@ -35,7 +35,7 @@
 	<properties>
 		<project.scm.id>scm-server</project.scm.id>
 	</properties>
-	
+
 	<scm>
 		<connection>scm:git:ssh://git@github.com/dnbn/submerge.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/dnbn/submerge.git</developerConnection>
@@ -47,39 +47,6 @@
 		<module>submerge-web</module>
 		<module>submerge-cli</module>
 	</modules>
-
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
-						<configuration>
-							<passphrase>${gpg.passphrase}</passphrase>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 	<build>
 		<plugins>
@@ -113,6 +80,23 @@
 				<configuration>
 					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<passphrase>${gpg.passphrase}</passphrase>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

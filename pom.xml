@@ -33,7 +33,7 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:ssh://github.com/dnbn/submerge.git</connection>
+		<connection>scm:git:git://github.com/dnbn/submerge.git</connection>
 		<developerConnection>scm:git:ssh://github.com/dnbn/submerge.git</developerConnection>
 		<url>https://github.com/dnbn/submerge</url>
 	</scm>

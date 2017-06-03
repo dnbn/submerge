@@ -37,8 +37,8 @@
 	</properties>
 	
 	<scm>
-		<connection>scm:git:https://github.com/dnbn/submerge.git</connection>
-		<developerConnection>scm:git:https://github.com/dnbn/submerge.git</developerConnection>
+		<connection>scm:git:ssh://github.com/dnbn/submerge.git</connection>
+		<developerConnection>scm:git:ssh://github.com/dnbn/submerge.git</developerConnection>
 		<url>https://github.com/dnbn/submerge</url>
 	</scm>
 

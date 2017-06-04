@@ -17,7 +17,7 @@ public interface SubtitleParser {
 	 * @throws InvalidSubException if the subtitle is not valid
 	 * @throws InvalidFileException if the file is not valid
 	 */
-	TimedTextFile parse(File file) throws InvalidSubException, InvalidFileException;
+	TimedTextFile parse(File file);
 
 	/**
 	 * Parse a subtitle file from an inputstream and return the corresponding subtitle
@@ -29,5 +29,5 @@ public interface SubtitleParser {
 	 * @throws InvalidSubException if the subtitle is not valid
 	 * @throws InvalidFileException if the file is not valid
 	 */
-	TimedTextFile parse(InputStream is, String fileName) throws InvalidSubException, InvalidFileException;
+	TimedTextFile parse(InputStream is, String fileName);
 }

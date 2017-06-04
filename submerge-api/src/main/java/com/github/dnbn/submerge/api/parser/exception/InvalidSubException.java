@@ -1,6 +1,6 @@
 package com.github.dnbn.submerge.api.parser.exception;
 
-public class InvalidSubException extends Exception {
+public class InvalidSubException extends RuntimeException {
 
 	private static final long serialVersionUID = -8431409375872882596L;
 

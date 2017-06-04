@@ -26,7 +26,7 @@ public abstract class BaseParser<T extends TimedTextFile> implements SubtitlePar
 	private static final char BOM_MARKER = '\ufeff';
 
 	@Override
-	public T parse(File file) throws InvalidSubException, InvalidFileException {
+	public T parse(File file) {
 
 		if (!file.isFile()) {
 			throw new InvalidFileException("File " + file.getName() + " is invalid");
@@ -41,7 +41,7 @@ public abstract class BaseParser<T extends TimedTextFile> implements SubtitlePar
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T parse(InputStream is, String fileName) throws InvalidFileException, InvalidSubException {
+	public T parse(InputStream is, String fileName) {
 
 		try {
 			Type type = this.getClass().getGenericSuperclass();
@@ -75,7 +75,7 @@ public abstract class BaseParser<T extends TimedTextFile> implements SubtitlePar
 	 * @throws IOException
 	 * @throws InvalidSubException if an error has occured when parsing the subtitle file
 	 */
-	protected abstract void parse(BufferedReader br, T sub) throws IOException, InvalidSubException;
+	protected abstract void parse(BufferedReader br, T sub) throws IOException;
 
 	/**
 	 * Ignore blank spaces and return the first text line

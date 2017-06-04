@@ -1,6 +1,7 @@
 package com.github.dnbn.submerge.cli;
 
 import java.io.File;
+import java.util.List;
 
 import com.github.dnbn.submerge.cli.CliParser.ParsingResult;
 import com.github.dnbn.submerge.cli.exception.ParsingOptionException;
@@ -21,17 +22,24 @@ public class MainCli {
 
 			} else if (result.hasSRTOption()) {
 
-				service.toSRT(result.getSrt(), outputName);
+				List<File> files = result.getSrt();
+				for (File file : files) {
+					service.toSRT(file, files.size() > 1 ? null : outputName);
+				}
 
 			} else if (result.hasASSOption()) {
 
-				File file = result.getAss();
-				service.toASS(file, outputName);
+				List<File> files = result.getAss();
+				for (File file : files) {
+					service.toASS(file, files.size() > 1 ? null : outputName);
+				}
 
 			} else if (result.hasUTF8Option()) {
 
-				File file = result.getUtf8();
-				service.toUTF8(file, outputName);
+				List<File> files = result.getUtf8();
+				for (File file : files) {
+					service.toUTF8(file, files.size() > 1 ? null : outputName);
+				}
 
 			} else if (result.hasMergeOption()) {
 
@@ -43,10 +51,17 @@ public class MainCli {
 
 				double source = Double.parseDouble(result.getSource());
 				double destination = Double.parseDouble(result.getDestination());
-				File file = result.getFramerate();
 
-				service.convertFramerate(file, source, destination, outputName);
+				List<File> files = result.getFramerate();
+				for (File file : files) {
+					service.convertFramerate(file, source, destination, files.size() > 1 ? null : outputName);
+				}
 
+			} else if (result.hasRemoveLasLinesOption()) {
+
+				for (File file : result.getRemoveLastLines()) {
+					service.removeLastLines(file);
+				}
 			} else {
 
 				result.printHelpOn(System.out);
@@ -60,5 +75,4 @@ public class MainCli {
 		}
 
 	}
-
 }

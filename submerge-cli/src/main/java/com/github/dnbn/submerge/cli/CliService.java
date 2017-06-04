@@ -3,6 +3,7 @@ package com.github.dnbn.submerge.cli;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -183,7 +184,7 @@ public class CliService {
 	/**
 	 * Convert the framerate of a subtitle
 	 * 
-	 * @param subtitle the subtitle to convert
+	 * @param file the subtitle to convert
 	 * @param source the source framerate
 	 * @param destination the destination framerate
 	 * @param outputName th output file name
@@ -206,6 +207,30 @@ public class CliService {
 		} else {
 			FileUtils.writeStringToFile(new File(outputFilename + "." + ext), sub.toString(), "UTF-8");
 		}
+	}
+
+	/**
+	 * Remove the last last line of each subltitle line
+	 * 
+	 * @param file the subtitle to convert
+	 * @throws IOException
+	 * @throws InvalidSubException
+	 * @throws InvalidFileException
+	 */
+	public void removeLastLines(File file) throws IOException, InvalidSubException, InvalidFileException {
+
+		String extension = FilenameUtils.getExtension(file.getName());
+		TimedTextFile timedTextFile = ParserFactory.getParser(extension).parse(file);
+
+		timedTextFile.getTimedLines().forEach(line -> {
+
+			List<String> textLines = line.getTextLines();
+			if (textLines.size() > 1) {
+				textLines.remove(textLines.size() - 1);
+			}
+		});
+
+		FileUtils.writeStringToFile(file, timedTextFile.toString());
 	}
 
 	/**

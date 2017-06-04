@@ -15,6 +15,7 @@ import com.github.dnbn.submerge.api.subtitle.config.SimpleSubConfig;
 
 public class ConvertionUtils {
 
+	private static final String RGX_XML_TAG = "<[^>]+>";
 	private static final String RGX_ASS_FORMATTING = "\\{[^\\}]*\\}";
 	private static final String SRT_ITALIC_CLOSE = "\\</i\\>";
 	private static final String SRT_ITALIC_OPEN = "\\<i\\>";
@@ -73,7 +74,7 @@ public class ConvertionUtils {
 		formatted = formatted.replaceAll(ASS_ITALIC_CLOSE, SRT_ITALIC_CLOSE);
 		formatted = formatted.replaceAll(RGX_ASS_FORMATTING, StringUtils.EMPTY);
 
-		return formatted;
+		return formatted.replaceAll(RGX_XML_TAG, StringUtils.EMPTY);
 	}
 
 	/**

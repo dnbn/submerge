@@ -2,7 +2,7 @@
 	<parent>
 		<groupId>com.github.dnbn.submerge</groupId>
 		<artifactId>submerge-root</artifactId>
-		<version>1.8.4-SNAPSHOT</version>
+		<version>1.9.0-SNAPSHOT</version>
 	</parent>
 
 	<description>Library to manage SRT and ASS subtitles</description>

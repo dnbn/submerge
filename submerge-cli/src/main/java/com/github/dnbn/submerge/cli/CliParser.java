@@ -26,16 +26,17 @@ public class CliParser {
 	private OptionParser parser;
 
 	private OptionSpec<Void> help;
-	private OptionSpec<File> utf8;
-	private OptionSpec<File> ass;
-	private OptionSpec<File> srt;
+	private OptionSpec<Void> utf8;
+	private OptionSpec<Void> ass;
+	private OptionSpec<Void> srt;
 	private OptionSpec<Void> merge;
 	private OptionSpec<String> outputName;
 	private OptionSpec<File> files;
 	private OptionSpec<String> source;
 	private OptionSpec<String> destination;
-	private OptionSpec<File> framerate;
-
+	private OptionSpec<Void> framerate;
+	private OptionSpec<Void> removeLastLines;
+	
 	/**
 	 * Private constructor
 	 */
@@ -46,14 +47,15 @@ public class CliParser {
 		CliConfiguration cc = ConfigurationLoader.loadCliConfiguration();
 
 		this.help = build(cc.getHelp(), Void.class, true, null);
-		this.utf8 = build(cc.getConvertToUtf8(), File.class);
-		this.ass = build(cc.getConvertToAss(), File.class);
-		this.srt = build(cc.getConvertToSrt(), File.class);
+		this.utf8 = build(cc.getConvertToUtf8(), Void.class);
+		this.ass = build(cc.getConvertToAss(), Void.class);
+		this.srt = build(cc.getConvertToSrt(), Void.class);
 		this.outputName = build(cc.getOutputName(), String.class);
 		this.merge = build(cc.getMergeToASS(), Void.class);
 		this.source = build(cc.getSource(), String.class);
 		this.destination = build(cc.getDestination(), String.class);
-		this.framerate = build(cc.getFramerate(), File.class);
+		this.framerate = build(cc.getFramerate(), Void.class);
+		this.removeLastLines = build(cc.getRemoveLastLines(), Void.class);
 
 		this.files = this.parser.nonOptions().ofType(File.class);
 	}
@@ -137,16 +139,20 @@ public class CliParser {
 			return this.options.has(this.cliParser.framerate);
 		}
 
-		public File getUtf8() {
-			return this.options.valueOf(this.cliParser.utf8);
+		public boolean hasRemoveLasLinesOption() {
+			return this.options.has(this.cliParser.removeLastLines);
 		}
 
-		public File getAss() {
-			return this.options.valueOf(this.cliParser.ass);
+		public List<File> getUtf8() {
+			return this.options.valuesOf(this.cliParser.files);
 		}
 
-		public File getSrt() {
-			return this.options.valueOf(this.cliParser.srt);
+		public List<File> getAss() {
+			return this.options.valuesOf(this.cliParser.files);
+		}
+
+		public List<File> getSrt() {
+			return this.options.valuesOf(this.cliParser.files);
 		}
 
 		public List<File> getMerge() {
@@ -165,8 +171,12 @@ public class CliParser {
 			return this.options.valueOf(this.cliParser.destination);
 		}
 
-		public File getFramerate() {
-			return this.options.valueOf(this.cliParser.framerate);
+		public List<File> getFramerate() {
+			return this.options.valuesOf(this.cliParser.files);
+		}
+		
+		public List<File> getRemoveLastLines() {
+			return this.options.valuesOf(this.cliParser.files);
 		}
 
 		public void printHelpOn(OutputStream sink) throws IOException {

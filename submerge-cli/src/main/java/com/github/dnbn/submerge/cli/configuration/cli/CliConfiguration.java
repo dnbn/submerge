@@ -47,6 +47,11 @@ public class CliConfiguration {
 	private OptionDescription framerate;
 
 	/**
+	 * Remove las line of each subtitles lines
+	 */
+	private OptionDescription removeLastLines;
+
+	/**
 	 * Output filename
 	 */
 	private OptionDescription outputName;
@@ -132,6 +137,15 @@ public class CliConfiguration {
 	@XmlElement(required = true)
 	public void setFramerate(OptionDescription framerate) {
 		this.framerate = framerate;
+	}
+
+	public OptionDescription getRemoveLastLines() {
+		return this.removeLastLines;
+	}
+
+	@XmlElement(required = true)
+	public void setRemoveLastLines(OptionDescription removeLastLines) {
+		this.removeLastLines = removeLastLines;
 	}
 
 }

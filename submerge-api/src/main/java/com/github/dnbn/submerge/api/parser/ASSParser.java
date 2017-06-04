@@ -191,7 +191,7 @@ public class ASSParser extends BaseParser<ASSSub> {
 					break;
 				case "text":
 					List<String> textLines = Arrays.asList(value.split("\\\\N"));
-					events.setTextLines(textLines);
+					events.setTextLines(new ArrayList<>(textLines));
 					break;
 				default:
 					String error = callProperty(events, property, value);

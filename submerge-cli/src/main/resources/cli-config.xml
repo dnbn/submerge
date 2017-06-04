@@ -24,6 +24,10 @@
 		<description>Framerate conversion (Ex: sbm --framerate subtitle.srt --source 25 --destination 23.976)</description>
 		<longOption>framerate</longOption>
 	</framerate>
+	<removeLastLines>
+		<description>Remove the last text line of each subtitle lines</description>
+		<longOption>removeLastLines</longOption>
+	</removeLastLines>
 	<outputName>
 		<description>Output filename</description>
 		<longOption>output</longOption>

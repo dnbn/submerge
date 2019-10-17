@@ -26,7 +26,7 @@
 		<omnifaces.version>2.1</omnifaces.version>
 		<weld-servlet.version>2.2.14.Final</weld-servlet.version>
 		<spring.version>4.1.7.RELEASE</spring.version>
-		<spring.security.version>4.0.1.RELEASE</spring.security.version>
+		<spring.security.version>5.2.0.RELEASE</spring.security.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-pool.version>1.6</commons-pool.version>
 		<commons-lang.version>2.6</commons-lang.version>

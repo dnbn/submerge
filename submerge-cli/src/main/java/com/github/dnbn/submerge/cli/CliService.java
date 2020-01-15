@@ -178,7 +178,7 @@ public class CliService {
 		StrSubstitutor substitutor = new StrSubstitutor(substitutes);
 		finalName = substitutor.replace(finalName);
 
-		FileUtils.writeStringToFile(new File(finalName + ".ass"), ass.toString());
+		FileUtils.writeStringToFile(new File(finalName + ".ass", "UTF-8"), ass.toString());
 	}
 
 	/**

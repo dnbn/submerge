@@ -15,7 +15,7 @@
 	<properties>
 		<commons-lang.version>2.6</commons-lang.version>
 		<beanutils.version>1.9.2</beanutils.version>
-		<commons-io>2.6</commons-io>
+		<commons-io>2.7</commons-io>
 		<juniversalchardet.version>1.0.3</juniversalchardet.version>
 		<jdk.version>1.8</jdk.version>
 		<icu4j.version>59.1</icu4j.version>

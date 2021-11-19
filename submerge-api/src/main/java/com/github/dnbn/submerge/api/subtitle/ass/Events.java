@@ -2,7 +2,7 @@ package com.github.dnbn.submerge.api.subtitle.ass;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.github.dnbn.submerge.api.subtitle.common.SubtitleLine;
 

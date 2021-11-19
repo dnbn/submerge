@@ -53,6 +53,7 @@ public class SubmergeAPI {
 	public SRTSub toSRT(TimedTextFile timedFile) {
 
 		SRTSub srt = new SRTSub();
+		srt.setFileName(timedFile.getFileName());
 
 		int i = 0;
 		for (TimedLine timedLine : timedFile.getTimedLines()) {

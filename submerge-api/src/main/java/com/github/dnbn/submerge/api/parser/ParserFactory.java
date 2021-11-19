@@ -1,6 +1,6 @@
 package com.github.dnbn.submerge.api.parser;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 public final class ParserFactory {
 

@@ -1,6 +1,7 @@
 package com.github.dnbn.submerge.web.constant;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 /**
  * Enum all the pages of the application
@@ -22,7 +23,7 @@ public enum Pages {
 	NOTIFICATION("notification", "composition/"),
 	HEADER_CONTENT("header-content", "composition/");
 
-	private static final String ROOT = "/pages/";
+	private static final String ROOT = "/";
 	private static final String EXT = ".xhtml";
 	
 	private String name;

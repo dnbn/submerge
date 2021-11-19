@@ -1,6 +1,6 @@
 package com.github.dnbn.submerge.web.utils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.github.dnbn.submerge.api.constant.FontName;
 import com.github.dnbn.submerge.api.subtitle.common.TimedTextFile;

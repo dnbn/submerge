@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" >
+
+<f:metadata>
+	<f:event type="preRenderView" listener="#{indexBean.onPageLoad}" />
+</f:metadata>
+
+<f:view locale="#{userBean.locale}">
+	<h:head>
+		<meta name="description" content="#{msg['about.howto.answer']}" />
+		<ui:include src="/composition/header-content.xhtml" />
+		<h:outputStylesheet name="bootstrap-colorpicker-master/css/bootstrap-colorpicker.min.css" />
+		<h:outputScript library="bootstrap-colorpicker-master" name="js/bootstrap-colorpicker.min.js" />
+		<h:outputScript library="default" name="js/commons-ass.js" />
+		<h:outputStylesheet library="default" name="css/index.css" />
+	</h:head>
+	<h:body>
+		<h:panelGroup layout="block" id="wrap">
+			<ui:include src="/composition/navbar.xhtml" />
+			<h:form class="form" id="index-form" name="index-form" enctype="multipart/form-data" styleClass="form-horizontal">
+				<b:container id="container">
+					<h:panelGroup id="div-starter">
+						<ui:include src="/composition/notification.xhtml" />
+						<b:row id="row-panel">
+							<b:column col-lg="6" id="column-panel-one">
+								<b:panel title="#{msg['index.subOne']}" collapsible="false" id="panel-top" styleClass="sub-panel">
+									<h:panelGroup id="group-upload-top" layout="block" styleClass="upload-zone">
+										<p:fileUpload id="uploadOne" listener="#{indexBean.handleFileUpload}" label="#{msg['index.choose']}" auto="true" sizeLimit="1048576"
+											allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="uploadOneMessage" required="false">
+										</p:fileUpload>
+										<p:messages id="uploadOneMessage" for="uploadOne" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+									</h:panelGroup>
+									<b:row id="row-color-top" styleClass="form-group">
+										<b:column col-lg="5" id="col-color-top" styleClass="panel-label">
+											<h:outputLabel id="label-color-top" value="#{msg['sub.color']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:panelGroup layout="block" styleClass="input-group color-picker color">
+												<h:inputText id="topColor" value="#{userSubConfigBean.profileOne.primaryColor}" class="form-control" required="true"
+													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+													<f:validator validatorId="webColorValidator" />
+												</h:inputText>
+												<span class="input-group-addon"><i></i></span>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+									<b:row>
+										<b:column col-lg="5"></b:column>
+										<b:column col-lg="7">
+											<p:message id="topColorMessage" for="topColor" />
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.outlineColor']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:panelGroup layout="block" styleClass="input-group color-picker outlineColor">
+												<h:inputText id="topOutlineColor" value="#{userSubConfigBean.profileOne.outlineColor}" class="form-control" required="true"
+													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+													<f:validator validatorId="webColorValidator" />
+												</h:inputText>
+												<span class="input-group-addon"><i></i></span>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+									<b:row>
+										<b:column col-lg="5"></b:column>
+										<b:column col-lg="7">
+											<p:message id="topOutlineColorMessage" for="topOutlineColor" />
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.outline']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.outlineWidth}" styleClass="form-control outlineWidth">
+												<f:selectItems value="#{dropDownBean.outlineWidth}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" id="top-fontname" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.fontname']}" />
+											<b:iconAwesome id="top-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.fontName}" styleClass="form-control fontName">
+												<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.fontsize']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileOne.fontSize}" styleClass="form-control fontSize">
+												<f:selectItems value="#{dropDownBean.fontSize}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['index.position']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<b:column col-lg="6" styleClass="offSetAlignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileOne.alignmentOffset}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.offsetAlignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+											<b:column col-lg="6" styleClass="alignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileOne.alignment}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.alignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+										</b:column>
+									</b:row>
+									<h:panelGroup class="fontPreview" layout="block">
+										<h:panelGroup class="previewLanguageSelect" layout="block">
+											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageOne}.png" />
+											</h:panelGroup>
+											<ul class="dropDownLanguage">
+												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
+													<h:panelGroup rendered="#{key.language != indexBean.languageOne}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageOne}">
+																<p class="language">
+																	<f:param name="languageToSet" value="#{key.language}"></f:param>
+																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
+																</p>
+															</h:commandLink></li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										</h:panelGroup>
+										<span class="textPreview">#{indexBean.previewOne}</span>
+									</h:panelGroup>
+								</b:panel>
+							</b:column>
+							<b:column col-lg="6" id="column-panel-two">
+								<b:panel title="#{msg['index.subTwo']}" collapsible="false" id="panel-bottom" styleClass="sub-panel">
+									<h:panelGroup id="group-upload-bottom" layout="block" styleClass="upload-zone">
+										<p:fileUpload id="uploadTwo" listener="#{indexBean.handleFileUpload}" 
+											label="#{msg['index.choose']}" auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(srt|ass|ssa)$/" update="uploadTwoMessage" required="false" />
+										<p:messages id="uploadTwoMessage" for="uploadTwo" redisplay="false" showDetail="true" closable="false" styleClass="uploadMessage" />
+									</h:panelGroup>
+									<b:row id="row-color-bottom" styleClass="form-group">
+										<b:column col-lg="5" id="col-color-bottom">
+											<h:outputLabel id="label-color-bottom" value="#{msg['sub.color']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:panelGroup layout="block" styleClass="input-group color-picker color">
+												<h:inputText id="bottomColor" value="#{userSubConfigBean.profileTwo.primaryColor}" class="form-control" required="true"
+													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+													<f:validator validatorId="webColorValidator" />
+												</h:inputText>
+												<span class="input-group-addon"><i></i></span>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+									<b:row>
+										<b:column col-lg="5"></b:column>
+										<b:column col-lg="7">
+											<p:message id="bottomColorMessage" for="bottomColor" />
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.outlineColor']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:panelGroup layout="block" styleClass="input-group color-picker outlineColor">
+												<h:inputText id="bottomOutlineColor" value="#{userSubConfigBean.profileTwo.outlineColor}" class="form-control" required="true"
+													requiredMessage="#{msg['validator.requiredField']}" validatorMessage="#{msg['validator.invalid.color']}">
+													<f:validator validatorId="webColorValidator" />
+												</h:inputText>
+												<span class="input-group-addon"><i></i></span>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+									<b:row>
+										<b:column col-lg="5"></b:column>
+										<b:column col-lg="7">
+											<p:message id="bottomOutlineColorMessage" for="bottomOutlineColor" />
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.outline']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.outlineWidth}" styleClass="form-control outlineWidth">
+												<f:selectItems value="#{dropDownBean.outlineWidth}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" id="bottom-fontname" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.fontname']}" />
+											<b:iconAwesome id="bottom-ico-fontname" name="info-circle" tooltip-position="top" tooltip="#{msg['sub.fontname.mustBeInstalled']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.fontName}" styleClass="form-control fontName">
+												<f:selectItems value="#{dropDownBean.fontName}" var="font" itemValue="#{font.name}" itemLabel="#{font.name}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['sub.fontsize']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<h:selectOneMenu value="#{userSubConfigBean.profileTwo.fontSize}" styleClass="form-control fontSize">
+												<f:selectItems value="#{dropDownBean.fontSize}" />
+											</h:selectOneMenu>
+										</b:column>
+									</b:row>
+									<b:row styleClass="form-group">
+										<b:column col-lg="5" styleClass="panel-label">
+											<h:outputLabel value="#{msg['index.position']}" />
+										</b:column>
+										<b:column col-lg="7">
+											<b:column col-lg="6" styleClass="offSetAlignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileTwo.alignmentOffset}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.offsetAlignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+											<b:column col-lg="6" styleClass="alignment col-sm-6 col-xs-6 col-md-6">
+												<h:selectOneMenu value="#{userSubConfigBean.profileTwo.alignment}" styleClass="form-control fontSize">
+													<f:selectItems value="#{localizedDropDownBean.alignments.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+												</h:selectOneMenu>
+											</b:column>
+										</b:column>
+									</b:row>
+									<h:panelGroup class="fontPreview" layout="block">
+										<h:panelGroup class="previewLanguageSelect" layout="block">
+											<h:panelGroup styleClass="preview-language currentLanguage" layout="block">
+												<h:graphicImage library="default" name="img/flags/#{indexBean.languageTwo}.png" />
+											</h:panelGroup>
+											<ul class="dropDownLanguage">
+												<ui:repeat value="#{localizedDropDownBean.countries.keySet().toArray()}" var="key">
+													<h:panelGroup rendered="#{key.language != indexBean.languageTwo}">
+														<li><h:commandLink action="#{indexBean.updatePreviewLanguageTwo}">
+																<p class="language">
+																	<f:param name="languageToSet" value="#{key.language}"></f:param>
+																	<h:graphicImage styleClass="img-country" library="default" name="img/flags/#{key.language}.png" />
+																</p>
+															</h:commandLink></li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										
+										</h:panelGroup>
+										<span class="textPreview">#{indexBean.previewTwo}</span>
+									</h:panelGroup>
+								</b:panel>
+							</b:column>
+							<b:column col-lg="12">
+								<b:panel title="#{msg['index.outputFile']}" collapsible="false">
+									<b:row>
+										<b:column col-lg="6" offset-lg="3" col-sm="6" offset-sm="3">
+											<div class="p-col-12 p-md-12 ">
+												<div class="ui-inputgroup">
+													<div class="input-group-addon settings">
+														<b:dropButton value="#{msg['indexSettings.settings']} " drop="up" size="sm">
+															<b:navLink header="#{msg['indexSettings.settings']}"></b:navLink>															
+															<h:panelGroup layout="block" styleClass="drop-menu-content">
+															<b:row id="row-settings-1">
+																<b:column col-lg="12" col-md="12" col-sm="12">
+																	<b:iconAwesome id="collision-settings-ico" name="info-circle" tooltip-position="top" tooltip="#{msg['indexSettings.avoidSwitchTooltip']}" />
+																    <p:selectBooleanCheckbox id="collision-settings" value="#{userSubConfigBean.avoidSwitch}" itemLabel="#{msg['indexSettings.avoidSwitch']}" />
+																</b:column>
+															</b:row>
+															<b:row id="row-settings-2">
+																<b:column col-lg="12" col-md="12" col-sm="12">
+																	<b:iconAwesome id="clean-settings-ico" name="info-circle" tooltip-position="top" tooltip="#{msg['indexSettings.cleanTooltip']}" />
+																    <p:selectBooleanCheckbox id="clean-settings" value="#{userSubConfigBean.clean}" itemLabel="#{msg['indexSettings.clean']}" />
+																</b:column>
+															</b:row>
+															<b:row id="row-settings-3">
+																<b:column col-lg="12" col-md="12" col-sm="12">
+																	<b:iconAwesome id="timecodes-info-ico" name="info-circle" tooltip-position="top" tooltip="#{msg['indexSettings.adjustTimecodesTooltip']}" />
+																    <p:selectBooleanCheckbox id="timecodes-info" value="#{userSubConfigBean.adjustTimecodes}" itemLabel="#{msg['indexSettings.adjustTimecodes']}" />
+																</b:column>
+															</b:row>
+															<b:row id="row-settings-4">
+																<b:column col-lg="12" col-md="12" col-sm="12">
+																	<b:iconAwesome id="one-line-info-ico" name="info-circle" tooltip-position="top" tooltip="#{msg['indexSettings.oneLineSubtitlesTooltip']}" />
+																    <p:selectBooleanCheckbox id="one-line-info" value="#{userSubConfigBean.oneLine}" itemLabel="#{msg['indexSettings.oneLineSubtitles']}" />
+																</b:column>
+															</b:row>
+															</h:panelGroup>
+														</b:dropButton>
+													</div>
+													<p:inputText 
+														placeholder="#{msg['sub.filename']}"
+														value="#{userSubConfigBean.filename}" maxlength="200">
+													</p:inputText>
+													<div class="input-group-addon file-extension">.ass</div>
+												</div>
+											</div>
+										</b:column>
+									</b:row>
+									<br />
+									<h:panelGroup layout="block" styleClass="form-group text-center">
+										<p:commandButton id="commandButtonDownload" value="#{msg['index.download']}" ajax="false">
+											<p:fileDownload id="fileDownloadButton" value="#{indexBean.generatedFile}" />
+										</p:commandButton>
+									</h:panelGroup>
+								</b:panel>
+							</b:column>
+						</b:row>
+					</h:panelGroup>
+				</b:container>
+			</h:form>
+			<h:panelGroup id="push" layout="block" styleClass="push" />
+		</h:panelGroup>
+		<ui:include src="/composition/footer.xhtml" />
+	</h:body>
+</f:view>
+</html>

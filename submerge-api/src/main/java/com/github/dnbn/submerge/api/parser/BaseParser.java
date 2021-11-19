@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.github.dnbn.submerge.api.parser.exception.InvalidFileException;
 import com.github.dnbn.submerge.api.parser.exception.InvalidSubException;

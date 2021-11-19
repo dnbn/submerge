@@ -1,0 +1,10 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jtl/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
+
+	<b:alert id="alert-login" severity="info">
+		<h:outputText id="msg-alert-login" value=" #{msg['index.warningRegister']}" escape="false" rendered="#{!userBean.logged}" />
+		<h:outputText id="msg-alert-saveSettings" value=" #{msg['index.howToSaveSettings']}" escape="false" rendered="#{userBean.logged}" />
+	</b:alert>
+
+</ui:composition>

@@ -1,0 +1,25 @@
+p.question {
+	font-weight: bold;
+}
+
+p.answer, p.contat-me {
+	margin-top: 5px;
+}
+
+.contact-links ul {
+	margin-left: 20px;
+}
+
+.contact-links ul li:before {
+	content: '- ';
+}
+
+.contact-links ul li:before {
+	margin-top: 1px;
+}
+
+@media ( max-width : 1200px) {
+	#column-explaination {
+		margin-top: 15px;
+	}
+}

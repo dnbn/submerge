@@ -1,0 +1,27 @@
+.tab-panel p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.tab-content {
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding:10px;
+    margin-bottom: 20px;
+}
+
+.img-center {
+    margin: 0 auto;
+    display: block;
+}
+
+.img-unzip {
+	height: 212px;
+}
+
+.img-xml {
+	height: 450px;
+}

@@ -6,7 +6,7 @@
 	</parent>
 
 	<description>Library to manage SRT and ASS subtitles</description>
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>submerge-api</artifactId>
 	<name>submerge-api</name>

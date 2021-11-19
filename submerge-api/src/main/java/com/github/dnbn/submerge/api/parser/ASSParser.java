@@ -1,6 +1,5 @@
 package com.github.dnbn.submerge.api.parser;
 
-import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -12,9 +11,10 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.mini2Dx.android.beans.PropertyDescriptor;
+import org.mini2Dx.beanutils.PropertyUtils;
 
 import com.github.dnbn.submerge.api.parser.exception.InvalidAssSubException;
 import com.github.dnbn.submerge.api.subtitle.ass.ASSSub;

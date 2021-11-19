@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<f:view locale="#{userBean.locale}">
+	<h:head>
+		<meta name="description" content="How to use submerge-cli" />
+		<ui:include src="/composition/header-content.xhtml" />
+		<h:outputStylesheet library="default" name="css/subcli.css" position="last" />
+	</h:head>
+	<h:body>
+		<h:panelGroup layout="block" id="wrap">
+			<ui:include src="/composition/navbar.xhtml" />
+			<b:container id="container">
+				<h:panelGroup id="div-starter">
+					<b:alert id="alert-subcli" severity="info">
+						<b:iconAwesome id="ico-alert-subcli" name="info-circle" />
+						<h:outputText id="msg-alert-subcli" value="#{msg['subcli.downloadPage']}" />
+						<a href="/subcli/">#{msg['subcli.downloadLink']}</a>
+					</b:alert>
+
+					<b:tabView activeIndex="0" id="tabs-subcli">
+						<b:tab id="tab-install" title="#{msg['subcli.basicUse']}">
+							<p>#{msg['subcli.basicUse.intro']}</p>
+							<p>
+								#{msg['subcli.basicUse.jre.message']} <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">#{msg['subcli.basicUse.jre.link']}</a>.
+							</p>
+							<p>#{msg['subcli.basicUse.jre.version.windows']}</p>
+							<pre>%JAVA_HOME%\bin\java.exe -version</pre>
+							<p>#{msg['subcli.basicUse.jre.version.linux']}</p>
+							<pre>java -version</pre>
+							<p>#{msg['subcli.basicUse.jre.version.go']}</p>
+							<pre>java -jar submerge-cli.jar --help</pre>
+							<p>#{msg['subcli.basicUse.linux.command']}</p>
+							<pre>#!/bin/sh
+MYSELF=`which "$0" 2>/dev/null`
+[ $? -gt 0 -a -f "$0" ] &amp;&amp; MYSELF="./$0"
+java=java
+if test -n "$JAVA_HOME"; then
+    java="$JAVA_HOME/bin/java"
+fi
+exec "$java" $java_args -jar $MYSELF "$@"
+exit 1</pre>
+							<p>#{msg['subcli.basicUse.createStub']}</p>
+							<pre>cat stub.sh submerge-cli.jar > sbm &amp;&amp; chmod +x sbm
+mv sbm /usr/bin/</pre>
+							<p>#{msg['subcli.basicUse.example']}</p>
+							<pre>sbm --help</pre>
+						</b:tab>
+						<b:tab id="tab-merge" title="#{msg['subcli.merge']}">
+							<p>#{msg['subcli.merge.intro']}</p>
+							<p>#{msg['subcli.example']}</p>
+							<pre>sbm --merge first_subtitle.srt second_subtitle.ass</pre>
+							<p>#{msg['subcli.merge.optionOutput']}</p>
+							<pre>sbm --merge --output subtitle_output first_subtitle.srt second_subtitle.ass</pre>
+							<p>#{msg['subcli.merge.shortOptions']}</p>
+							<pre>sbm -m -o subtitle_output first_subtitle.srt second_subtitle.ass</pre>
+						</b:tab>
+						<b:tab title="#{msg['subcli.srt']}">
+							<p>#{msg['subcli.srt.intro']}</p>
+							<p>#{msg['subcli.example']}</p>
+							<pre>sbm --srt subtitle.ass</pre>
+							<p>#{msg['subcli.srt.optionOutput']}</p>
+							<pre>sbm --srt subtitle.ass --output subtitle_output</pre>
+							<p>#{msg['subcli.srt.shortOptions']}</p>
+							<pre>sbm -s subtitle.ass</pre>
+						</b:tab>
+						<b:tab id="tab-ass" title="#{msg['subcli.ass']}">
+							<p>#{msg['subcli.ass.intro']}</p>
+							<p>#{msg['subcli.example']}</p>
+							<pre>sbm --ass subtitle.ass</pre>
+							<p>#{msg['subcli.ass.optionOutput']}</p>
+							<pre>sbm --ass subtitle.ass --output subtitle_output</pre>
+							<p>#{msg['subcli.ass.shortOptions']}</p>
+							<pre>sbm -a subtitle.srt</pre>
+						</b:tab>
+						<b:tab id="tab-tf8" title="#{msg['subcli.utf8']}">
+							<p>#{msg['subcli.utf8.intro']}</p>
+							<p>#{msg['subcli.example']}</p>
+							<pre>sbm --utf8 subtitle.srt</pre>
+							<p>#{msg['subcli.utf8.optionOutput']}</p>
+							<pre>sbm --utf8 subtitle.srt --output subtitle_output</pre>
+							<p>#{msg['subcli.utf8.shortOptions']}</p>
+							<pre>sbm -u subtitle.srt -o file_output</pre>
+						</b:tab>
+						<b:tab id="tab-config" title="#{msg['subcli.config']}">
+							<f:facet name="anchor">
+								<b:iconAwesome name="cog" spin="true" />
+							</f:facet>
+							<p>#{msg['subcli.config.intro']}</p>
+							<p>#{msg['subcli.config.unzip']}</p>
+							<h:graphicImage library="default" name="img/userconfig.png" styleClass="img-thumbnail img-responsive center img-center img-unzip" />
+							<p>#{msg['subcli.config.xmlfile']}</p>
+							<h:graphicImage library="default" name="img/userconfig_xml.png" styleClass="img-thumbnail img-rounded img-responsive img-center img-xml" />
+							<p>#{msg['subcli.config.howtoxml']}</p>
+						</b:tab>
+					</b:tabView>
+				</h:panelGroup>
+			</b:container>
+			<h:panelGroup id="push" layout="block" styleClass="push" />
+		</h:panelGroup>
+		<ui:include src="/composition/footer.xhtml" />
+	</h:body>
+</f:view>
+</html>
+

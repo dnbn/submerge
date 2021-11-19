@@ -2,6 +2,7 @@ package com.github.dnbn.submerge.api.subtitle.ass;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import com.github.dnbn.submerge.api.subtitle.common.SubtitleTime;
 

@@ -1,0 +1,22 @@
+histo.enabled: true
+logging:
+  level:
+    com: INFO
+    org.springframework: INFO
+    org.apache.commons.digester: INFO
+    
+joinfaces:
+  jsf:
+    PROJECT_STAGE: production
+    state-saving-method: client
+    interpret-empty-string-submitted-values-as-null: true
+  primefaces: 
+    theme: bootstrap
+    uploader: native
+  bootsfaces:
+    get_jquery_from_cdn: no
+    usetheme: true
+    defaults:
+      render-label: false
+server:
+  port: 8080

@@ -1,0 +1,29 @@
+#signup-form {
+	display: flex;
+	min-height: 500px;
+}
+
+#signup-form .panel-body {
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+
+#signup-form .signup-row {
+	margin-top: 10px;
+}
+
+#signup-form\:group-signup {
+	margin-top: 20px;
+}
+
+.ui-message-error {
+	margin-bottom: 10px !important;
+}
+
+#signup-form\:col-container-signup {
+	padding-top: 65px;
+}
+
+#signup-form .signup-input {
+	width: 100% !important;
+}

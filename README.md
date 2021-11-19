@@ -16,7 +16,7 @@ The project is made up of three sub-project :
 <dependency>
   <groupId>com.github.dnbn.submerge</groupId>
   <artifactId>submerge-api</artifactId>
-  <version>1.9.2</version>
+  <version>1.9.3</version>
 </dependency>
 ```
 

@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>com.github.dnbn.submerge</groupId>
 			<artifactId>submerge-api</artifactId>
-			<version>1.9.3-SNAPSHOT</version>
+			<version>1.9.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
